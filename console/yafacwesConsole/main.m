@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CWSCategories.h"
+#import "CWSCore.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -15,6 +16,11 @@ int main(int argc, const char * argv[]) {
         [@"******************************" stdoutPrintln];
         [@"*   Y  A  F  A  C  W  E  S   *" stdoutPrintln];
         [@"******************************" stdoutPrintln];
+        
+        CWSCore * core = [[CWSCore alloc] init];
+        core.name = @"MIW Core";
+        
+        [core.name stdoutPrintln];        
     }
     return 0;
 }
