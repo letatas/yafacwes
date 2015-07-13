@@ -10,6 +10,6 @@
 
 @interface CWSCore : NSObject
 
-@property (nonatomic, strong) NSString * name;
+@property (nonatomic, copy) NSString * name;
 
 @end
