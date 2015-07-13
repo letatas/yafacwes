@@ -8,10 +8,12 @@
 
 #import "CWSDirection.h"
 
+#define DIRECTION_COUNT 4
+
 CWSDirection leftDirection(CWSDirection aDirection) {
-    return (CWSDirection)((aDirection + 3) % 4);
+    return (CWSDirection)((aDirection + DIRECTION_COUNT - 1) % DIRECTION_COUNT);
 }
 
 CWSDirection rightDirection(CWSDirection aDirection) {
-    return (CWSDirection)((aDirection + 1) % 4);
+    return (CWSDirection)((aDirection + 1) % DIRECTION_COUNT);
 }
