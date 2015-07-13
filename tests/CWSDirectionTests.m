@@ -28,13 +28,13 @@
 
 - (void)testLeftDirection {
     // Arrange
-    enum CWSDirection direction = CWSDirectionNorth;
+    CWSDirection direction = CWSDirectionNorth;
     
     // Act
-    enum CWSDirection direction1 = leftDirection(direction);
-    enum CWSDirection direction2 = leftDirection(direction1);
-    enum CWSDirection direction3 = leftDirection(direction2);
-    enum CWSDirection direction4 = leftDirection(direction3);
+    CWSDirection direction1 = leftDirection(direction);
+    CWSDirection direction2 = leftDirection(direction1);
+    CWSDirection direction3 = leftDirection(direction2);
+    CWSDirection direction4 = leftDirection(direction3);
     
     // Assert
     XCTAssertEqual(direction1, CWSDirectionWest);
@@ -45,13 +45,13 @@
 
 - (void)testRightDirection {
     // Arrange
-    enum CWSDirection direction = CWSDirectionNorth;
+    CWSDirection direction = CWSDirectionNorth;
     
     // Act
-    enum CWSDirection direction1 = rightDirection(direction);
-    enum CWSDirection direction2 = rightDirection(direction1);
-    enum CWSDirection direction3 = rightDirection(direction2);
-    enum CWSDirection direction4 = rightDirection(direction3);
+    CWSDirection direction1 = rightDirection(direction);
+    CWSDirection direction2 = rightDirection(direction1);
+    CWSDirection direction3 = rightDirection(direction2);
+    CWSDirection direction4 = rightDirection(direction3);
     
     // Assert
     XCTAssertEqual(direction1, CWSDirectionEast);
