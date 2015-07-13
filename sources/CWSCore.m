@@ -10,4 +10,8 @@
 
 @implementation CWSCore
 
+- (void)dealloc {
+    NSLog(@"deallocating core");
+}
+
 @end
