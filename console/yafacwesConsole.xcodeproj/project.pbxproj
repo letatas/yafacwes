@@ -10,8 +10,13 @@
 		D0084C021B544B7B00B8985A /* NSString+StdOut.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C011B544B7B00B8985A /* NSString+StdOut.m */; };
 		D0084C081B5455B900B8985A /* CWSCore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C071B5455B900B8985A /* CWSCore.m */; };
 		D0084C091B5455B900B8985A /* CWSCore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C071B5455B900B8985A /* CWSCore.m */; };
+		D0084C1C1B5468AC00B8985A /* CWSDirectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C1B1B5468AC00B8985A /* CWSDirectionTests.m */; };
+		D0084C231B546B8800B8985A /* CWSDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C201B546B8800B8985A /* CWSDirection.m */; };
+		D0084C241B546B8800B8985A /* CWSDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C201B546B8800B8985A /* CWSDirection.m */; };
+		D0084C251B546B8800B8985A /* CWSExecutionVector.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C221B546B8800B8985A /* CWSExecutionVector.m */; };
+		D0084C261B546B8800B8985A /* CWSExecutionVector.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C221B546B8800B8985A /* CWSExecutionVector.m */; };
+		D0084C281B546BAA00B8985A /* CWSExecutionVectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C271B546BAA00B8985A /* CWSExecutionVectorTests.m */; };
 		D08A0B811B53E9C600B746D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B801B53E9C600B746D0 /* main.m */; };
-		D08A0B901B53EBC100B746D0 /* yafacwesConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B8F1B53EBC100B746D0 /* yafacwesConsoleTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,11 +37,16 @@
 		D0084C041B544BF100B8985A /* CWSCategories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWSCategories.h; sourceTree = "<group>"; };
 		D0084C061B5455B900B8985A /* CWSCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSCore.h; path = ../../sources/CWSCore.h; sourceTree = "<group>"; };
 		D0084C071B5455B900B8985A /* CWSCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSCore.m; path = ../../sources/CWSCore.m; sourceTree = "<group>"; };
+		D0084C1B1B5468AC00B8985A /* CWSDirectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSDirectionTests.m; path = ../../tests/CWSDirectionTests.m; sourceTree = "<group>"; };
+		D0084C1F1B546B8800B8985A /* CWSDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSDirection.h; path = ../../sources/CWSDirection.h; sourceTree = "<group>"; };
+		D0084C201B546B8800B8985A /* CWSDirection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSDirection.m; path = ../../sources/CWSDirection.m; sourceTree = "<group>"; };
+		D0084C211B546B8800B8985A /* CWSExecutionVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSExecutionVector.h; path = ../../sources/CWSExecutionVector.h; sourceTree = "<group>"; };
+		D0084C221B546B8800B8985A /* CWSExecutionVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSExecutionVector.m; path = ../../sources/CWSExecutionVector.m; sourceTree = "<group>"; };
+		D0084C271B546BAA00B8985A /* CWSExecutionVectorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSExecutionVectorTests.m; path = ../../tests/CWSExecutionVectorTests.m; sourceTree = "<group>"; };
 		D08A0B7D1B53E9C600B746D0 /* yafacwesConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yafacwesConsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08A0B801B53E9C600B746D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D08A0B8B1B53EBC100B746D0 /* yafacwesConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yafacwesConsoleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08A0B8E1B53EBC100B746D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D08A0B8F1B53EBC100B746D0 /* yafacwesConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = yafacwesConsoleTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +82,10 @@
 			children = (
 				D0084C061B5455B900B8985A /* CWSCore.h */,
 				D0084C071B5455B900B8985A /* CWSCore.m */,
+				D0084C1F1B546B8800B8985A /* CWSDirection.h */,
+				D0084C201B546B8800B8985A /* CWSDirection.m */,
+				D0084C211B546B8800B8985A /* CWSExecutionVector.h */,
+				D0084C221B546B8800B8985A /* CWSExecutionVector.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -107,7 +121,8 @@
 		D08A0B8C1B53EBC100B746D0 /* yafacwesConsoleTests */ = {
 			isa = PBXGroup;
 			children = (
-				D08A0B8F1B53EBC100B746D0 /* yafacwesConsoleTests.m */,
+				D0084C1B1B5468AC00B8985A /* CWSDirectionTests.m */,
+				D0084C271B546BAA00B8985A /* CWSExecutionVectorTests.m */,
 				D08A0B8D1B53EBC100B746D0 /* Supporting Files */,
 			);
 			path = yafacwesConsoleTests;
@@ -209,8 +224,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0084C021B544B7B00B8985A /* NSString+StdOut.m in Sources */,
+				D0084C251B546B8800B8985A /* CWSExecutionVector.m in Sources */,
 				D08A0B811B53E9C600B746D0 /* main.m in Sources */,
 				D0084C081B5455B900B8985A /* CWSCore.m in Sources */,
+				D0084C231B546B8800B8985A /* CWSDirection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +236,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0084C091B5455B900B8985A /* CWSCore.m in Sources */,
-				D08A0B901B53EBC100B746D0 /* yafacwesConsoleTests.m in Sources */,
+				D0084C261B546B8800B8985A /* CWSExecutionVector.m in Sources */,
+				D0084C1C1B5468AC00B8985A /* CWSDirectionTests.m in Sources */,
+				D0084C241B546B8800B8985A /* CWSDirection.m in Sources */,
+				D0084C281B546BAA00B8985A /* CWSExecutionVectorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
