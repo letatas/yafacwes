@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0084C021B544B7B00B8985A /* NSString+StdOut.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C011B544B7B00B8985A /* NSString+StdOut.m */; };
 		D08A0B811B53E9C600B746D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B801B53E9C600B746D0 /* main.m */; };
 		D08A0B901B53EBC100B746D0 /* yafacwesConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B8F1B53EBC100B746D0 /* yafacwesConsoleTests.m */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D0084C001B544B7B00B8985A /* NSString+StdOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StdOut.h"; sourceTree = "<group>"; };
+		D0084C011B544B7B00B8985A /* NSString+StdOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StdOut.m"; sourceTree = "<group>"; };
+		D0084C041B544BF100B8985A /* CWSCategories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWSCategories.h; sourceTree = "<group>"; };
+		D0084C051B544C2700B8985A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		D08A0B7D1B53E9C600B746D0 /* yafacwesConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yafacwesConsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08A0B801B53E9C600B746D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D08A0B8B1B53EBC100B746D0 /* yafacwesConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yafacwesConsoleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +54,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0084C031B544BA600B8985A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D0084C041B544BF100B8985A /* CWSCategories.h */,
+				D0084C001B544B7B00B8985A /* NSString+StdOut.h */,
+				D0084C011B544B7B00B8985A /* NSString+StdOut.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		D08A0B741B53E9C600B746D0 = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				D08A0B801B53E9C600B746D0 /* main.m */,
+				D0084C031B544BA600B8985A /* Categories */,
+				D0084C051B544C2700B8985A /* PrefixHeader.pch */,
 			);
 			path = yafacwesConsole;
 			sourceTree = "<group>";
@@ -179,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0084C021B544B7B00B8985A /* NSString+StdOut.m in Sources */,
 				D08A0B811B53E9C600B746D0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +292,7 @@
 		D08A0B851B53E9C600B746D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREFIX_HEADER = yafacwesConsole/PrefixHeader.pch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -281,6 +300,7 @@
 		D08A0B861B53E9C600B746D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREFIX_HEADER = yafacwesConsole/PrefixHeader.pch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -345,6 +365,7 @@
 				D08A0B921B53EBC100B746D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
