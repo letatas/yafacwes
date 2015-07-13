@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CWSCategories.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
