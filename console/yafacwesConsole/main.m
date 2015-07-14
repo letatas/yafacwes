@@ -9,18 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "CWSCategories.h"
 #import "CWSCore.h"
+#import "CWSConsoleTool.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // insert code here...
-        [@"****************************************************" stdoutPrintln];
-        [@"*    __  _____   _______  ______      __________   *" stdoutPrintln];
-        [@"*    \\ \\/ / _ | / __/ _ |/ ___/ | /| / / __/ __/   *" stdoutPrintln];
-        [@"*     \\  / __ |/ _// __ / /__ | |/ |/ / _/_\\ \\     *" stdoutPrintln];
-        [@"*     /_/_/ |_/_/ /_/ |_\\___/ |__/|__/___/___/     *" stdoutPrintln];
-        [@"*                                                  *" stdoutPrintln];
-        [@"****************************************************" stdoutPrintln];
-        [@"" stdoutPrintln];
+        [[CWSConsoleTool niceTitle] stdoutPrintln];
         
         CWSCore * core = [[CWSCore alloc] init];
         core.name = @"MIW Core";
