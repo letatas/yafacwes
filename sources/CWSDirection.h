@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CWSCompat.h"
 
 typedef NS_ENUM(NSInteger, CWSDirection) {
     CWSDirectionNorth = 0,
