@@ -22,6 +22,13 @@
 		D0084C301B558A7200B8985A /* CWSCoreState.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C2E1B558A7200B8985A /* CWSCoreState.m */; };
 		D0084C321B55907900B8985A /* CWSCoreStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C311B55907900B8985A /* CWSCoreStateTests.m */; };
 		D08A0B811B53E9C600B746D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B801B53E9C600B746D0 /* main.m */; };
+		D0AF3D761B56E8CF00274FE7 /* CWSInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */; };
+		D0AF3D771B56E8EB00274FE7 /* CWSInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */; };
+		D0AF3D7E1B56EAE300274FE7 /* CWSInstructionNULL.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D7D1B56EAE300274FE7 /* CWSInstructionNULL.m */; };
+		D0AF3D7F1B56EAE800274FE7 /* CWSInstructionNULL.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D7D1B56EAE300274FE7 /* CWSInstructionNULL.m */; };
+		D0AF3D821B56EC1500274FE7 /* CWSInstructionLEFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D811B56EC1500274FE7 /* CWSInstructionLEFT.m */; };
+		D0AF3D841B56EE7D00274FE7 /* CWSInstructionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D831B56EE7D00274FE7 /* CWSInstructionsTests.m */; };
+		D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D811B56EC1500274FE7 /* CWSInstructionLEFT.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +64,14 @@
 		D08A0B801B53E9C600B746D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D08A0B8B1B53EBC100B746D0 /* yafacwesConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yafacwesConsoleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08A0B8E1B53EBC100B746D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0AF3D741B56E8CF00274FE7 /* CWSInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstruction.h; path = ../../sources/CWSInstruction.h; sourceTree = "<group>"; };
+		D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstruction.m; path = ../../sources/CWSInstruction.m; sourceTree = "<group>"; };
+		D0AF3D7C1B56EAE300274FE7 /* CWSInstructionNULL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionNULL.h; path = ../../sources/CWSInstructionNULL.h; sourceTree = "<group>"; };
+		D0AF3D7D1B56EAE300274FE7 /* CWSInstructionNULL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionNULL.m; path = ../../sources/CWSInstructionNULL.m; sourceTree = "<group>"; };
+		D0AF3D801B56EC1500274FE7 /* CWSInstructionLEFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionLEFT.h; path = ../../sources/CWSInstructionLEFT.h; sourceTree = "<group>"; };
+		D0AF3D811B56EC1500274FE7 /* CWSInstructionLEFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionLEFT.m; path = ../../sources/CWSInstructionLEFT.m; sourceTree = "<group>"; };
+		D0AF3D831B56EE7D00274FE7 /* CWSInstructionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionsTests.m; path = ../../tests/CWSInstructionsTests.m; sourceTree = "<group>"; };
+		D0AF3D851B56EF4800274FE7 /* CWSInstructions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructions.h; path = ../../sources/CWSInstructions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +113,7 @@
 				D0084C221B546B8800B8985A /* CWSExecutionVector.m */,
 				D0084C2D1B558A7200B8985A /* CWSCoreState.h */,
 				D0084C2E1B558A7200B8985A /* CWSCoreState.m */,
+				D0AF3D781B56EA7C00274FE7 /* Instructions */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -138,6 +154,7 @@
 				D0084C1B1B5468AC00B8985A /* CWSDirectionTests.m */,
 				D0084C271B546BAA00B8985A /* CWSExecutionVectorTests.m */,
 				D0084C311B55907900B8985A /* CWSCoreStateTests.m */,
+				D0AF3D831B56EE7D00274FE7 /* CWSInstructionsTests.m */,
 				D08A0B8D1B53EBC100B746D0 /* Supporting Files */,
 			);
 			path = yafacwesConsoleTests;
@@ -149,6 +166,20 @@
 				D08A0B8E1B53EBC100B746D0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0AF3D781B56EA7C00274FE7 /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				D0AF3D851B56EF4800274FE7 /* CWSInstructions.h */,
+				D0AF3D741B56E8CF00274FE7 /* CWSInstruction.h */,
+				D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */,
+				D0AF3D7C1B56EAE300274FE7 /* CWSInstructionNULL.h */,
+				D0AF3D7D1B56EAE300274FE7 /* CWSInstructionNULL.m */,
+				D0AF3D801B56EC1500274FE7 /* CWSInstructionLEFT.h */,
+				D0AF3D811B56EC1500274FE7 /* CWSInstructionLEFT.m */,
+			);
+			name = Instructions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,10 +271,13 @@
 			files = (
 				D0084C021B544B7B00B8985A /* NSString+StdOut.m in Sources */,
 				D0084C2F1B558A7200B8985A /* CWSCoreState.m in Sources */,
+				D0AF3D7E1B56EAE300274FE7 /* CWSInstructionNULL.m in Sources */,
 				D0084C2B1B54F31800B8985A /* CWSConsoleTool.m in Sources */,
 				D0084C251B546B8800B8985A /* CWSExecutionVector.m in Sources */,
 				D08A0B811B53E9C600B746D0 /* main.m in Sources */,
 				D0084C081B5455B900B8985A /* CWSCore.m in Sources */,
+				D0AF3D821B56EC1500274FE7 /* CWSInstructionLEFT.m in Sources */,
+				D0AF3D761B56E8CF00274FE7 /* CWSInstruction.m in Sources */,
 				D0084C231B546B8800B8985A /* CWSDirection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,12 +288,16 @@
 			files = (
 				D0084C321B55907900B8985A /* CWSCoreStateTests.m in Sources */,
 				D0084C091B5455B900B8985A /* CWSCore.m in Sources */,
+				D0AF3D771B56E8EB00274FE7 /* CWSInstruction.m in Sources */,
 				D0084C301B558A7200B8985A /* CWSCoreState.m in Sources */,
+				D0AF3D841B56EE7D00274FE7 /* CWSInstructionsTests.m in Sources */,
 				D0084C2C1B54F31800B8985A /* CWSConsoleTool.m in Sources */,
 				D0084C261B546B8800B8985A /* CWSExecutionVector.m in Sources */,
 				D0084C1C1B5468AC00B8985A /* CWSDirectionTests.m in Sources */,
 				D0084C241B546B8800B8985A /* CWSDirection.m in Sources */,
+				D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */,
 				D0084C281B546BAA00B8985A /* CWSExecutionVectorTests.m in Sources */,
+				D0AF3D7F1B56EAE800274FE7 /* CWSInstructionNULL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +400,7 @@
 		D08A0B911B53EBC100B746D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -371,23 +410,34 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = yafacwesConsoleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		D08A0B921B53EBC100B746D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = yafacwesConsoleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

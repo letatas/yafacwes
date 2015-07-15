@@ -29,7 +29,7 @@
         [self createInitialInstructionCodes];
         
         self.executionVectors = [NSMutableArray array];
-        self.nextExecutionVector = CWSNoExecutionVector;
+        self.nextExecutionVectorIndex = CWSNoExecutionVector;
     }
     
     return self;
@@ -46,6 +46,15 @@
 - (void)dealloc {
     free(self.instructionCodes);
     self.instructionCodes = NULL;
+}
+
+- (CWSExecutionVector *) nextExecutionVector {
+    if (self.nextExecutionVectorIndex == CWSNoExecutionVector) {
+        return nil;
+    }
+    else {
+        return (CWSExecutionVector *)self.executionVectors[self.nextExecutionVectorIndex];
+    }
 }
 
 #pragma mark - Instructions Codes

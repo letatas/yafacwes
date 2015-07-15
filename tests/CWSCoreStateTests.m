@@ -41,7 +41,7 @@
         }
     }
     
-    XCTAssertEqual(CWSNoExecutionVector, coreState.nextExecutionVector);
+    XCTAssertEqual(CWSNoExecutionVector, coreState.nextExecutionVectorIndex);
     
     XCTAssertEqual(0, coreState.executionVectors.count);
 }
