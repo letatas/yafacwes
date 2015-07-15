@@ -25,4 +25,6 @@ enum {CWSNoExecutionVector = NSIntegerMax};
 
 - (CWSExecutionVector *) nextExecutionVector;
 
+- (void) oneStep;
+
 @end

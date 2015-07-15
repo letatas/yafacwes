@@ -7,6 +7,7 @@
 //
 
 #import "CWSCoreState.h"
+#import "CWSInstructions.h"
 
 @interface CWSCoreState ()
 
@@ -65,6 +66,31 @@
 
 - (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPositionX:(NSInteger) aX andY:(NSInteger) aY {
     self.instructionCodes[aX + aY*self.width] = aInstructionCode;
+}
+
+#pragma mark - Execution
+
+- (void) oneStep {
+    CWSExecutionVector * ev = self.nextExecutionVector;
+    if (ev != nil) {
+        CWSInstructionCode code = [self instructionCodeAtPositionX:ev.x andY:ev.y];
+        CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+        BOOL success = [instruction executeForCoreState:self];
+        
+        if (success) {
+            self.nextExecutionVectorIndex++;
+        }
+        else {
+            [self.executionVectors removeObject:ev];
+        }
+        
+        if (self.executionVectors.count == 0) {
+            self.nextExecutionVectorIndex = CWSNoExecutionVector;
+        }
+        else {
+            self.nextExecutionVectorIndex = self.nextExecutionVectorIndex % self.executionVectors.count;
+        }
+    }
 }
 
 @end

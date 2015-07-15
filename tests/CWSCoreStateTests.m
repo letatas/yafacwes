@@ -72,4 +72,40 @@
     XCTAssertEqual(i3, [coreState instructionCodeAtPositionX:x3 andY:y3]);
 }
 
+- (void) testOneStep {
+    // Arrange
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    NSInteger posX1 = 5;
+    NSInteger posY1 = 6;
+    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth];
+    [coreState.executionVectors addObject:ev1];
+    NSInteger posX2 = 7;
+    NSInteger posY2 = 3;
+    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast];
+    [coreState.executionVectors addObject:ev2];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:3 atPositionX:posX1 andY:posY1];
+    
+    // Act
+    [coreState oneStep];
+    
+    // Assert
+    XCTAssertEqual(ev1.x, posX1);
+    XCTAssertEqual(ev1.y, posY1+1);
+    XCTAssertEqual(ev1.direction, CWSDirectionSouth);
+    XCTAssertEqual(1, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual(2, coreState.executionVectors.count);
+
+    // Act
+    [coreState oneStep];
+    
+    // Assert
+    XCTAssertEqual(ev1.x, posX1);
+    XCTAssertEqual(ev1.y, posY1+1);
+    XCTAssertEqual(ev1.direction, CWSDirectionSouth);
+    XCTAssertEqual(0, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual(1, coreState.executionVectors.count);
+    XCTAssertEqual(NSNotFound, [coreState.executionVectors indexOfObject:ev2]);
+}
+
 @end
