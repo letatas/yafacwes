@@ -31,6 +31,8 @@
 		D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D811B56EC1500274FE7 /* CWSInstructionLEFT.m */; };
 		D0AF3D891B56F4BE00274FE7 /* CWSInstructionRIGHT.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */; };
 		D0AF3D8A1B56F52200274FE7 /* CWSInstructionRIGHT.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */; };
+		D0AF3D8D1B56F5C700274FE7 /* CWSInstructionNOP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D8C1B56F5C700274FE7 /* CWSInstructionNOP.m */; };
+		D0AF3D8E1B56F5D200274FE7 /* CWSInstructionNOP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D8C1B56F5C700274FE7 /* CWSInstructionNOP.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -76,6 +78,8 @@
 		D0AF3D851B56EF4800274FE7 /* CWSInstructions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructions.h; path = ../../sources/CWSInstructions.h; sourceTree = "<group>"; };
 		D0AF3D871B56F4BE00274FE7 /* CWSInstructionRIGHT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionRIGHT.h; path = ../../sources/CWSInstructionRIGHT.h; sourceTree = "<group>"; };
 		D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionRIGHT.m; path = ../../sources/CWSInstructionRIGHT.m; sourceTree = "<group>"; };
+		D0AF3D8B1B56F5C700274FE7 /* CWSInstructionNOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWSInstructionNOP.h; sourceTree = "<group>"; };
+		D0AF3D8C1B56F5C700274FE7 /* CWSInstructionNOP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWSInstructionNOP.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 				D0AF3D811B56EC1500274FE7 /* CWSInstructionLEFT.m */,
 				D0AF3D871B56F4BE00274FE7 /* CWSInstructionRIGHT.h */,
 				D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */,
+				D0AF3D8B1B56F5C700274FE7 /* CWSInstructionNOP.h */,
+				D0AF3D8C1B56F5C700274FE7 /* CWSInstructionNOP.m */,
 			);
 			name = Instructions;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 				D0084C2B1B54F31800B8985A /* CWSConsoleTool.m in Sources */,
 				D0084C251B546B8800B8985A /* CWSExecutionVector.m in Sources */,
 				D08A0B811B53E9C600B746D0 /* main.m in Sources */,
+				D0AF3D8D1B56F5C700274FE7 /* CWSInstructionNOP.m in Sources */,
 				D0084C081B5455B900B8985A /* CWSCore.m in Sources */,
 				D0AF3D891B56F4BE00274FE7 /* CWSInstructionRIGHT.m in Sources */,
 				D0AF3D821B56EC1500274FE7 /* CWSInstructionLEFT.m in Sources */,
@@ -301,6 +308,7 @@
 				D0AF3D841B56EE7D00274FE7 /* CWSInstructionsTests.m in Sources */,
 				D0084C2C1B54F31800B8985A /* CWSConsoleTool.m in Sources */,
 				D0084C261B546B8800B8985A /* CWSExecutionVector.m in Sources */,
+				D0AF3D8E1B56F5D200274FE7 /* CWSInstructionNOP.m in Sources */,
 				D0084C1C1B5468AC00B8985A /* CWSDirectionTests.m in Sources */,
 				D0084C241B546B8800B8985A /* CWSDirection.m in Sources */,
 				D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */,

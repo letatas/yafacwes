@@ -9,3 +9,4 @@
 #import "CWSInstructionNULL.h"
 #import "CWSInstructionLEFT.h"
 #import "CWSInstructionRIGHT.h"
+#import "CWSInstructionNOP.h"

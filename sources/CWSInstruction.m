@@ -16,6 +16,7 @@
         case 0: return [CWSInstructionNULL class];
         case 1: return [CWSInstructionLEFT class];
         case 2: return [CWSInstructionRIGHT class];
+        case 3: return [CWSInstructionNOP class];
         default: return Nil;
     }
 }
