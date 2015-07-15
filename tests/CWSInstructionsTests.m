@@ -31,6 +31,7 @@
 - (void)testInstructionFactory {
     XCTAssertEqualObjects([CWSInstructionNULL class], [[CWSInstruction instructionForCode:0] class]);
     XCTAssertEqualObjects([CWSInstructionLEFT class], [[CWSInstruction instructionForCode:1] class]);
+    XCTAssertEqualObjects([CWSInstructionRIGHT class], [[CWSInstruction instructionForCode:2] class]);
 }
 
 - (void) testNULLInstruction {
@@ -68,6 +69,28 @@
     XCTAssertEqual(ev.x, posX + 1);
     XCTAssertEqual(ev.y, posY);
     XCTAssertEqual(ev.direction, CWSDirectionEast);
+}
+
+- (void) testRIGHTInstruction {
+    // Arrange
+    CWSInstructionCode code = 2;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    NSInteger posX = 5;
+    NSInteger posY = 6;
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPositionX:posX andY:posY];
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.x, posX - 1);
+    XCTAssertEqual(ev.y, posY);
+    XCTAssertEqual(ev.direction, CWSDirectionWest);
 }
 
 @end

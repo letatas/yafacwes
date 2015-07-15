@@ -1,11 +1,13 @@
 //
-//  CWSInstructions.h
+//  CWSInstructionRIGHT.h
 //  yafacwesConsole
 //
 //  Created by Matthias Lamoureux on 15/07/2015.
 //  Copyright (c) 2015 pinguzaph. All rights reserved.
 //
 
-#import "CWSInstructionNULL.h"
-#import "CWSInstructionLEFT.h"
-#import "CWSInstructionRIGHT.h"
+#import "CWSInstruction.h"
+
+@interface CWSInstructionRIGHT : CWSInstruction
+
+@end

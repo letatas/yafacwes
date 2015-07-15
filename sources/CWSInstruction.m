@@ -15,6 +15,7 @@
     switch (aCode) {
         case 0: return [CWSInstructionNULL class];
         case 1: return [CWSInstructionLEFT class];
+        case 2: return [CWSInstructionRIGHT class];
         default: return Nil;
     }
 }
