@@ -72,6 +72,39 @@
     XCTAssertEqual(i3, [coreState instructionCodeAtPositionX:x3 andY:y3]);
 }
 
+- (void) testCoreStateFromString {
+    // Arrange
+    NSString * coreStateData = 
+      @"EV:5,6,S\n"
+       "EV:7,3,E\n"
+       "NEXT:0\n"
+       "-\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+    
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 5;
+    NSInteger y1 = 6;
+    NSInteger i1 = 3;
+
+    // Act
+    CWSCoreState * coreState = [CWSCoreState coreStateWithString: coreStateData];
+        
+    // Assert
+    XCTAssertEqual(i1, [coreState instructionCodeAtPositionX:x1 andY:y1]);
+    XCTAssertEqual(0, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual(2, coreState.executionVectors.count);
+}
+
 - (void) testOneStep {
     // Arrange
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];

@@ -40,6 +40,59 @@
     return [[self alloc] initWithWidth:aWidth andHeight:aHeight];
 }
 
+- (instancetype) initWithString:(NSString *) aString {    
+    NSScanner * scanner = [NSScanner scannerWithString: aString];
+    
+    // extract executionVectors declarations
+    NSString * evDecl = NULL;
+    [scanner scanUpToString:@"-" intoString:&evDecl];
+    
+    // remaining data = corestate, switch to line by line scan
+    NSMutableArray * lines = [NSMutableArray array];
+    NSString * currentLine = NULL;
+    while ([scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine] == YES) {
+      [lines addObject:currentLine];
+    }
+    // remove first line (aka "-")
+    if (lines.count > 0) {
+      [lines removeObjectAtIndex:0];
+    }
+    
+    // compute core dimensions
+    NSInteger aHeight = lines.count;
+    NSInteger aWidth = 0;
+    if (aHeight > 0) {      
+      scanner = [NSScanner scannerWithString: [lines objectAtIndex: 0]];
+      
+      while ([scanner scanInteger: NULL] == YES) {
+	  aWidth++;
+      }
+      
+      if (aWidth > 0) {
+	  self = [self initWithWidth: aWidth andHeight: aHeight];
+	  
+	  NSInteger y = 0;
+	  for (id obj in lines) {
+	    scanner = [NSScanner scannerWithString: obj];
+	    for (NSInteger x=0; x<aWidth; ++x) {
+	      NSInteger value = 0;
+	      if ([scanner scanInteger:&value] == YES) {
+		[self setInstructionCode: value atPositionX:x andY:y];
+	      }
+	    }	    
+	    y++;
+	  }
+	  
+	  return self;
+      }
+    }
+    return nil;
+}
+
++ (instancetype) coreStateWithString:(NSString *) aString {
+    return [[self alloc] initWithString:aString];
+}
+
 - (void)createInitialInstructionCodes {
     self.instructionCodes = calloc(self.width*self.height, sizeof(CWSInstructionCode));
 }
