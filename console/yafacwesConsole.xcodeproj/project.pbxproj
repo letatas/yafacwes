@@ -80,6 +80,7 @@
 		D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionRIGHT.m; path = ../../sources/CWSInstructionRIGHT.m; sourceTree = "<group>"; };
 		D0AF3D931B57927A00274FE7 /* CWSInstructionNOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionNOP.h; path = ../../sources/CWSInstructionNOP.h; sourceTree = "<group>"; };
 		D0AF3D941B57927A00274FE7 /* CWSInstructionNOP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionNOP.m; path = ../../sources/CWSInstructionNOP.m; sourceTree = "<group>"; };
+		D0E1B2151B5B13D400D0E84E /* CWSInstructionCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructionCodes.h; path = ../../sources/CWSInstructionCodes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				D0AF3D851B56EF4800274FE7 /* CWSInstructions.h */,
+				D0E1B2151B5B13D400D0E84E /* CWSInstructionCodes.h */,
 				D0AF3D741B56E8CF00274FE7 /* CWSInstruction.h */,
 				D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */,
 				D0AF3D7C1B56EAE300274FE7 /* CWSInstructionNULL.h */,

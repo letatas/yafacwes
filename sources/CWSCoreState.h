@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CWSExecutionVector.h"
-
-typedef NSInteger CWSInstructionCode;
+#import "CWSInstructionCodes.h"
 
 enum {CWSNoExecutionVector = NSIntegerMax};
 

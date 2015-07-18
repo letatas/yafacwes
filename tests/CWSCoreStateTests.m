@@ -37,7 +37,7 @@
     // Assert
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-            XCTAssertEqual(0, [coreState instructionCodeAtPositionX:x andY:y]);
+            XCTAssertEqual(kCWSInstructionCodeNULL, [coreState instructionCodeAtPositionX:x andY:y]);
         }
     }
     
@@ -52,13 +52,13 @@
     NSInteger height = 10;
     NSInteger x1 = 0;
     NSInteger y1 = 0;
-    NSInteger i1 = 1;
+    NSInteger i1 = kCWSInstructionCodeLEFT;
     NSInteger x2 = 4;
     NSInteger y2 = 9;
-    NSInteger i2 = 2;
+    NSInteger i2 = kCWSInstructionCodeRIGHT;
     NSInteger x3 = width - 1;
     NSInteger y3 = height - 1;
-    NSInteger i3 = 3;
+    NSInteger i3 = kCWSInstructionCodeNOP;
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
     
     // Act
@@ -117,7 +117,7 @@
     CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast];
     [coreState.executionVectors addObject:ev2];
     coreState.nextExecutionVectorIndex = 0;
-    [coreState setInstructionCode:3 atPositionX:posX1 andY:posY1];
+    [coreState setInstructionCode:kCWSInstructionCodeNOP atPositionX:posX1 andY:posY1];
     
     // Act
     [coreState oneStep];
