@@ -141,4 +141,39 @@
     XCTAssertEqual(NSNotFound, [coreState.executionVectors indexOfObject:ev2]);
 }
 
+- (void) testToString {
+    // Arrange
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    NSInteger posX1 = 5;
+    NSInteger posY1 = 6;
+    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth];
+    [coreState.executionVectors addObject:ev1];
+    NSInteger posX2 = 7;
+    NSInteger posY2 = 3;
+    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast];
+    [coreState.executionVectors addObject:ev2];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:3 atPositionX:posX1 andY:posY1];
+
+    // Act
+    NSString * string = coreState.description;
+    NSString * expected = @"EV:5,6,S\n"
+    "EV:7,3,E\n"
+    "NEXT:0\n"
+    "-\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+    
+    // Assert
+    XCTAssertEqualObjects(expected, string);
+}
+
 @end

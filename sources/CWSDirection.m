@@ -17,3 +17,12 @@ CWSDirection leftDirection(CWSDirection aDirection) {
 CWSDirection rightDirection(CWSDirection aDirection) {
     return (CWSDirection)((aDirection + 1) % kDIRECTION_COUNT);
 }
+
+NSString * directionToString(CWSDirection aDirection) {
+    switch (aDirection) {
+        case CWSDirectionNorth: return @"N";
+        case CWSDirectionEast: return @"E";
+        case CWSDirectionSouth: return @"S";
+        case CWSDirectionWest: return @"W";
+    }
+}

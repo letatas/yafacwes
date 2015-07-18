@@ -111,6 +111,30 @@
     }
 }
 
+- (NSString *)description {
+    NSMutableString * result = [NSMutableString string];
+    
+    [self.executionVectors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [result appendFormat:@"%@\n",obj];
+    }];
+
+    [result appendFormat:@"NEXT:%ld\n-\n",self.nextExecutionVectorIndex];
+    
+    for (int y = 0; y < self.height; y++) {
+        if (y > 0) {
+            [result appendString:@"\n"];
+        }
+        for (int x = 0; x < self.width; x++) {
+            if (x > 0) {
+                [result appendString:@" "];
+            }
+            [result appendFormat:@"%ld",[self instructionCodeAtPositionX:x andY:y]];
+        }
+    }
+
+    return result;
+}
+
 #pragma mark - Instructions Codes
 
 - (CWSInstructionCode) instructionCodeAtPositionX:(NSInteger) aX andY:(NSInteger) aY {

@@ -44,4 +44,8 @@
     }
 }
 
+- (NSString *) description {
+    return [NSString stringWithFormat:@"EV:%ld,%ld,%@",self.x,self.y,directionToString(self.direction)];
+}
+
 @end

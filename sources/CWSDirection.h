@@ -18,3 +18,5 @@ typedef NS_ENUM(NSInteger, CWSDirection) {
 
 CWSDirection leftDirection(CWSDirection aDirection);
 CWSDirection rightDirection(CWSDirection aDirection);
+
+NSString * directionToString(CWSDirection aDirection);

@@ -74,4 +74,16 @@
     XCTAssertEqual(10, ev.y);
 }
 
+- (void) testToString {
+    // Arrange
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:3 andY:1 andDirection:CWSDirectionNorth];
+    
+    // Act
+    NSString * string = ev.description;
+    NSString * expected = @"EV:3,1,N";
+    
+    // Assert
+    XCTAssertEqualObjects(expected, string);
+}
+
 @end
