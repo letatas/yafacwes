@@ -24,4 +24,33 @@
     return result;
 }
 
++ (NSDictionary *) parseParamsCount:(int) argc andValues:(const char **) argv {
+    NSMutableDictionary * result = [NSMutableDictionary dictionaryWithCapacity:argc / 2];
+    
+    NSString * key = @"EXEC";
+    
+    for (int i = 0; i < argc; i++) {
+        NSString * argument = [NSString stringWithCString:argv[i] encoding:NSUTF8StringEncoding];
+        
+        if (i%2 == 0) {
+            result[key] = argument;
+        }
+        else {
+            key = argument;
+        }
+    }
+    
+    return result;
+}
+
++ (NSString *) usageOfExecutable:(NSString *) aExecutableName {
+    NSMutableString * result = [NSMutableString string];
+    
+    [result appendString:@"Usage:\n"];
+    [result appendFormat:@"    %@ --state <state_filename>\n", aExecutableName.lastPathComponent];
+    [result appendString:@"<state_filename>: file containing a core state\n"];
+    
+    return result;
+}
+
 @end

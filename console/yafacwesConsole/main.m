@@ -8,17 +8,29 @@
 
 #import <Foundation/Foundation.h>
 #import "CWSCategories.h"
-#import "CWSCore.h"
+#import "CWSCoreState.h"
 #import "CWSConsoleTool.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         [[CWSConsoleTool niceTitle] stdoutPrintln];
         
-        CWSCore * core = [[CWSCore alloc] init];
-        core.name = @"MIW Core";
+        NSDictionary * params = [CWSConsoleTool parseParamsCount:argc andValues:argv];
+        NSString * stateFileName = params[@"--state"];
         
-        [core.name stdoutPrintln];
+        if (stateFileName == nil) {
+            [[CWSConsoleTool usageOfExecutable:params[@"EXEC"]] stdoutPrintln];
+        }
+        else {
+            CWSCoreState * coreState = [CWSCoreState coreStateWithContentsOfFile:stateFileName];
+            
+            [@"Initial State:" stdoutPrintln];
+            [coreState.description stdoutPrintln];
+            
+            [@"\nStep 1:" stdoutPrintln];
+            [coreState oneStep];
+            [coreState.description stdoutPrintln];
+        }
     }
     return 0;
 }

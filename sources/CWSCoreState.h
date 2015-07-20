@@ -19,6 +19,7 @@ enum {CWSNoExecutionVector = NSIntegerMax};
 
 + (instancetype) coreStateWithWidth:(NSInteger) aWidth andHeight:(NSInteger) aHeight;
 + (instancetype) coreStateWithString:(NSString *) aString;
++ (instancetype) coreStateWithContentsOfFile:(NSString *) aFileName;
 
 - (CWSInstructionCode) instructionCodeAtPositionX:(NSInteger) aX andY:(NSInteger) aY;
 - (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPositionX:(NSInteger) aX andY:(NSInteger) aY;

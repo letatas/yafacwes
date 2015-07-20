@@ -11,5 +11,7 @@
 @interface CWSConsoleTool : NSObject
 
 + (NSString *) niceTitle;
++ (NSDictionary *) parseParamsCount:(int) argc andValues:(const char **) argv;
++ (NSString *) usageOfExecutable:(NSString *) aExecutableName;
 
 @end

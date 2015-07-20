@@ -93,6 +93,12 @@
     return [[self alloc] initWithString:aString];
 }
 
++ (instancetype) coreStateWithContentsOfFile:(NSString *) aFileName {
+    NSString * stateString = [NSString stringWithContentsOfFile:aFileName usedEncoding:NULL error:nil];
+    
+    return [self coreStateWithString:stateString];
+}
+
 - (void)createInitialInstructionCodes {
     self.instructionCodes = calloc(self.width*self.height, sizeof(CWSInstructionCode));
 }
