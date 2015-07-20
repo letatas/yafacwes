@@ -27,9 +27,14 @@ int main(int argc, const char * argv[]) {
             [@"Initial State:" stdoutPrintln];
             [coreState.description stdoutPrintln];
             
-            [@"\nStep 1:" stdoutPrintln];
-            [coreState oneStep];
-            [coreState.description stdoutPrintln];
+            NSString * stepsParam = params[@"--steps"];
+            NSInteger steps = (stepsParam == nil)?1:stepsParam.integerValue;
+            
+            for (NSInteger i = 0; i < steps; i++) {
+                [[NSString stringWithFormat:@"\nStep %ld:",(long)(i+1)] stdoutPrintln];
+                [coreState oneStep];
+                [coreState.description stdoutPrintln];
+            }
         }
     }
     return 0;
