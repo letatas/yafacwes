@@ -25,7 +25,7 @@
     [super tearDown];
 }
 
-- (void)testEnoceTypeOf {
+- (void)testEncodeTypeOf {
     // Arrange
     NSUInteger count = 3;
     NSArray * tab = @[@1,@2,@3];
