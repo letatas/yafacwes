@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 pinguzaph. All rights reserved.
 //
 
-typedef NSInteger CWSInstructionCode;
+#import "CWSCompat.h"
 
-#define kCWSInstructionCodeNULL  0
-#define kCWSInstructionCodeLEFT  1
-#define kCWSInstructionCodeRIGHT 2
-#define kCWSInstructionCodeNOP   3
+typedef NS_ENUM(NSInteger, CWSInstructionCode) {
+  kCWSInstructionCodeNULL = 0,
+  kCWSInstructionCodeLEFT,
+  kCWSInstructionCodeRIGHT,
+  kCWSInstructionCodeNOP
+};

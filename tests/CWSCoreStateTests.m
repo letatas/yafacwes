@@ -41,9 +41,9 @@
         }
     }
     
-    XCTAssertEqual(CWSNoExecutionVector, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual((NSInteger) CWSNoExecutionVector, coreState.nextExecutionVectorIndex);
     
-    XCTAssertEqual(0, coreState.executionVectors.count);
+    XCTAssertEqual((NSUInteger) 0, coreState.executionVectors.count);
 }
 
 - (void) testSettingInstructionCode {
@@ -99,8 +99,8 @@
         
     // Assert
     XCTAssertEqual(i1, [coreState instructionCodeAtPositionX:x1 andY:y1]);
-    XCTAssertEqual(0, coreState.nextExecutionVectorIndex);
-    XCTAssertEqual(2, coreState.executionVectors.count);
+    XCTAssertEqual((NSInteger) 0, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual((NSUInteger) 2, coreState.executionVectors.count);
 }
 
 - (void) testOneStep {
@@ -124,8 +124,8 @@
     XCTAssertEqual(ev1.x, posX1);
     XCTAssertEqual(ev1.y, posY1+1);
     XCTAssertEqual(ev1.direction, CWSDirectionSouth);
-    XCTAssertEqual(1, coreState.nextExecutionVectorIndex);
-    XCTAssertEqual(2, coreState.executionVectors.count);
+    XCTAssertEqual((NSInteger) 1, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual((NSUInteger) 2, coreState.executionVectors.count);
 
     // Act
     [coreState oneStep];
@@ -134,8 +134,8 @@
     XCTAssertEqual(ev1.x, posX1);
     XCTAssertEqual(ev1.y, posY1+1);
     XCTAssertEqual(ev1.direction, CWSDirectionSouth);
-    XCTAssertEqual(0, coreState.nextExecutionVectorIndex);
-    XCTAssertEqual(1, coreState.executionVectors.count);
+    XCTAssertEqual((NSInteger) 0, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual((NSUInteger) 1, coreState.executionVectors.count);
     XCTAssertEqual(NSNotFound, [coreState.executionVectors indexOfObject:ev2]);
 }
 

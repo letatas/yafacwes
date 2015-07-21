@@ -34,8 +34,8 @@
     [ev move];
     
     // Assert
-    XCTAssertEqual(10, ev.x);
-    XCTAssertEqual(9, ev.y);
+    XCTAssertEqual((NSInteger)10, ev.x);
+    XCTAssertEqual((NSInteger)9, ev.y);
 }
 
 - (void)testMovingSouth {
@@ -46,8 +46,8 @@
     [ev move];
     
     // Assert
-    XCTAssertEqual(10, ev.x);
-    XCTAssertEqual(11, ev.y);
+    XCTAssertEqual((NSInteger)10, ev.x);
+    XCTAssertEqual((NSInteger)11, ev.y);
 }
 
 - (void)testMovingWest {
@@ -58,8 +58,8 @@
     [ev move];
     
     // Assert
-    XCTAssertEqual(9, ev.x);
-    XCTAssertEqual(10, ev.y);
+    XCTAssertEqual((NSInteger)9, ev.x);
+    XCTAssertEqual((NSInteger)10, ev.y);
 }
 
 - (void)testMovingEast {
@@ -70,8 +70,8 @@
     [ev move];
     
     // Assert
-    XCTAssertEqual(11, ev.x);
-    XCTAssertEqual(10, ev.y);
+    XCTAssertEqual((NSInteger)11, ev.x);
+    XCTAssertEqual((NSInteger)10, ev.y);
 }
 
 - (void) testToString {
