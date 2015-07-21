@@ -42,27 +42,26 @@
 
 - (instancetype) initWithString:(NSString *) aString {    
     NSScanner * scanner = [NSScanner scannerWithString: aString];
-    
-    // extract executionVectors declarations
-    NSString * evDecl = NULL;
-    [scanner scanUpToString:@"-" intoString:&evDecl];
-    
-    // remaining data = corestate, switch to line by line scan
+      
+    // line by line scan
+    NSUInteger coreStateIndex = NSUIntegerMax;
     NSMutableArray * lines = [NSMutableArray array];
     NSString * currentLine = NULL;
     while ([scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine] == YES) {
-      [lines addObject:currentLine];
+      if (currentLine != nil) {
+	if ([currentLine isEqual:@"-"] == NO) {
+	  [lines addObject:currentLine];
+	} else {
+	  coreStateIndex = lines.count;
+	}
+      }      
     }
-    // remove first line (aka "-")
-    if (lines.count > 0) {
-      [lines removeObjectAtIndex:0];
-    }
-    
+
     // compute core dimensions
-    NSInteger aHeight = lines.count;
+    NSInteger aHeight = lines.count - coreStateIndex;
     NSInteger aWidth = 0;
     if (aHeight > 0) {      
-      scanner = [NSScanner scannerWithString: [lines objectAtIndex: 0]];
+      scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex]];
       
       while ([scanner scanInteger: NULL] == YES) {
 	  aWidth++;
@@ -71,16 +70,45 @@
       if (aWidth > 0) {
 	  self = [self initWithWidth: aWidth andHeight: aHeight];
 	  
+	  NSInteger pos = 0;
 	  NSInteger y = 0;
 	  for (id obj in lines) {
-	    scanner = [NSScanner scannerWithString: obj];
-	    for (NSInteger x=0; x<aWidth; ++x) {
-	      NSInteger value = 0;
-	      if ([scanner scanInteger:&value] == YES) {
-		[self setInstructionCode: value atPositionX:x andY:y];
+	    // read ev / next info
+	    if (pos < coreStateIndex) {
+	      // load execution vector
+	      if ([obj hasPrefix:@"EV:"]) {
+		scanner = [NSScanner scannerWithString: [obj substringFromIndex:3]];
+		scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
+		NSInteger x = 0;
+		NSInteger y = 0;
+		if ([scanner scanInteger:&x]
+		 && [scanner scanInteger:&y]) {
+		  CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString([[scanner string] substringFromIndex:[scanner scanLocation]+1])];
+		  [self.executionVectors addObject:ev];
+		}
+		
+	      // load next EV
+	      } else if ([obj hasPrefix:@"NEXT:"]) {
+		scanner = [NSScanner scannerWithString: [obj substringFromIndex:5]];
+		NSInteger value = CWSNoExecutionVector;
+		if ([scanner scanInteger:&value]) {
+		  self.nextExecutionVectorIndex = value;
+		}
 	      }
-	    }	    
-	    y++;
+	      // else throw ?
+	    // read core state
+	    } else {
+	      scanner = [NSScanner scannerWithString: obj];
+	      for (NSInteger x=0; x<aWidth; ++x) {
+		NSInteger value = 0;
+		if ([scanner scanInteger:&value] == YES) {
+		  [self setInstructionCode: value atPositionX:x andY:y];
+		}
+	      }	    
+	      y++;
+	    }
+	    
+	    pos++;
 	  }
 	  
 	  return self;
