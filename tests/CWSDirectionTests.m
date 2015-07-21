@@ -60,4 +60,14 @@
     XCTAssertEqual(direction4, CWSDirectionNorth);
 }
 
+- (void)testDirectionFromString {  
+    // Assert
+    XCTAssertEqual(CWSDirectionNorth, directionFromString(@"N"));
+    XCTAssertEqual(CWSDirectionEast, directionFromString(@"E"));
+    XCTAssertEqual(CWSDirectionSouth, directionFromString(@"S"));
+    XCTAssertEqual(CWSDirectionWest, directionFromString(@"W"));
+    XCTAssertThrows(directionFromString(nil));
+    XCTAssertThrows(directionFromString(@"toto"));
+}
+
 @end

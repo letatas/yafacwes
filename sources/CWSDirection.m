@@ -26,3 +26,21 @@ NSString * directionToString(CWSDirection aDirection) {
         case CWSDirectionWest: return @"W";
     }
 }
+
+CWSDirection directionFromString(NSString * aDirection) {
+  if (aDirection != nil) {
+      if ([aDirection isEqual:@"N"]) {
+	return CWSDirectionNorth;
+      } else if ([aDirection isEqual:@"E"]) {
+	return CWSDirectionEast;
+      } else if ([aDirection isEqual:@"S"]) {
+	return CWSDirectionSouth;
+      } else if ([aDirection isEqual:@"W"]) {
+	return CWSDirectionWest;
+      }
+  }
+  NSException * badParam = [NSException exceptionWithName:@"BadDirectionException" reason:[NSString stringWithFormat:@"Invalid direction : %@",aDirection] userInfo:nil];
+  [badParam raise];
+  // never reached
+  return CWSDirectionNorth;
+}
