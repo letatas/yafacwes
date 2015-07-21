@@ -122,7 +122,8 @@
 }
 
 + (instancetype) coreStateWithContentsOfFile:(NSString *) aFileName {
-    NSString * stateString = [NSString stringWithContentsOfFile:aFileName usedEncoding:NULL error:NULL];
+    NSStringEncoding encoding;
+    NSString * stateString = [NSString stringWithContentsOfFile:aFileName usedEncoding:&encoding error:NULL];
     
     return [self coreStateWithString:stateString];
 }
