@@ -90,8 +90,6 @@
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
     
-    NSInteger width = 17;
-    NSInteger height = 10;
     NSInteger x1 = 5;
     NSInteger y1 = 6;
     NSInteger i1 = 3;
