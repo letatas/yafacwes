@@ -35,12 +35,10 @@
     char * encodePropertyCall = @encode(typeof(tab.count));
     char * encodeMethodCall = @encode(typeof([tab count]));
     
-    BOOL encodeUIntOk = encodeUInt[0] == 'Q';
-    BOOL encodePropertyCallOk = encodePropertyCall[0] == 'Q';
-    BOOL encodeMethodCallOk = encodeMethodCall[0] == 'Q';
+    BOOL encodePropertyCallOk = encodePropertyCall[0] == encodeUInt[0];
+    BOOL encodeMethodCallOk = encodeMethodCall[0] == encodeUInt[0];
     
     // Assert
-    XCTAssert(encodeUIntOk);
     XCTAssert(encodePropertyCallOk);
     XCTAssert(encodeMethodCallOk);
 }
