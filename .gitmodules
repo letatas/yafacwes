@@ -1,0 +1,3 @@
+[submodule "SenTestingKit"]
+	path = SenTestingKit
+	url = https://github.com/neywat/SenTestingKit.git
