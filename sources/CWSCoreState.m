@@ -105,7 +105,7 @@
     }
     
     // compute core dimensions
-    NSInteger aHeight = lines.count - coreStateIndex[0];
+    NSInteger aHeight = coreStateIndex[1] - coreStateIndex[0];
     NSInteger aWidth = 0;
     if (aHeight > 0) {
         scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex[0]]];
