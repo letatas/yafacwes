@@ -103,8 +103,8 @@
 - (void) testCoreStateFromString {
     // Arrange
     NSString * coreStateData = 
-      @"EV:5,6,S\n"
-       "EV:7,3,E\n"
+      @"EV:5,6,S,1\n"
+       "EV:7,3,E,2\n"
        "NEXT:0\n"
        "-\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
@@ -149,11 +149,11 @@
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX1 = 5;
     NSInteger posY1 = 6;
-    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev1];
     NSInteger posX2 = 7;
     NSInteger posY2 = 3;
-    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast];
+    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev2];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:kCWSInstructionCodeNOP atPositionX:posX1 andY:posY1];
@@ -185,11 +185,11 @@
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX1 = 5;
     NSInteger posY1 = 6;
-    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev1];
     NSInteger posX2 = 7;
     NSInteger posY2 = 3;
-    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast];
+    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev2];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:3 atPositionX:posX1 andY:posY1];
@@ -197,8 +197,8 @@
 
     // Act
     NSString * string = coreState.description;
-    NSString * expected = @"EV:5,6,S\n"
-    "EV:7,3,E\n"
+    NSString * expected = @"EV:5,6,S,42\n"
+    "EV:7,3,E,42\n"
     "NEXT:0\n"
     "-\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"

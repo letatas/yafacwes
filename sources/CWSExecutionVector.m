@@ -10,21 +10,22 @@
 
 @implementation CWSExecutionVector
 
-- (instancetype) initWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection {
+- (instancetype) initWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag {
     self = [super init];
     
     if (self) {
         self.x = aX;
         self.y = aY;
         self.direction = aDirection;
+        self.colorTag = aColorTag;
     }
     
     return self;
 
 }
 
-+ (instancetype) executionVectorWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection {
-    return [[self alloc] initWithX:aX andY:aY andDirection:aDirection];
++ (instancetype) executionVectorWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag {
+    return [[self alloc] initWithX:aX andY:aY andDirection:aDirection andInstructionColorTag:aColorTag];
 }
 
 + (instancetype) executionVectorFromString:(NSString *) line {
@@ -33,9 +34,13 @@
         scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
         NSInteger x = 0;
         NSInteger y = 0;
+        NSString * dir = @"";
+        CWSInstructionColorTag color = 0;
         if ([scanner scanInteger:&x]
-            && [scanner scanInteger:&y]) {
-            return [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString([[scanner string] substringFromIndex:[scanner scanLocation]+1])];
+         && [scanner scanInteger:&y]
+         && [scanner scanUpToString:@"," intoString:&dir]
+         && [scanner scanInteger:&color]) {
+            return [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString(dir) andInstructionColorTag:color];
         }
     }
     return nil;
@@ -59,7 +64,7 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EV:%ld,%ld,%@",self.x,self.y,directionToString(self.direction)];
+    return [NSString stringWithFormat:@"EV:%ld,%ld,%@,%ld",self.x,self.y,directionToString(self.direction),self.colorTag];
 }
 
 @end

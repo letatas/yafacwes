@@ -39,7 +39,7 @@
     // Arrange
     CWSInstruction * instruction = [CWSInstruction instructionForCode:0];
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:5 andY:5 andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:5 andY:5 andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     
@@ -57,7 +57,7 @@
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX = 5;
     NSInteger posY = 6;
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:code atPositionX:posX andY:posY];
@@ -79,7 +79,7 @@
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX = 5;
     NSInteger posY = 6;
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:code atPositionX:posX andY:posY];
@@ -101,7 +101,7 @@
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX = 5;
     NSInteger posY = 6;
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:code atPositionX:posX andY:posY];

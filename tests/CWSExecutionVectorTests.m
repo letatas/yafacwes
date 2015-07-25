@@ -28,7 +28,7 @@
 
 - (void)testMovingNorth {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionNorth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionNorth andInstructionColorTag:42];
     
     // Act
     [ev move];
@@ -40,7 +40,7 @@
 
 - (void)testMovingSouth {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionSouth andInstructionColorTag:42];
     
     // Act
     [ev move];
@@ -52,7 +52,7 @@
 
 - (void)testMovingWest {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionWest];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionWest andInstructionColorTag:42];
     
     // Act
     [ev move];
@@ -64,7 +64,7 @@
 
 - (void)testMovingEast {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionEast];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionEast andInstructionColorTag:42];
     
     // Act
     [ev move];
@@ -76,11 +76,11 @@
 
 - (void) testToString {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:3 andY:1 andDirection:CWSDirectionNorth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:3 andY:1 andDirection:CWSDirectionNorth andInstructionColorTag:42];
     
     // Act
     NSString * string = ev.description;
-    NSString * expected = @"EV:3,1,N";
+    NSString * expected = @"EV:3,1,N,42";
     
     // Assert
     XCTAssertEqualObjects(expected, string);
@@ -88,10 +88,11 @@
 
 - (void) testFromString {
     // Arrange
-    NSString * evdef = @"EV:5,12,S";
+    NSString * evdef = @"EV:5,12,S,42";
     NSInteger evx = 5;
     NSInteger evy = 12;
-    NSInteger evdir = CWSDirectionSouth;
+    CWSDirection evdir = CWSDirectionSouth;
+    CWSInstructionColorTag evcolor = 42;
     
     // Act
     CWSExecutionVector * ev = [CWSExecutionVector executionVectorFromString:evdef];
@@ -100,6 +101,7 @@
     XCTAssertEqual(evx, ev.x);
     XCTAssertEqual(evy, ev.y);
     XCTAssertEqual(evdir, ev.direction);
+    XCTAssertEqual(evcolor, ev.colorTag);
 }
 
 @end
