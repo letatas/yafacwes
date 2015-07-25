@@ -81,6 +81,7 @@
 		D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionRIGHT.m; path = ../../sources/CWSInstructionRIGHT.m; sourceTree = "<group>"; };
 		D0AF3D931B57927A00274FE7 /* CWSInstructionNOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionNOP.h; path = ../../sources/CWSInstructionNOP.h; sourceTree = "<group>"; };
 		D0AF3D941B57927A00274FE7 /* CWSInstructionNOP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionNOP.m; path = ../../sources/CWSInstructionNOP.m; sourceTree = "<group>"; };
+		D0BDCC471B642EC0007BBC35 /* CWSInstructionColorTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructionColorTag.h; path = ../../sources/CWSInstructionColorTag.h; sourceTree = "<group>"; };
 		D0E1B2151B5B13D400D0E84E /* CWSInstructionCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructionCodes.h; path = ../../sources/CWSInstructionCodes.h; sourceTree = "<group>"; };
 		D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSMiscellaneousTests.m; path = ../../tests/CWSMiscellaneousTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +196,7 @@
 				D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */,
 				D0AF3D931B57927A00274FE7 /* CWSInstructionNOP.h */,
 				D0AF3D941B57927A00274FE7 /* CWSInstructionNOP.m */,
+				D0BDCC471B642EC0007BBC35 /* CWSInstructionColorTag.h */,
 			);
 			name = Instructions;
 			sourceTree = "<group>";

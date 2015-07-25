@@ -12,6 +12,7 @@
 @interface CWSCoreState ()
 
 @property (nonatomic, assign) CWSInstructionCode * instructionCodes;
+@property (nonatomic, assign) CWSInstructionColorTag * instructionColorTags;
 @property (nonatomic, assign) NSInteger width;
 @property (nonatomic, assign) NSInteger height;
 @property (nonatomic, strong) NSMutableArray * executionVectors;
@@ -28,6 +29,7 @@
         self.height = aHeight;
         
         [self createInitialInstructionCodes];
+        [self createInitialInstructionColorTags];
         
         self.executionVectors = [NSMutableArray array];
         self.nextExecutionVectorIndex = CWSNoExecutionVector;
@@ -40,79 +42,79 @@
     return [[self alloc] initWithWidth:aWidth andHeight:aHeight];
 }
 
-- (instancetype) initWithString:(NSString *) aString {    
+- (instancetype) initWithString:(NSString *) aString {
     NSScanner * scanner = [NSScanner scannerWithString: aString];
-      
+    
     // line by line scan
     NSUInteger coreStateIndex = NSUIntegerMax;
     NSMutableArray * lines = [NSMutableArray array];
     NSString * currentLine = NULL;
     while ([scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine] == YES) {
-      if (currentLine != nil) {
-	if ([currentLine isEqual:@"-"] == NO) {
-	  [lines addObject:currentLine];
-	} else {
-	  coreStateIndex = lines.count;
-	}
-      }      
+        if (currentLine != nil) {
+            if ([currentLine isEqual:@"-"] == NO) {
+                [lines addObject:currentLine];
+            } else {
+                coreStateIndex = lines.count;
+            }
+        }
     }
-
+    
     // compute core dimensions
     NSInteger aHeight = lines.count - coreStateIndex;
     NSInteger aWidth = 0;
-    if (aHeight > 0) {      
-      scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex]];
-      
-      while ([scanner scanInteger: NULL] == YES) {
-	  aWidth++;
-      }
-      
-      if (aWidth > 0) {
-	  self = [self initWithWidth: aWidth andHeight: aHeight];
-	  
-	  NSInteger pos = 0;
-	  NSInteger y = 0;
-	  for (id obj in lines) {
-	    // read ev / next info
-	    if (pos < coreStateIndex) {
-	      // load execution vector
-	      if ([obj hasPrefix:@"EV:"]) {
-		scanner = [NSScanner scannerWithString: [obj substringFromIndex:3]];
-		scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
-		NSInteger x = 0;
-		NSInteger y = 0;
-		if ([scanner scanInteger:&x]
-		 && [scanner scanInteger:&y]) {
-		  CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString([[scanner string] substringFromIndex:[scanner scanLocation]+1])];
-		  [self.executionVectors addObject:ev];
-		}
-		
-	      // load next EV
-	      } else if ([obj hasPrefix:@"NEXT:"]) {
-		scanner = [NSScanner scannerWithString: [obj substringFromIndex:5]];
-		NSInteger value = CWSNoExecutionVector;
-		if ([scanner scanInteger:&value]) {
-		  self.nextExecutionVectorIndex = value;
-		}
-	      }
-	      // else throw ?
-	    // read core state
-	    } else {
-	      scanner = [NSScanner scannerWithString: obj];
-	      for (NSInteger x=0; x<aWidth; ++x) {
-		NSInteger value = 0;
-		if ([scanner scanInteger:&value] == YES) {
-		  [self setInstructionCode: value atPositionX:x andY:y];
-		}
-	      }	    
-	      y++;
-	    }
-	    
-	    pos++;
-	  }
-	  
-	  return self;
-      }
+    if (aHeight > 0) {
+        scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex]];
+        
+        while ([scanner scanInteger: NULL] == YES) {
+            aWidth++;
+        }
+        
+        if (aWidth > 0) {
+            self = [self initWithWidth: aWidth andHeight: aHeight];
+            
+            NSInteger pos = 0;
+            NSInteger y = 0;
+            for (id obj in lines) {
+                // read ev / next info
+                if (pos < coreStateIndex) {
+                    // load execution vector
+                    if ([obj hasPrefix:@"EV:"]) {
+                        scanner = [NSScanner scannerWithString: [obj substringFromIndex:3]];
+                        scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
+                        NSInteger x = 0;
+                        NSInteger y = 0;
+                        if ([scanner scanInteger:&x]
+                            && [scanner scanInteger:&y]) {
+                            CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString([[scanner string] substringFromIndex:[scanner scanLocation]+1])];
+                            [self.executionVectors addObject:ev];
+                        }
+                        
+                        // load next EV
+                    } else if ([obj hasPrefix:@"NEXT:"]) {
+                        scanner = [NSScanner scannerWithString: [obj substringFromIndex:5]];
+                        NSInteger value = CWSNoExecutionVector;
+                        if ([scanner scanInteger:&value]) {
+                            self.nextExecutionVectorIndex = value;
+                        }
+                    }
+                    // else throw ?
+                    // read core state
+                } else {
+                    scanner = [NSScanner scannerWithString: obj];
+                    for (NSInteger x=0; x<aWidth; ++x) {
+                        NSInteger value = 0;
+                        if ([scanner scanInteger:&value] == YES) {
+                            [self setInstructionCode: value atPositionX:x andY:y];
+                        }
+                    }
+                    y++;
+                }
+                
+                pos++;
+            }
+            
+            return self;
+        }
     }
     return nil;
 }
@@ -132,8 +134,13 @@
     self.instructionCodes = calloc(self.width*self.height, sizeof(CWSInstructionCode));
 }
 
+- (void)createInitialInstructionColorTags {
+    self.instructionColorTags = calloc(self.width*self.height, sizeof(CWSInstructionColorTag));
+}
+
 - (void)dealloc {
     free(self.instructionCodes);
+    free(self.instructionColorTags);
     self.instructionCodes = NULL;
 }
 
@@ -152,7 +159,7 @@
     [self.executionVectors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [result appendFormat:@"%@\n",obj];
     }];
-
+    
     [result appendFormat:@"NEXT:%ld\n-\n",self.nextExecutionVectorIndex];
     
     for (int y = 0; y < self.height; y++) {
@@ -166,7 +173,7 @@
             [result appendFormat:@"%ld",[self instructionCodeAtPositionX:x andY:y]];
         }
     }
-
+    
     return result;
 }
 
@@ -179,6 +186,17 @@
 - (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPositionX:(NSInteger) aX andY:(NSInteger) aY {
     self.instructionCodes[aX + aY*self.width] = aInstructionCode;
 }
+
+#pragma mark - Instruction Color Tags
+
+- (CWSInstructionColorTag) instructionColorTagAtPositionX:(NSInteger) aX andY:(NSInteger) aY {
+    return self.instructionColorTags[aX + aY*self.width];
+}
+
+- (void) setInstructionColorTag:(CWSInstructionColorTag) aInstructionColorTag atPositionX:(NSInteger) aX andY:(NSInteger) aY {
+    self.instructionColorTags[aX + aY*self.width] = aInstructionColorTag;
+}
+
 
 #pragma mark - Execution
 

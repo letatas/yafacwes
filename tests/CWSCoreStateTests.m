@@ -30,6 +30,7 @@
     // Arrange
     NSInteger width = 17;
     NSInteger height = 10;
+    CWSInstructionColorTag intitalColorTag = 0;
     
     // Act
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
@@ -38,6 +39,7 @@
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             XCTAssertEqual(kCWSInstructionCodeNULL, [coreState instructionCodeAtPositionX:x andY:y]);
+            XCTAssertEqual(intitalColorTag, [coreState instructionColorTagAtPositionX:x andY:y]);
         }
     }
     
@@ -52,13 +54,13 @@
     NSInteger height = 10;
     NSInteger x1 = 0;
     NSInteger y1 = 0;
-    NSInteger i1 = kCWSInstructionCodeLEFT;
+    CWSInstructionCode i1 = kCWSInstructionCodeLEFT;
     NSInteger x2 = 4;
     NSInteger y2 = 9;
-    NSInteger i2 = kCWSInstructionCodeRIGHT;
+    CWSInstructionCode i2 = kCWSInstructionCodeRIGHT;
     NSInteger x3 = width - 1;
     NSInteger y3 = height - 1;
-    NSInteger i3 = kCWSInstructionCodeNOP;
+    CWSInstructionCode i3 = kCWSInstructionCodeNOP;
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
     
     // Act
@@ -70,6 +72,32 @@
     XCTAssertEqual(i1, [coreState instructionCodeAtPositionX:x1 andY:y1]);
     XCTAssertEqual(i2, [coreState instructionCodeAtPositionX:x2 andY:y2]);
     XCTAssertEqual(i3, [coreState instructionCodeAtPositionX:x3 andY:y3]);
+}
+
+- (void) testSettingInstructionColorTag {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 0;
+    NSInteger y1 = 0;
+    CWSInstructionColorTag t1 = 1;
+    NSInteger x2 = 4;
+    NSInteger y2 = 9;
+    CWSInstructionColorTag t2 = 2;
+    NSInteger x3 = width - 1;
+    NSInteger y3 = height - 1;
+    CWSInstructionColorTag t3 = kCWSInstructionCodeNOP;
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    
+    // Act
+    [coreState setInstructionColorTag:t1 atPositionX:x1 andY:y1];
+    [coreState setInstructionColorTag:t2 atPositionX:x2 andY:y2];
+    [coreState setInstructionColorTag:t3 atPositionX:x3 andY:y3];
+    
+    // Assert
+    XCTAssertEqual(t1, [coreState instructionColorTagAtPositionX:x1 andY:y1]);
+    XCTAssertEqual(t2, [coreState instructionColorTagAtPositionX:x2 andY:y2]);
+    XCTAssertEqual(t3, [coreState instructionColorTagAtPositionX:x3 andY:y3]);
 }
 
 - (void) testCoreStateFromString {
@@ -92,7 +120,7 @@
     
     NSInteger x1 = 5;
     NSInteger y1 = 6;
-    NSInteger i1 = 3;
+    CWSInstructionCode i1 = 3;
 
     // Act
     CWSCoreState * coreState = [CWSCoreState coreStateWithString: coreStateData];
