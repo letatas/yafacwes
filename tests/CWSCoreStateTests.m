@@ -180,6 +180,7 @@
     [coreState.executionVectors addObject:ev2];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:3 atPositionX:posX1 andY:posY1];
+    [coreState setInstructionColorTag:9 atPositionX:posX1+1 andY:posY1+1];
 
     // Act
     NSString * string = coreState.description;
@@ -195,6 +196,17 @@
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "-\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 9 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
     

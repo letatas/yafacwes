@@ -163,6 +163,18 @@
     [result appendFormat:@"NEXT:%ld\n-\n",self.nextExecutionVectorIndex];
     
     for (int y = 0; y < self.height; y++) {
+        for (int x = 0; x < self.width; x++) {
+            if (x > 0) {
+                [result appendString:@" "];
+            }
+            [result appendFormat:@"%ld",[self instructionCodeAtPositionX:x andY:y]];
+        }
+        [result appendString:@"\n"];
+    }
+
+    [result appendString:@"-\n"];
+
+    for (int y = 0; y < self.height; y++) {
         if (y > 0) {
             [result appendString:@"\n"];
         }
@@ -170,7 +182,7 @@
             if (x > 0) {
                 [result appendString:@" "];
             }
-            [result appendFormat:@"%ld",[self instructionCodeAtPositionX:x andY:y]];
+            [result appendFormat:@"%ld",[self instructionColorTagAtPositionX:x andY:y]];
         }
     }
     
