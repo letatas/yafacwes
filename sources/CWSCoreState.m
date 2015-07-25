@@ -224,6 +224,7 @@
     CWSExecutionVector * ev = self.nextExecutionVector;
     if (ev != nil) {
         CWSInstructionCode code = [self instructionCodeAtPositionX:ev.x andY:ev.y];
+        [self setInstructionColorTag:ev.colorTag atPositionX:ev.x andY:ev.y];
         CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
         BOOL success = [instruction executeForCoreState:self];
         

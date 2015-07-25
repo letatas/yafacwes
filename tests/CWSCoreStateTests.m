@@ -149,14 +149,16 @@
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX1 = 5;
     NSInteger posY1 = 6;
-    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    CWSInstructionColorTag tag1 = 42;
+    CWSExecutionVector * ev1 = [CWSExecutionVector executionVectorWithX:posX1 andY:posY1 andDirection:CWSDirectionSouth andInstructionColorTag:tag1];
     [coreState.executionVectors addObject:ev1];
     NSInteger posX2 = 7;
     NSInteger posY2 = 3;
-    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast andInstructionColorTag:42];
+    CWSInstructionColorTag tag2 = 33;
+    CWSExecutionVector * ev2 = [CWSExecutionVector executionVectorWithX:posX2 andY:posY2 andDirection:CWSDirectionEast andInstructionColorTag:tag2];
     [coreState.executionVectors addObject:ev2];
     coreState.nextExecutionVectorIndex = 0;
-    [coreState setInstructionCode:kCWSInstructionCodeNOP atPositionX:posX1 andY:posY1];
+    [coreState setInstructionCode:kCWSInstructionCodeNOP atPositionX:posX1 andY:posY1];    
     
     // Act
     [coreState oneStep];
@@ -167,6 +169,7 @@
     XCTAssertEqual(ev1.direction, CWSDirectionSouth);
     XCTAssertEqual((NSInteger) 1, coreState.nextExecutionVectorIndex);
     XCTAssertEqual((NSUInteger) 2, coreState.executionVectors.count);
+    XCTAssertEqual(tag1, [coreState instructionColorTagAtPositionX:posX1 andY:posY1]);
 
     // Act
     [coreState oneStep];
@@ -178,6 +181,7 @@
     XCTAssertEqual((NSInteger) 0, coreState.nextExecutionVectorIndex);
     XCTAssertEqual((NSUInteger) 1, coreState.executionVectors.count);
     XCTAssertEqual(NSNotFound, [coreState.executionVectors indexOfObject:ev2]);
+    XCTAssertEqual(tag2, [coreState instructionColorTagAtPositionX:posX2 andY:posY2]);
 }
 
 - (void) testToString {
