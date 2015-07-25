@@ -17,6 +17,10 @@
 @property (nonatomic, assign) NSInteger height;
 @property (nonatomic, strong) NSMutableArray * executionVectors;
 
+- (void) loadExecutionVectorsAndNextFromLines:(NSArray *) lines upToIndex:(NSUInteger) last;
+- (void) loadCoreStateInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last;
+- (void) loadCoreStateColorInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last;
+
 @end
 
 @implementation CWSCoreState
@@ -42,11 +46,52 @@
     return [[self alloc] initWithWidth:aWidth andHeight:aHeight];
 }
 
+- (void) loadExecutionVectorsAndNextFromLines:(NSArray *) lines upToIndex:(NSUInteger) last {
+    for (NSUInteger i=0; i<last; ++i) {
+        NSString * line = (NSString *) [lines objectAtIndex:i];
+        if ([line hasPrefix:@"NEXT:"]) {
+            NSScanner * scanner = [NSScanner scannerWithString: [line substringFromIndex:5]];
+            NSInteger value = CWSNoExecutionVector;
+            if ([scanner scanInteger:&value]) {
+                self.nextExecutionVectorIndex = value;
+            }
+        // load ev
+        } else {
+            [self.executionVectors addObject:[CWSExecutionVector executionVectorFromString:line]];
+        }
+    }
+}
+
+- (void) loadCoreStateInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last {
+    for (NSUInteger i=start, y=0; i<last; ++i, ++y) {
+        NSScanner * scanner = [NSScanner scannerWithString: [lines objectAtIndex:i]];
+        for (NSInteger x=0; x<self.width; ++x) {
+            NSInteger value = 0;
+            if ([scanner scanInteger:&value] == YES) {
+                [self setInstructionCode: value atPositionX:x andY:y];
+            }
+        }
+    }
+}
+
+- (void) loadCoreStateColorInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last {
+    for (NSUInteger i=start, y=0; i<last; ++i, ++y) {
+        NSScanner * scanner = [NSScanner scannerWithString: [lines objectAtIndex:i]];
+        for (NSInteger x=0; x<self.width; ++x) {
+            NSInteger value = 0;
+            if ([scanner scanInteger:&value] == YES) {
+                [self setInstructionColorTag: value atPositionX:x andY:y];
+            }
+        }
+    }
+}
+
 - (instancetype) initWithString:(NSString *) aString {
     NSScanner * scanner = [NSScanner scannerWithString: aString];
     
     // line by line scan
-    NSUInteger coreStateIndex = NSUIntegerMax;
+    NSUInteger coreStateIndex[2] = { NSUIntegerMax, NSUIntegerMax };
+    NSUInteger currentIndex = 0;
     NSMutableArray * lines = [NSMutableArray array];
     NSString * currentLine = NULL;
     while ([scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine] == YES) {
@@ -54,16 +99,16 @@
             if ([currentLine isEqual:@"-"] == NO) {
                 [lines addObject:currentLine];
             } else {
-                coreStateIndex = lines.count;
+                coreStateIndex[currentIndex++] = lines.count;
             }
         }
     }
     
     // compute core dimensions
-    NSInteger aHeight = lines.count - coreStateIndex;
+    NSInteger aHeight = lines.count - coreStateIndex[0];
     NSInteger aWidth = 0;
     if (aHeight > 0) {
-        scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex]];
+        scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex[0]]];
         
         while ([scanner scanInteger: NULL] == YES) {
             aWidth++;
@@ -72,38 +117,9 @@
         if (aWidth > 0) {
             self = [self initWithWidth: aWidth andHeight: aHeight];
             
-            NSInteger pos = 0;
-            NSInteger y = 0;
-            for (id obj in lines) {
-                // read ev / next info
-                if (pos < coreStateIndex) {
-                    // load execution vector
-                    if ([obj hasPrefix:@"EV:"]) {
-                        [self.executionVectors addObject:[CWSExecutionVector executionVectorFromString:obj]];
-                        
-                        // load next EV
-                    } else if ([obj hasPrefix:@"NEXT:"]) {
-                        scanner = [NSScanner scannerWithString: [obj substringFromIndex:5]];
-                        NSInteger value = CWSNoExecutionVector;
-                        if ([scanner scanInteger:&value]) {
-                            self.nextExecutionVectorIndex = value;
-                        }
-                    }
-                    // else throw ?
-                    // read core state
-                } else {
-                    scanner = [NSScanner scannerWithString: obj];
-                    for (NSInteger x=0; x<aWidth; ++x) {
-                        NSInteger value = 0;
-                        if ([scanner scanInteger:&value] == YES) {
-                            [self setInstructionCode: value atPositionX:x andY:y];
-                        }
-                    }
-                    y++;
-                }
-                
-                pos++;
-            }
+            [self loadExecutionVectorsAndNextFromLines:lines upToIndex:coreStateIndex[0]];
+            [self loadCoreStateInfoFromLines:lines atIndex:coreStateIndex[0] upToIndex:coreStateIndex[1]];
+            [self loadCoreStateColorInfoFromLines:lines atIndex:coreStateIndex[1] upToIndex:lines.count];          
             
             return self;
         }

@@ -116,11 +116,23 @@
        "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "-\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
     
     NSInteger x1 = 5;
     NSInteger y1 = 6;
     CWSInstructionCode i1 = 3;
+    CWSInstructionColorTag c1 = 1;
 
     // Act
     CWSCoreState * coreState = [CWSCoreState coreStateWithString: coreStateData];
@@ -129,6 +141,7 @@
     XCTAssertEqual(i1, [coreState instructionCodeAtPositionX:x1 andY:y1]);
     XCTAssertEqual((NSInteger) 0, coreState.nextExecutionVectorIndex);
     XCTAssertEqual((NSUInteger) 2, coreState.executionVectors.count);
+    XCTAssertEqual(c1, [coreState instructionColorTagAtPositionX:x1 andY:y1]);
 }
 
 - (void) testOneStep {
