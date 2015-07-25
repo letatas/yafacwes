@@ -86,4 +86,20 @@
     XCTAssertEqualObjects(expected, string);
 }
 
+- (void) testFromString {
+    // Arrange
+    NSString * evdef = @"EV:5,12,S";
+    NSInteger evx = 5;
+    NSInteger evy = 12;
+    NSInteger evdir = CWSDirectionSouth;
+    
+    // Act
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorFromString:evdef];
+    
+    // Assert
+    XCTAssertEqual(evx, ev.x);
+    XCTAssertEqual(evy, ev.y);
+    XCTAssertEqual(evdir, ev.direction);
+}
+
 @end

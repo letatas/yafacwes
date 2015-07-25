@@ -27,6 +27,20 @@
     return [[self alloc] initWithX:aX andY:aY andDirection:aDirection];
 }
 
++ (instancetype) executionVectorFromString:(NSString *) line {
+    if ([line hasPrefix:@"EV:"]) {
+        NSScanner * scanner = [NSScanner scannerWithString: [line substringFromIndex:3]];
+        scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
+        NSInteger x = 0;
+        NSInteger y = 0;
+        if ([scanner scanInteger:&x]
+            && [scanner scanInteger:&y]) {
+            return [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString([[scanner string] substringFromIndex:[scanner scanLocation]+1])];
+        }
+    }
+    return nil;
+}
+
 - (void) move {
     switch (self.direction) {
         case CWSDirectionNorth:

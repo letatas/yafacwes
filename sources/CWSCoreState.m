@@ -79,15 +79,7 @@
                 if (pos < coreStateIndex) {
                     // load execution vector
                     if ([obj hasPrefix:@"EV:"]) {
-                        scanner = [NSScanner scannerWithString: [obj substringFromIndex:3]];
-                        scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
-                        NSInteger x = 0;
-                        NSInteger y = 0;
-                        if ([scanner scanInteger:&x]
-                            && [scanner scanInteger:&y]) {
-                            CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString([[scanner string] substringFromIndex:[scanner scanLocation]+1])];
-                            [self.executionVectors addObject:ev];
-                        }
+                        [self.executionVectors addObject:[CWSExecutionVector executionVectorFromString:obj]];
                         
                         // load next EV
                     } else if ([obj hasPrefix:@"NEXT:"]) {

@@ -16,6 +16,7 @@
 @property (nonatomic, assign) CWSDirection direction;
 
 + (instancetype) executionVectorWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection;
++ (instancetype) executionVectorFromString:(NSString *) line;
 
 - (void) move;
 
