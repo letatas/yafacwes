@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "CWSCoreState.h"
+#import "CWSCoreState_Private.h"
 
 @interface CWSCoreStateTests : XCTestCase
 
@@ -131,6 +132,8 @@
     
     NSInteger x1 = 5;
     NSInteger y1 = 6;
+    NSInteger width = 17;
+    NSInteger height = 10;
     CWSInstructionCode i1 = 3;
     CWSInstructionColorTag c1 = 1;
 
@@ -142,6 +145,8 @@
     XCTAssertEqual((NSInteger) 0, coreState.nextExecutionVectorIndex);
     XCTAssertEqual((NSUInteger) 2, coreState.executionVectors.count);
     XCTAssertEqual(c1, [coreState instructionColorTagAtPositionX:x1 andY:y1]);
+    XCTAssertEqual(width, coreState.width);
+    XCTAssertEqual(height, coreState.height);
 }
 
 - (void) testOneStep {
