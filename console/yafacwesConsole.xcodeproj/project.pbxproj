@@ -36,6 +36,7 @@
 		D0BDCC4C1B64CB21007BBC35 /* CWSConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC4B1B64CB21007BBC35 /* CWSConsolePalette.m */; };
 		D0BDCC521B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC511B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m */; };
 		D0BDCC551B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC541B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m */; };
+		D0BDCC571B64D666007BBC35 /* CWSConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC4B1B64CB21007BBC35 /* CWSConsolePalette.m */; };
 		D0FFCE821B5E34460039C4C0 /* CWSMiscellaneousTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */; };
 /* End PBXBuildFile section */
 
@@ -340,6 +341,7 @@
 				D0084C1C1B5468AC00B8985A /* CWSDirectionTests.m in Sources */,
 				D0084C241B546B8800B8985A /* CWSDirection.m in Sources */,
 				D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */,
+				D0BDCC571B64D666007BBC35 /* CWSConsolePalette.m in Sources */,
 				D0084C281B546BAA00B8985A /* CWSExecutionVectorTests.m in Sources */,
 				D0AF3D7F1B56EAE800274FE7 /* CWSInstructionNULL.m in Sources */,
 			);
