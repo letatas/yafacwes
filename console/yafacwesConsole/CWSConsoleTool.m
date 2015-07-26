@@ -51,9 +51,10 @@
     NSMutableString * result = [NSMutableString string];
     
     [result appendString:@"Usage:\n"];
-    [result appendFormat:@"    %@ --state <state_filename> [--steps <count>]\n", aExecutableName.lastPathComponent];
+    [result appendFormat:@"    %@ --state <state_filename> [--steps <count>] [--colored <colored>]\n", aExecutableName.lastPathComponent];
     [result appendString:@"<state_filename>: file containing a core state\n"];
     [result appendString:@"<count>         : the step counts the core state will execute\n"];
+    [result appendString:@"<colored>       : boolean used to activate colored output (YES) or not (NO or absent)\n"];
     
     return result;
 }
