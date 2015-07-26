@@ -33,6 +33,9 @@
 		D0AF3D8A1B56F52200274FE7 /* CWSInstructionRIGHT.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D881B56F4BE00274FE7 /* CWSInstructionRIGHT.m */; };
 		D0AF3D951B57927A00274FE7 /* CWSInstructionNOP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D941B57927A00274FE7 /* CWSInstructionNOP.m */; };
 		D0AF3D961B57927A00274FE7 /* CWSInstructionNOP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D941B57927A00274FE7 /* CWSInstructionNOP.m */; };
+		D0BDCC4C1B64CB21007BBC35 /* CWSConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC4B1B64CB21007BBC35 /* CWSConsolePalette.m */; };
+		D0BDCC521B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC511B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m */; };
+		D0BDCC551B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDCC541B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m */; };
 		D0FFCE821B5E34460039C4C0 /* CWSMiscellaneousTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +85,13 @@
 		D0AF3D931B57927A00274FE7 /* CWSInstructionNOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionNOP.h; path = ../../sources/CWSInstructionNOP.h; sourceTree = "<group>"; };
 		D0AF3D941B57927A00274FE7 /* CWSInstructionNOP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionNOP.m; path = ../../sources/CWSInstructionNOP.m; sourceTree = "<group>"; };
 		D0BDCC471B642EC0007BBC35 /* CWSInstructionColorTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructionColorTag.h; path = ../../sources/CWSInstructionColorTag.h; sourceTree = "<group>"; };
+		D0BDCC4A1B64CB21007BBC35 /* CWSConsolePalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWSConsolePalette.h; sourceTree = "<group>"; };
+		D0BDCC4B1B64CB21007BBC35 /* CWSConsolePalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWSConsolePalette.m; sourceTree = "<group>"; };
+		D0BDCC501B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CWSCoreState+ConsolePalette.h"; sourceTree = "<group>"; };
+		D0BDCC511B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CWSCoreState+ConsolePalette.m"; sourceTree = "<group>"; };
+		D0BDCC531B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CWSExecutionVector+ConsolePalette.h"; sourceTree = "<group>"; };
+		D0BDCC541B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CWSExecutionVector+ConsolePalette.m"; sourceTree = "<group>"; };
+		D0BDCC561B64D25D007BBC35 /* CWSCoreState_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSCoreState_Private.h; path = ../../sources/CWSCoreState_Private.h; sourceTree = "<group>"; };
 		D0E1B2151B5B13D400D0E84E /* CWSInstructionCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CWSInstructionCodes.h; path = ../../sources/CWSInstructionCodes.h; sourceTree = "<group>"; };
 		D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSMiscellaneousTests.m; path = ../../tests/CWSMiscellaneousTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +120,10 @@
 				D0084C041B544BF100B8985A /* CWSCategories.h */,
 				D0084C001B544B7B00B8985A /* NSString+StdOut.h */,
 				D0084C011B544B7B00B8985A /* NSString+StdOut.m */,
+				D0BDCC501B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.h */,
+				D0BDCC511B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m */,
+				D0BDCC531B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.h */,
+				D0BDCC541B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -124,6 +138,7 @@
 				D0084C211B546B8800B8985A /* CWSExecutionVector.h */,
 				D0084C221B546B8800B8985A /* CWSExecutionVector.m */,
 				D0084C2D1B558A7200B8985A /* CWSCoreState.h */,
+				D0BDCC561B64D25D007BBC35 /* CWSCoreState_Private.h */,
 				D0084C2E1B558A7200B8985A /* CWSCoreState.m */,
 				D0AF3D781B56EA7C00274FE7 /* Instructions */,
 			);
@@ -156,6 +171,8 @@
 				D0084C0A1B5455C000B8985A /* Core */,
 				D0084C291B54F31800B8985A /* CWSConsoleTool.h */,
 				D0084C2A1B54F31800B8985A /* CWSConsoleTool.m */,
+				D0BDCC4A1B64CB21007BBC35 /* CWSConsolePalette.h */,
+				D0BDCC4B1B64CB21007BBC35 /* CWSConsolePalette.m */,
 			);
 			path = yafacwesConsole;
 			sourceTree = "<group>";
@@ -288,9 +305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0BDCC4C1B64CB21007BBC35 /* CWSConsolePalette.m in Sources */,
 				D0084C021B544B7B00B8985A /* NSString+StdOut.m in Sources */,
+				D0BDCC551B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m in Sources */,
 				D0084C2F1B558A7200B8985A /* CWSCoreState.m in Sources */,
 				D0AF3D7E1B56EAE300274FE7 /* CWSInstructionNULL.m in Sources */,
+				D0BDCC521B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m in Sources */,
 				D0084C2B1B54F31800B8985A /* CWSConsoleTool.m in Sources */,
 				D0084C251B546B8800B8985A /* CWSExecutionVector.m in Sources */,
 				D08A0B811B53E9C600B746D0 /* main.m in Sources */,

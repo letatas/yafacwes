@@ -7,14 +7,13 @@
 //
 
 #import "CWSCoreState.h"
+#import "CWSCoreState_Private.h"
 #import "CWSInstructions.h"
 
 @interface CWSCoreState ()
 
 @property (nonatomic, assign) CWSInstructionCode * instructionCodes;
 @property (nonatomic, assign) CWSInstructionColorTag * instructionColorTags;
-@property (nonatomic, assign) NSInteger width;
-@property (nonatomic, assign) NSInteger height;
 @property (nonatomic, strong) NSMutableArray * executionVectors;
 
 - (void) loadExecutionVectorsAndNextFromLines:(NSArray *) lines upToIndex:(NSUInteger) last;

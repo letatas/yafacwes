@@ -7,17 +7,21 @@
 //
 
 #import "CWSConsoleTool.h"
+#import "CWSConsolePalette.h"
 
 @implementation CWSConsoleTool
 
-+ (NSString *) niceTitle {
++ (NSString *) niceTitle:(BOOL) aColored {
+    NSString * color = aColored?[CWSConsolePalette consoleColorFromColorTag:kPALETTE_COLOR_TAG_GREEN]:@"";
+    NSString * noColor = aColored?[CWSConsolePalette consoleColorFromColorTag:kPALETTE_COLOR_TAG_NO_COLOR]:@"";
+    
     NSMutableString * result = [NSMutableString string];
     
     [result appendString:@"****************************************************\n"];
-    [result appendString:@"*    __  _____   _______  ______      __________   *\n"];
-    [result appendString:@"*    \\ \\/ / _ | / __/ _ |/ ___/ | /| / / __/ __/   *\n"];
-    [result appendString:@"*     \\  / __ |/ _// __ / /__ | |/ |/ / _/_\\ \\     *\n"];
-    [result appendString:@"*     /_/_/ |_/_/ /_/ |_\\___/ |__/|__/___/___/     *\n"];
+    [result appendFormat:@"*    %@__  _____   _______  ______      __________   %@*\n", color, noColor];
+    [result appendFormat:@"*    %@\\ \\/ / _ | / __/ _ |/ ___/ | /| / / __/ __/   %@*\n", color, noColor];
+    [result appendFormat:@"*    %@ \\  / __ |/ _// __ / /__ | |/ |/ / _/_\\ \\     %@*\n", color, noColor];
+    [result appendFormat:@"*    %@ /_/_/ |_/_/ /_/ |_\\___/ |__/|__/___/___/     %@*\n", color, noColor];
     [result appendString:@"*                                                  *\n"];
     [result appendString:@"****************************************************\n"];
 
