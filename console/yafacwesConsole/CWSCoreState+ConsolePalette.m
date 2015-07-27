@@ -36,21 +36,6 @@
             [result appendString:@"\n"];
         }
         
-        [result appendString:@"-\n"];
-        
-        for (int y = 0; y < self.height; y++) {
-            if (y > 0) {
-                [result appendString:@"\n"];
-            }
-            for (int x = 0; x < self.width; x++) {
-                if (x > 0) {
-                    [result appendString:@" "];
-                }
-                color = [CWSConsolePalette consoleColorFromColorTag:[self instructionColorTagAtPositionX:x andY:y]];
-                [result appendFormat:@"%@%ld%@",color, [self instructionColorTagAtPositionX:x andY:y], noColor];
-            }
-        }
-        
         return result;
     }
     else {
