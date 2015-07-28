@@ -9,6 +9,8 @@
 #import "CWSCoreState.h"
 #import "CWSCoreState_Private.h"
 #import "CWSInstructions.h"
+#import "NSScanner+CWSExecutionVector.h"
+#import "NSScanner+CWSCoreState.h"
 
 @interface CWSCoreState ()
 
@@ -16,7 +18,6 @@
 @property (nonatomic, assign) CWSInstructionColorTag * instructionColorTags;
 @property (nonatomic, strong) NSMutableArray * executionVectors;
 
-- (void) loadExecutionVectorsAndNextFromLines:(NSArray *) lines upToIndex:(NSUInteger) last;
 - (void) loadCoreStateInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last;
 - (void) loadCoreStateColorInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last;
 
@@ -45,22 +46,6 @@
     return [[self alloc] initWithWidth:aWidth andHeight:aHeight];
 }
 
-- (void) loadExecutionVectorsAndNextFromLines:(NSArray *) lines upToIndex:(NSUInteger) last {
-    for (NSUInteger i=0; i<last; ++i) {
-        NSString * line = (NSString *) [lines objectAtIndex:i];
-        if ([line hasPrefix:@"NEXT:"]) {
-            NSScanner * scanner = [NSScanner scannerWithString: [line substringFromIndex:5]];
-            NSInteger value = CWSNoExecutionVector;
-            if ([scanner scanInteger:&value]) {
-                self.nextExecutionVectorIndex = value;
-            }
-        // load ev
-        } else {
-            [self.executionVectors addObject:[CWSExecutionVector executionVectorFromString:line]];
-        }
-    }
-}
-
 - (void) loadCoreStateInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last {
     for (NSUInteger i=start, y=0; i<last; ++i, ++y) {
         NSScanner * scanner = [NSScanner scannerWithString: [lines objectAtIndex:i]];
@@ -87,6 +72,13 @@
 
 - (instancetype) initWithString:(NSString *) aString {
     NSScanner * scanner = [NSScanner scannerWithString: aString];
+    NSMutableArray * evs = [NSMutableArray array];
+    
+    NSInteger nextEvIndex = 0;
+    while ([scanner scanExecutionVectorInArray: evs]) {}
+    if (![scanner scanNextExecutionVectorIndex: &nextEvIndex]) {
+        return nil;
+    }    
     
     // line by line scan
     NSUInteger coreStateIndex[2] = { NSUIntegerMax, NSUIntegerMax };
@@ -116,7 +108,8 @@
         if (aWidth > 0) {
             self = [self initWithWidth: aWidth andHeight: aHeight];
             
-            [self loadExecutionVectorsAndNextFromLines:lines upToIndex:coreStateIndex[0]];
+            self.nextExecutionVectorIndex = nextEvIndex;
+            [self.executionVectors addObjectsFromArray: evs];
             [self loadCoreStateInfoFromLines:lines atIndex:coreStateIndex[0] upToIndex:coreStateIndex[1]];
             [self loadCoreStateColorInfoFromLines:lines atIndex:coreStateIndex[1] upToIndex:lines.count];          
             
