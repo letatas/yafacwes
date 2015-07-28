@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "CWSExecutionVector.h"
+#import "NSScanner+CWSExecutionVector.h"
 
 @interface CWSExecutionVectorTests : XCTestCase
 
@@ -98,6 +99,29 @@
     CWSExecutionVector * ev = [CWSExecutionVector executionVectorFromString:evdef];
     
     // Assert
+    XCTAssertEqual(evx, ev.x);
+    XCTAssertEqual(evy, ev.y);
+    XCTAssertEqual(evdir, ev.direction);
+    XCTAssertEqual(evcolor, ev.colorTag);
+}
+
+- (void) testFromNSScanner {
+    // Arrange
+    NSString * evdef = @"EV:5,12,S,42\n";
+    
+    NSInteger evx = 5;
+    NSInteger evy = 12;
+    CWSDirection evdir = CWSDirectionSouth;
+    CWSInstructionColorTag evcolor = 42;
+    
+    // Act
+    NSScanner * scanner = [NSScanner scannerWithString: evdef];
+    CWSExecutionVector * ev = nil;
+    BOOL bScan = [scanner scanExecutionVector: &ev];
+    
+    // Assert
+    XCTAssert(bScan);
+    XCTAssert(ev != nil);
     XCTAssertEqual(evx, ev.x);
     XCTAssertEqual(evy, ev.y);
     XCTAssertEqual(evdir, ev.direction);
