@@ -128,4 +128,39 @@
     XCTAssertEqual(evcolor, ev.colorTag);
 }
 
+- (void) testFromNSScannerInArray {
+    // Arrange
+    NSString * evdef = @"EV:5,12,S,42\nEV:3,10,N,5";
+    
+    NSInteger evx1 = 5;
+    NSInteger evy1 = 12;
+    CWSDirection evdir1 = CWSDirectionSouth;
+    CWSInstructionColorTag evcolor1 = 42;
+    NSInteger evx2 = 3;
+    NSInteger evy2 = 10;
+    CWSDirection evdir2 = CWSDirectionNorth;
+    CWSInstructionColorTag evcolor2 = 5;
+    
+    // Act
+    NSScanner * scanner = [NSScanner scannerWithString: evdef];
+    NSMutableArray * array = [NSMutableArray array];
+    BOOL bScan = [scanner scanExecutionVectorInArray: array] && [scanner scanExecutionVectorInArray: array];
+    
+    // Assert
+    XCTAssert(bScan);
+    XCTAssert(array.count == 2);
+    
+    CWSExecutionVector * ev = [array objectAtIndex:0];
+    XCTAssertEqual(evx1, ev.x);
+    XCTAssertEqual(evy1, ev.y);
+    XCTAssertEqual(evdir1, ev.direction);
+    XCTAssertEqual(evcolor1, ev.colorTag);
+    
+    ev = [array objectAtIndex:1];
+    XCTAssertEqual(evx2, ev.x);
+    XCTAssertEqual(evy2, ev.y);
+    XCTAssertEqual(evdir2, ev.direction);
+    XCTAssertEqual(evcolor2, ev.colorTag);
+}
+
 @end
