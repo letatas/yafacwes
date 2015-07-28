@@ -219,6 +219,21 @@
 
 #pragma mark - Execution
 
+- (NSInteger) loop:(NSInteger) aValue onSize:(NSInteger) aSize {
+    if (aValue < 0) {
+        NSInteger number = 1 + (aValue / (-aSize));
+        return (number * aSize + aValue) % aSize;
+    }
+    else {
+        return aValue % aSize;
+    }
+}
+
+- (void) normalizeExecutionVector:(CWSExecutionVector *) aExecutionVector {
+    aExecutionVector.x = [self loop:aExecutionVector.x onSize:self.width];
+    aExecutionVector.y = [self loop:aExecutionVector.y onSize:self.height];
+}
+
 - (void) oneStep {
     CWSExecutionVector * ev = self.nextExecutionVector;
     if (ev != nil) {
@@ -240,6 +255,8 @@
         else {
             self.nextExecutionVectorIndex = self.nextExecutionVectorIndex % self.executionVectors.count;
         }
+        
+        [self normalizeExecutionVector:ev];
     }
 }
 

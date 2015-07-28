@@ -236,4 +236,105 @@
     XCTAssertEqualObjects(expected, string);
 }
 
+- (void) testLoopingEastInstructionCode {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 16;
+    NSInteger y1 = 5;
+    CWSInstructionCode i1 = kCWSInstructionCodeNOP;
+    NSInteger x2 = 0;
+    NSInteger y2 = 5;
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    [coreState setInstructionCode:i1 atPositionX:x1 andY:y1];
+    [coreState setInstructionCode:kCWSInstructionCodeNULL atPositionX:x2 andY:y2];
+    
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x1 andY:y1 andDirection:CWSDirectionEast andInstructionColorTag:0];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    
+    // Act
+    [coreState oneStep];
+    
+    // Assert
+    XCTAssertEqual(x2, ev.x);
+    XCTAssertEqual(y2, ev.y);
+}
+
+- (void) testLoopingWestInstructionCode {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 0;
+    NSInteger y1 = 5;
+    CWSInstructionCode i1 = kCWSInstructionCodeNOP;
+    NSInteger x2 = 16;
+    NSInteger y2 = 5;
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    [coreState setInstructionCode:i1 atPositionX:x1 andY:y1];
+    [coreState setInstructionCode:kCWSInstructionCodeNULL atPositionX:x2 andY:y2];
+    
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x1 andY:y1 andDirection:CWSDirectionWest andInstructionColorTag:0];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    
+    // Act
+    [coreState oneStep];
+    
+    // Assert
+    XCTAssertEqual(x2, ev.x);
+    XCTAssertEqual(y2, ev.y);
+}
+
+- (void) testLoopingNorthInstructionCode {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 8;
+    NSInteger y1 = 0;
+    CWSInstructionCode i1 = kCWSInstructionCodeNOP;
+    NSInteger x2 = 8;
+    NSInteger y2 = 9;
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    [coreState setInstructionCode:i1 atPositionX:x1 andY:y1];
+    [coreState setInstructionCode:kCWSInstructionCodeNULL atPositionX:x2 andY:y2];
+    
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x1 andY:y1 andDirection:CWSDirectionNorth andInstructionColorTag:0];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    
+    // Act
+    [coreState oneStep];
+    
+    // Assert
+    XCTAssertEqual(x2, ev.x);
+    XCTAssertEqual(y2, ev.y);
+}
+
+- (void) testLoopingSouthInstructionCode {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 8;
+    NSInteger y1 = 9;
+    CWSInstructionCode i1 = kCWSInstructionCodeNOP;
+    NSInteger x2 = 8;
+    NSInteger y2 = 0;
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    [coreState setInstructionCode:i1 atPositionX:x1 andY:y1];
+    [coreState setInstructionCode:kCWSInstructionCodeNULL atPositionX:x2 andY:y2];
+    
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:x1 andY:y1 andDirection:CWSDirectionSouth andInstructionColorTag:0];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    
+    // Act
+    [coreState oneStep];
+    
+    // Assert
+    XCTAssertEqual(x2, ev.x);
+    XCTAssertEqual(y2, ev.y);
+}
+
+
 @end
