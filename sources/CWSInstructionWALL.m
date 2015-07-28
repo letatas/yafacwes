@@ -1,19 +1,19 @@
 //
-//  CWSInstructionNOP.m
+//  CWSInstructionWALL.m
 //  yafacwesConsole
 //
-//  Created by Matthias Lamoureux on 15/07/2015.
+//  Created by Matthias Lamoureux on 28/07/2015.
 //  Copyright (c) 2015 pinguzaph. All rights reserved.
 //
 
-#import "CWSInstructionNOP.h"
+#import "CWSInstructionWALL.h"
 
-@implementation CWSInstructionNOP
+@implementation CWSInstructionWALL
 
 - (BOOL) executeForCoreState:(CWSCoreState *) aCoreState {
     CWSExecutionVector * ev = aCoreState.nextExecutionVector;
     
-    [ev move];
+    [ev moveToPreviousPosition];
     
     return YES;
 }

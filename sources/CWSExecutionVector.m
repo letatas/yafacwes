@@ -8,6 +8,13 @@
 
 #import "CWSExecutionVector.h"
 
+@interface CWSExecutionVector()
+
+@property (nonatomic, assign) NSInteger prevX;
+@property (nonatomic, assign) NSInteger prevY;
+
+@end
+
 @implementation CWSExecutionVector
 
 - (instancetype) initWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag {
@@ -16,6 +23,8 @@
     if (self) {
         self.x = aX;
         self.y = aY;
+        self.prevX = aX;
+        self.prevY = aY;
         self.direction = aDirection;
         self.colorTag = aColorTag;
     }
@@ -47,6 +56,9 @@
 }
 
 - (void) move {
+    self.prevY = self.x;
+    self.prevY = self.y;
+    
     switch (self.direction) {
         case CWSDirectionNorth:
             self.y--;
@@ -61,6 +73,11 @@
             self.x++;
             break;
     }
+}
+
+- (void) moveToPreviousPosition {
+    self.x = self.prevX;
+    self.y = self.prevY;
 }
 
 - (NSString *) description {

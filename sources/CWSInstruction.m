@@ -17,6 +17,7 @@
         case kCWSInstructionCodeLEFT: return [CWSInstructionLEFT class];
         case kCWSInstructionCodeRIGHT: return [CWSInstructionRIGHT class];
         case kCWSInstructionCodeNOP: return [CWSInstructionNOP class];
+        case kCWSInstructionCodeWALL: return [CWSInstructionWALL class];
         default: return Nil;
     }
 }

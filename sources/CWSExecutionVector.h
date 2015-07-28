@@ -21,5 +21,6 @@
 + (instancetype) executionVectorFromString:(NSString *) line;
 
 - (void) move;
+- (void) moveToPreviousPosition;
 
 @end

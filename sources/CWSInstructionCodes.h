@@ -9,8 +9,9 @@
 #import "CWSCompat.h"
 
 typedef NS_ENUM(NSInteger, CWSInstructionCode) {
-  kCWSInstructionCodeNULL = 0,
-  kCWSInstructionCodeLEFT,
-  kCWSInstructionCodeRIGHT,
-  kCWSInstructionCodeNOP
+    kCWSInstructionCodeNULL = 0,
+    kCWSInstructionCodeLEFT,
+    kCWSInstructionCodeRIGHT,
+    kCWSInstructionCodeNOP,
+    kCWSInstructionCodeWALL
 };
