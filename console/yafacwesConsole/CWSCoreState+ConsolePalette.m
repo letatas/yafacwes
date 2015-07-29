@@ -15,6 +15,9 @@
 - (NSString *) description:(BOOL) aColored {
     if (aColored) {
         NSMutableString * result = [NSMutableString string];
+  
+        // Clear screen
+//        [result appendString:@"\x1B[2J\x1B[1;1H"];
         
         [self.executionVectors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [result appendFormat:@"%@\n",[obj description:YES]];
