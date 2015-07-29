@@ -1,7 +1,5 @@
 #!/bin/sh
-
-#!/bin/sh
-if [ "$#" -ne 1 ] 
+if [ "$#" -ne 3 ] 
 then
   echo "Usage: $0 WIDTH HEIGHT EV_COUNT" >&2
   exit 1
@@ -51,7 +49,7 @@ function generateMatrix {
 	    for (( x=1; x<=$WIDTH; x++ ))
 	    do
 			CODE=$(( ( $RANDOM % $2 ) + $1 ))
-			echo $CODE" \c"
+			echo -n $CODE" "
 	    done
 	    echo
     done
