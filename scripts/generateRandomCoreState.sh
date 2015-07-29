@@ -49,7 +49,7 @@ function generateMatrix {
 	    for (( x=1; x<=$WIDTH; x++ ))
 	    do
 			CODE=$(( ( $RANDOM % $2 ) + $1 ))
-			echo $CODE" \c"
+			echo -n $CODE" "
 	    done
 	    echo
     done
