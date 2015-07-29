@@ -1,7 +1,5 @@
 #!/bin/sh
-
-#!/bin/sh
-if [ "$#" -ne 1 ] 
+if [ "$#" -ne 3 ] 
 then
   echo "Usage: $0 WIDTH HEIGHT EV_COUNT" >&2
   exit 1
