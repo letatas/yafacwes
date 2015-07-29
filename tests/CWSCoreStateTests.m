@@ -106,7 +106,7 @@
     NSString * coreStateData = 
       @"EV:5,6,S,1\n"
        "EV:7,3,E,2\n"
-       "NEXT:0\n"
+       "NEXT:1\n"
        "-\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
@@ -142,7 +142,7 @@
         
     // Assert
     XCTAssertEqual(i1, [coreState instructionCodeAtPositionX:x1 andY:y1]);
-    XCTAssertEqual((NSInteger) 0, coreState.nextExecutionVectorIndex);
+    XCTAssertEqual((NSInteger) 1, coreState.nextExecutionVectorIndex);
     XCTAssertEqual((NSUInteger) 2, coreState.executionVectors.count);
     XCTAssertEqual(c1, [coreState instructionColorTagAtPositionX:x1 andY:y1]);
     XCTAssertEqual(width, coreState.width);
