@@ -11,5 +11,7 @@
 @interface NSScanner(CWSCoreState)
 
 - (BOOL) scanNextExecutionVectorIndex:(NSInteger *) index;
+- (BOOL) scanCoreStateWidth:(NSUInteger *) aWidth andHeight:(NSUInteger *) aHeight;
+- (BOOL) scanMatrix;
 
 @end

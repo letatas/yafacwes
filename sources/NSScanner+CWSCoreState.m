@@ -25,4 +25,48 @@
     return NO;
 }
 
+- (BOOL) scanCoreStateWidth:(NSUInteger *) aWidth andHeight:(NSUInteger *) aHeight {
+    if ([self isAtEnd] || aWidth == NULL || aHeight == NULL) {
+        return NO;
+    }
+    
+    NSUInteger prevScanPos = self.scanLocation;
+    
+    if ([self scanString:@"-\n" intoString:NULL]) {
+        NSUInteger width = 0;
+        NSUInteger height = 0;
+        
+        NSUInteger matrixStart = self.scanLocation;
+        if ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:NULL]) {
+            NSUInteger firstLineStop = self.scanLocation;
+            self.scanLocation = matrixStart;
+            while ([self scanInteger:NULL] && self.scanLocation <= firstLineStop) {
+                width++;
+            }
+            
+            self.scanLocation = matrixStart;
+            NSString * currentLine = nil;
+            while ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine]) {
+                if ([currentLine isEqual:@"-"]) {
+                    break;
+                }
+                height++;
+            }
+            
+            *aWidth = width;
+            *aHeight = height;
+        }
+        
+        self.scanLocation = matrixStart;
+        return YES;
+    }
+    
+    self.scanLocation = prevScanPos;
+    return NO;
+}
+
+- (BOOL) scanMatrix {
+    return NO;
+}
+
 @end

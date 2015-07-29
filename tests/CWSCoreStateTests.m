@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "CWSCoreState.h"
 #import "CWSCoreState_Private.h"
+#import "NSScanner+CWSCoreState.h"
 
 @interface CWSCoreStateTests : XCTestCase
 
@@ -99,6 +100,38 @@
     XCTAssertEqual(t1, [coreState instructionColorTagAtPositionX:x1 andY:y1]);
     XCTAssertEqual(t2, [coreState instructionColorTagAtPositionX:x2 andY:y2]);
     XCTAssertEqual(t3, [coreState instructionColorTagAtPositionX:x3 andY:y3]);
+}
+
+- (void) testScanCoreStateWidth {
+    // Arrange
+    NSString * coreStateMatrix = 
+      @"-\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+       "-";    
+    NSUInteger width = 17;
+    NSUInteger height = 10;
+    
+    // Act
+    NSScanner * scanner = [NSScanner scannerWithString:coreStateMatrix];
+    
+    // Assert
+    NSUInteger readWidth = 0;
+    NSUInteger readHeight = 0;
+    XCTAssert([scanner scanCoreStateWidth: &readWidth andHeight: &readHeight]);
+    XCTAssertEqual(readWidth, width);
+    XCTAssertEqual(readHeight, height);
+    XCTAssert(![scanner scanCoreStateWidth: NULL andHeight: &readHeight]);
+    XCTAssert(![scanner scanCoreStateWidth: NULL andHeight: NULL]);
+    XCTAssert(![scanner scanCoreStateWidth: &readWidth andHeight: NULL]);
 }
 
 - (void) testCoreStateFromString {
