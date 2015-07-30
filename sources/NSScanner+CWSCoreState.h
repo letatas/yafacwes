@@ -12,6 +12,6 @@
 
 - (BOOL) scanNextExecutionVectorIndex:(NSInteger *) index;
 - (BOOL) scanCoreStateWidth:(NSUInteger *) aWidth andHeight:(NSUInteger *) aHeight;
-- (BOOL) scanMatrix;
+- (BOOL) scanIntegerMatrixWithBlock:(void (^)(NSUInteger x, NSUInteger y, NSInteger value)) block;
 
 @end

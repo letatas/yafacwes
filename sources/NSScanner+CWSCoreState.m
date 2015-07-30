@@ -65,7 +65,37 @@
     return NO;
 }
 
-- (BOOL) scanMatrix {
+- (BOOL) scanIntegerMatrixWithBlock:(void (^)(NSUInteger x, NSUInteger y, NSInteger value)) block {
+    if ([self isAtEnd] || !block) {
+        return NO;
+    }
+    
+    NSUInteger prevScanPos = self.scanLocation;
+    if ([self scanString:@"-\n" intoString: NULL]) {
+        NSUInteger posy = 0;
+        NSString * currentLine = nil;
+        NSUInteger lineStart = self.scanLocation;
+        
+        while ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine]) {            
+            if ([currentLine isEqual:@"-"]) {
+                break;
+            }
+            NSUInteger lineStop = self.scanLocation;
+            self.scanLocation = lineStart;
+            
+            NSUInteger posx = 0;
+            NSInteger curval = 0;
+            while ([self scanInteger:&curval] && self.scanLocation <= lineStop) {
+                block(posx, posy, curval);
+                posx++;
+            }
+            
+            lineStart = lineStop;  
+            posy++;
+        }
+    }
+    
+    self.scanLocation = prevScanPos;
     return NO;
 }
 

@@ -115,8 +115,7 @@
        "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
-       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
-       "-";    
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";    
     NSUInteger width = 17;
     NSUInteger height = 10;
     
@@ -132,6 +131,30 @@
     XCTAssert(![scanner scanCoreStateWidth: NULL andHeight: &readHeight]);
     XCTAssert(![scanner scanCoreStateWidth: NULL andHeight: NULL]);
     XCTAssert(![scanner scanCoreStateWidth: &readWidth andHeight: NULL]);
+}
+
+- (void) testScanIntegerMatrix {
+    // Arrange
+    NSString * coreStateMatrix = 
+      @"-\n"
+       "1 2 3 4\n"
+       "5 6 7 8\n"
+       "9 10 11 12\n"
+       "13 14 15 16\n";
+    NSUInteger expectedCount = 16;
+    
+    // Act
+    NSScanner * scanner = [NSScanner scannerWithString:coreStateMatrix];
+    
+    // Assert
+    XCTAssert(![scanner scanIntegerMatrixWithBlock: nil]);
+    __block NSUInteger readCount = 0;
+    while ([scanner scanIntegerMatrixWithBlock:^ (NSUInteger x, NSUInteger y, NSInteger value) {
+        NSInteger expected = y * 4 + x + 1;
+        XCTAssertEqual(value, expected);
+        readCount++;
+    }]) {}
+    XCTAssertEqual(expectedCount, readCount);
 }
 
 - (void) testCoreStateFromString {
