@@ -1,4 +1,5 @@
 #!/bin/sh
+
 if [ "$#" -ne 3 ] 
 then
   echo "Usage: $0 WIDTH HEIGHT EV_COUNT" >&2
@@ -49,7 +50,7 @@ function generateMatrix {
 	    for (( x=1; x<=$WIDTH; x++ ))
 	    do
 			CODE=$(( ( $RANDOM % $2 ) + $1 ))
-			echo -n $CODE" "
+			printf "%d " $CODE
 	    done
 	    echo
     done
