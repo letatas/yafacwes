@@ -18,9 +18,6 @@
 @property (nonatomic, assign) CWSInstructionColorTag * instructionColorTags;
 @property (nonatomic, strong) NSMutableArray * executionVectors;
 
-- (void) loadCoreStateInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last;
-- (void) loadCoreStateColorInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last;
-
 @end
 
 @implementation CWSCoreState
@@ -46,30 +43,6 @@
     return [[self alloc] initWithWidth:aWidth andHeight:aHeight];
 }
 
-- (void) loadCoreStateInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last {
-    for (NSUInteger i=start, y=0; i<last; ++i, ++y) {
-        NSScanner * scanner = [NSScanner scannerWithString: [lines objectAtIndex:i]];
-        for (NSInteger x=0; x<self.width; ++x) {
-            NSInteger value = 0;
-            if ([scanner scanInteger:&value] == YES) {
-                [self setInstructionCode: value atPositionX:x andY:y];
-            }
-        }
-    }
-}
-
-- (void) loadCoreStateColorInfoFromLines:(NSArray *) lines atIndex:(NSUInteger) start upToIndex:(NSUInteger) last {
-    for (NSUInteger i=start, y=0; i<last; ++i, ++y) {
-        NSScanner * scanner = [NSScanner scannerWithString: [lines objectAtIndex:i]];
-        for (NSInteger x=0; x<self.width; ++x) {
-            NSInteger value = 0;
-            if ([scanner scanInteger:&value] == YES) {
-                [self setInstructionColorTag: value atPositionX:x andY:y];
-            }
-        }
-    }
-}
-
 - (instancetype) initWithString:(NSString *) aString {
     NSScanner * scanner = [NSScanner scannerWithString: aString];
     NSMutableArray * evs = [NSMutableArray array];
@@ -80,43 +53,29 @@
         return nil;
     }    
     
-    // line by line scan
-    NSUInteger coreStateIndex[2] = { NSUIntegerMax, NSUIntegerMax };
-    NSUInteger currentIndex = 0;
-    NSMutableArray * lines = [NSMutableArray array];
-    NSString * currentLine = NULL;
-    while ([scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine] == YES) {
-        if (currentLine != nil) {
-            if ([currentLine isEqual:@"-"] == NO) {
-                [lines addObject:currentLine];
-            } else {
-                coreStateIndex[currentIndex++] = lines.count;
-            }
-        }
+    NSInteger width = 0;
+    NSInteger height = 0;
+    if (![scanner scanCoreStateWidth:&width andHeight:&height]) {
+        return nil;
     }
     
-    // compute core dimensions
-    NSInteger aHeight = coreStateIndex[1] - coreStateIndex[0];
-    NSInteger aWidth = 0;
-    if (aHeight > 0) {
-        scanner = [NSScanner scannerWithString: [lines objectAtIndex: coreStateIndex[0]]];
-        
-        while ([scanner scanInteger: NULL] == YES) {
-            aWidth++;
-        }
-        
-        if (aWidth > 0) {
-            self = [self initWithWidth: aWidth andHeight: aHeight];
-            
-            self.nextExecutionVectorIndex = nextEvIndex;
-            [self.executionVectors addObjectsFromArray: evs];
-            [self loadCoreStateInfoFromLines:lines atIndex:coreStateIndex[0] upToIndex:coreStateIndex[1]];
-            [self loadCoreStateColorInfoFromLines:lines atIndex:coreStateIndex[1] upToIndex:lines.count];          
-            
-            return self;
-        }
+    self = [self initWithWidth:width andHeight:height];
+    if (self == nil) {
+        return nil;
     }
-    return nil;
+    
+    if (![scanner scanIntegerMatrixWithBlock:^(NSUInteger x, NSUInteger y, NSInteger value) {
+        [self setInstructionCode: value atPositionX:x andY:y];
+    }]) {
+        return nil;
+    }
+    [scanner scanIntegerMatrixWithBlock:^(NSUInteger x, NSUInteger y, NSInteger value) {
+        [self setInstructionColorTag: value atPositionX:x andY:y];
+    }];
+    
+    self.nextExecutionVectorIndex = nextEvIndex;
+    [self.executionVectors addObjectsFromArray: evs];
+    return self;
 }
 
 + (instancetype) coreStateWithString:(NSString *) aString {

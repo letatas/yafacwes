@@ -25,7 +25,7 @@
     return NO;
 }
 
-- (BOOL) scanCoreStateWidth:(NSUInteger *) aWidth andHeight:(NSUInteger *) aHeight {
+- (BOOL) scanCoreStateWidth:(NSInteger *) aWidth andHeight:(NSInteger *) aHeight {
     if ([self isAtEnd] || aWidth == NULL || aHeight == NULL) {
         return NO;
     }
@@ -33,8 +33,8 @@
     NSUInteger prevScanPos = self.scanLocation;
     
     if ([self scanString:@"-\n" intoString:NULL]) {
-        NSUInteger width = 0;
-        NSUInteger height = 0;
+        NSInteger width = 0;
+        NSInteger height = 0;
         
         NSUInteger matrixStart = self.scanLocation;
         if ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:NULL]) {
@@ -57,7 +57,7 @@
             *aHeight = height;
         }
         
-        self.scanLocation = matrixStart;
+        self.scanLocation = prevScanPos;
         return YES;
     }
     
@@ -78,6 +78,7 @@
         
         while ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine]) {            
             if ([currentLine isEqual:@"-"]) {
+                self.scanLocation = lineStart;
                 break;
             }
             NSUInteger lineStop = self.scanLocation;
@@ -93,6 +94,7 @@
             lineStart = lineStop;  
             posy++;
         }
+        return YES;
     }
     
     self.scanLocation = prevScanPos;

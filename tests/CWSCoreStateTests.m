@@ -116,15 +116,15 @@
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n";    
-    NSUInteger width = 17;
-    NSUInteger height = 10;
+    NSInteger width = 17;
+    NSInteger height = 10;
     
     // Act
     NSScanner * scanner = [NSScanner scannerWithString:coreStateMatrix];
     
     // Assert
-    NSUInteger readWidth = 0;
-    NSUInteger readHeight = 0;
+    NSInteger readWidth = 0;
+    NSInteger readHeight = 0;
     XCTAssert([scanner scanCoreStateWidth: &readWidth andHeight: &readHeight]);
     XCTAssertEqual(readWidth, width);
     XCTAssertEqual(readHeight, height);
@@ -140,8 +140,13 @@
        "1 2 3 4\n"
        "5 6 7 8\n"
        "9 10 11 12\n"
-       "13 14 15 16\n";
-    NSUInteger expectedCount = 16;
+       "13 14 15 16\n"
+       "-\n"
+       "16 15 14 13\n"
+       "12 11 10 9\n"
+       "8 7 6 5\n"
+       "4 3 2 1\n";
+    NSUInteger expectedCount = 16;    
     
     // Act
     NSScanner * scanner = [NSScanner scannerWithString:coreStateMatrix];
@@ -149,11 +154,21 @@
     // Assert
     XCTAssert(![scanner scanIntegerMatrixWithBlock: nil]);
     __block NSUInteger readCount = 0;
-    while ([scanner scanIntegerMatrixWithBlock:^ (NSUInteger x, NSUInteger y, NSInteger value) {
+    BOOL bLoad = [scanner scanIntegerMatrixWithBlock:^ (NSUInteger x, NSUInteger y, NSInteger value) {
         NSInteger expected = y * 4 + x + 1;
         XCTAssertEqual(value, expected);
         readCount++;
-    }]) {}
+    }];
+    XCTAssert(bLoad);
+    XCTAssertEqual(expectedCount, readCount);
+    
+    readCount = 0;
+    bLoad = [scanner scanIntegerMatrixWithBlock:^ (NSUInteger x, NSUInteger y, NSInteger value) {
+        NSInteger expected = 16 - (y * 4 + x);
+        XCTAssertEqual(value, expected);
+        readCount++;
+    }];
+    XCTAssert(bLoad);
     XCTAssertEqual(expectedCount, readCount);
 }
 
