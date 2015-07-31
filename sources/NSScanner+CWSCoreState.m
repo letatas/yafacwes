@@ -76,7 +76,7 @@
         NSString * currentLine = nil;
         NSUInteger lineStart = self.scanLocation;
         
-        while ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine]) {            
+        while ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine]) {
             if ([currentLine isEqual:@"-"]) {
                 self.scanLocation = lineStart;
                 break;
@@ -86,12 +86,16 @@
             
             NSUInteger posx = 0;
             NSInteger curval = 0;
-            while ([self scanInteger:&curval] && self.scanLocation <= lineStop) {
+            self.charactersToBeSkipped = [NSCharacterSet whitespaceCharacterSet];
+            while ([self scanInteger:&curval]) {
                 block(posx, posy, curval);
                 posx++;
             }
+            self.charactersToBeSkipped = nil;
             
-            lineStart = lineStop;  
+            self.scanLocation = lineStop;
+            [self scanCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine];
+            lineStart = self.scanLocation;
             posy++;
         }
         return YES;
