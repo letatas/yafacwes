@@ -407,5 +407,36 @@
     XCTAssertEqual(y2, ev.y);
 }
 
+- (void) testInstructionParametersInitialValues {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    
+    // Act
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    
+    // Assert
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            XCTAssertNil([coreState instructionParameterAtPositionX:x andY:y]);
+        }
+    }
+}
+
+- (void) testInstructionParameters {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    NSInteger x1 = 8;
+    NSInteger y1 = 9;
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    NSUUID * parameter = [NSUUID UUID];
+
+    // Act
+    [coreState setInstructionParameter:parameter atPositionX:x1 andY:y1];
+    
+    // Assert
+    XCTAssertEqualObjects(parameter, [coreState instructionParameterAtPositionX:x1 andY:y1]);
+}
 
 @end

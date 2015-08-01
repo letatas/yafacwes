@@ -17,6 +17,7 @@
 @property (nonatomic, assign) CWSInstructionCode * instructionCodes;
 @property (nonatomic, assign) CWSInstructionColorTag * instructionColorTags;
 @property (nonatomic, strong) NSMutableArray * executionVectors;
+@property (nonatomic, strong) NSMutableDictionary * instructionParameters;
 
 @end
 
@@ -34,6 +35,8 @@
         
         self.executionVectors = [NSMutableArray array];
         self.nextExecutionVectorIndex = CWSNoExecutionVector;
+        
+        self.instructionParameters = [NSMutableDictionary dictionary];
     }
     
     return self;
@@ -168,6 +171,19 @@
     self.instructionColorTags[aX + aY*self.width] = aInstructionColorTag;
 }
 
+#pragma mark - Instruction Parameters
+
+- (NSString *) parameterKeyForPositionX:(NSInteger) aX andY:(NSInteger) aY {
+    return [NSString stringWithFormat:@"%ld;%ld",(long)aX,(long)aY];
+}
+
+- (id) instructionParameterAtPositionX:(NSInteger) aX andY:(NSInteger) aY {
+    return self.instructionParameters[[self parameterKeyForPositionX:aX andY:aY]];
+}
+
+- (void) setInstructionParameter:(id) aInstructionParameter atPositionX:(NSInteger) aX andY:(NSInteger) aY {
+    self.instructionParameters[[self parameterKeyForPositionX:aX andY:aY]] = aInstructionParameter;
+}
 
 #pragma mark - Execution
 

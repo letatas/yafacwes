@@ -26,6 +26,8 @@ enum {CWSNoExecutionVector = NSIntegerMax};
 - (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPositionX:(NSInteger) aX andY:(NSInteger) aY;
 - (CWSInstructionColorTag) instructionColorTagAtPositionX:(NSInteger) aX andY:(NSInteger) aY;
 - (void) setInstructionColorTag:(CWSInstructionColorTag) aInstructionColorTag atPositionX:(NSInteger) aX andY:(NSInteger) aY;
+- (id) instructionParameterAtPositionX:(NSInteger) aX andY:(NSInteger) aY;
+- (void) setInstructionParameter:(id) aInstructionParameter atPositionX:(NSInteger) aX andY:(NSInteger) aY;
 
 - (CWSExecutionVector *) nextExecutionVector;
 
