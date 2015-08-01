@@ -7,17 +7,21 @@
 //
 
 #import "CWSConsoleTool.h"
+#import "CWSConsolePalette.h"
 
 @implementation CWSConsoleTool
 
-+ (NSString *) niceTitle {
++ (NSString *) niceTitle:(BOOL) aColored {
+    NSString * color = aColored?[CWSConsolePalette consoleColorFromColorTag:kPALETTE_COLOR_TAG_GREEN]:@"";
+    NSString * noColor = aColored?[CWSConsolePalette consoleColorFromColorTag:kPALETTE_COLOR_TAG_NO_COLOR]:@"";
+    
     NSMutableString * result = [NSMutableString string];
     
     [result appendString:@"****************************************************\n"];
-    [result appendString:@"*    __  _____   _______  ______      __________   *\n"];
-    [result appendString:@"*    \\ \\/ / _ | / __/ _ |/ ___/ | /| / / __/ __/   *\n"];
-    [result appendString:@"*     \\  / __ |/ _// __ / /__ | |/ |/ / _/_\\ \\     *\n"];
-    [result appendString:@"*     /_/_/ |_/_/ /_/ |_\\___/ |__/|__/___/___/     *\n"];
+    [result appendFormat:@"*    %@__  _____   _______  ______      __________   %@*\n", color, noColor];
+    [result appendFormat:@"*    %@\\ \\/ / _ | / __/ _ |/ ___/ | /| / / __/ __/   %@*\n", color, noColor];
+    [result appendFormat:@"*    %@ \\  / __ |/ _// __ / /__ | |/ |/ / _/_\\ \\     %@*\n", color, noColor];
+    [result appendFormat:@"*    %@ /_/_/ |_/_/ /_/ |_\\___/ |__/|__/___/___/     %@*\n", color, noColor];
     [result appendString:@"*                                                  *\n"];
     [result appendString:@"****************************************************\n"];
 
@@ -47,9 +51,10 @@
     NSMutableString * result = [NSMutableString string];
     
     [result appendString:@"Usage:\n"];
-    [result appendFormat:@"    %@ --state <state_filename> [--steps <count>]\n", aExecutableName.lastPathComponent];
+    [result appendFormat:@"    %@ --state <state_filename> [--steps <count>] [--colored <colored>]\n", aExecutableName.lastPathComponent];
     [result appendString:@"<state_filename>: file containing a core state\n"];
     [result appendString:@"<count>         : the step counts the core state will execute\n"];
+    [result appendString:@"<colored>       : boolean used to activate colored output (YES) or not (NO or absent)\n"];
     
     return result;
 }

@@ -8,15 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "CWSDirection.h"
+#import "CWSInstructionColorTag.h"
 
 @interface CWSExecutionVector : NSObject
 
 @property (nonatomic, assign) NSInteger x;
 @property (nonatomic, assign) NSInteger y;
 @property (nonatomic, assign) CWSDirection direction;
+@property (nonatomic, assign) CWSInstructionColorTag colorTag;
 
-+ (instancetype) executionVectorWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection;
++ (instancetype) executionVectorWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag;
++ (instancetype) executionVectorFromString:(NSString *) line;
 
 - (void) move;
+- (void) moveToPreviousPosition;
 
 @end

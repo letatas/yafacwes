@@ -10,7 +10,7 @@
 
 @interface CWSConsoleTool : NSObject
 
-+ (NSString *) niceTitle;
++ (NSString *) niceTitle:(BOOL) aColored;
 + (NSDictionary *) parseParamsCount:(int) argc andValues:(const char **) argv;
 + (NSString *) usageOfExecutable:(NSString *) aExecutableName;
 

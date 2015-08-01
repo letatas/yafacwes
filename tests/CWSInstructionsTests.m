@@ -29,17 +29,19 @@
 }
 
 - (void)testInstructionFactory {
-    XCTAssertEqualObjects([CWSInstructionNULL class], [[CWSInstruction instructionForCode:0] class]);
-    XCTAssertEqualObjects([CWSInstructionLEFT class], [[CWSInstruction instructionForCode:1] class]);
-    XCTAssertEqualObjects([CWSInstructionRIGHT class], [[CWSInstruction instructionForCode:2] class]);
-    XCTAssertEqualObjects([CWSInstructionNOP class], [[CWSInstruction instructionForCode:3] class]);
+    XCTAssertEqualObjects([CWSInstructionNULL class], [[CWSInstruction instructionForCode:kCWSInstructionCodeNULL] class]);
+    XCTAssertEqualObjects([CWSInstructionLEFT class], [[CWSInstruction instructionForCode:kCWSInstructionCodeLEFT] class]);
+    XCTAssertEqualObjects([CWSInstructionRIGHT class], [[CWSInstruction instructionForCode:kCWSInstructionCodeRIGHT] class]);
+    XCTAssertEqualObjects([CWSInstructionNOP class], [[CWSInstruction instructionForCode:kCWSInstructionCodeNOP] class]);
+    XCTAssertEqualObjects([CWSInstructionWALL class], [[CWSInstruction instructionForCode:kCWSInstructionCodeWALL] class]);
+    XCTAssertEqualObjects([CWSInstructionSTOP class], [[CWSInstruction instructionForCode:kCWSInstructionCodeSTOP] class]);
 }
 
 - (void) testNULLInstruction {
     // Arrange
-    CWSInstruction * instruction = [CWSInstruction instructionForCode:0];
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:kCWSInstructionCodeNULL];
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:5 andY:5 andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:5 andY:5 andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     
@@ -52,12 +54,12 @@
 
 - (void) testLEFTInstruction {
     // Arrange
-    CWSInstructionCode code = 1;
+    CWSInstructionCode code = kCWSInstructionCodeLEFT;
     CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX = 5;
     NSInteger posY = 6;
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:code atPositionX:posX andY:posY];
@@ -74,12 +76,12 @@
 
 - (void) testRIGHTInstruction {
     // Arrange
-    CWSInstructionCode code = 2;
+    CWSInstructionCode code = kCWSInstructionCodeRIGHT;
     CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX = 5;
     NSInteger posY = 6;
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:code atPositionX:posX andY:posY];
@@ -96,12 +98,12 @@
 
 - (void) testNOPInstruction {
     // Arrange
-    CWSInstructionCode code = 3;
+    CWSInstructionCode code = kCWSInstructionCodeNOP;
     CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
     CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
     NSInteger posX = 5;
     NSInteger posY = 6;
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
     [coreState.executionVectors addObject:ev];
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:code atPositionX:posX andY:posY];
@@ -113,6 +115,52 @@
     XCTAssert(result);
     XCTAssertEqual(ev.x, posX);
     XCTAssertEqual(ev.y, posY+1);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
+}
+
+- (void) testWALLInstruction {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodeWALL;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    NSInteger posX = 5;
+    NSInteger posY = 6;
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:kCWSInstructionCodeNOP atPositionX:posX andY:posY];
+    [coreState setInstructionCode:code atPositionX:posX andY:posY+1];
+    
+    // Act
+    [instruction executeForCoreState:coreState];
+    BOOL result = [instruction executeForCoreState:coreState];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.x, posX);
+    XCTAssertEqual(ev.y, posY);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
+}
+
+- (void) testSTOPInstruction {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodeSTOP;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    NSInteger posX = 5;
+    NSInteger posY = 6;
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:posX andY:posY andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPositionX:posX andY:posY];
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.x, posX);
+    XCTAssertEqual(ev.y, posY);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
 }
 

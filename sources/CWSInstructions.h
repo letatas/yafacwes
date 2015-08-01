@@ -10,3 +10,5 @@
 #import "CWSInstructionLEFT.h"
 #import "CWSInstructionRIGHT.h"
 #import "CWSInstructionNOP.h"
+#import "CWSInstructionWALL.h"
+#import "CWSInstructionSTOP.h"
