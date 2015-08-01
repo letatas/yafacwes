@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "CWSExecutionVector.h"
 #import "NSScanner+CWSExecutionVector.h"
+#import "CWSInstructionCodes.h"
 
 @interface CWSExecutionVectorTests : XCTestCase
 
@@ -162,5 +163,36 @@
     XCTAssertEqual(evdir2, ev.direction);
     XCTAssertEqual(evcolor2, ev.colorTag);
 }
+
+- (void) testStack {
+    // Arrange
+    CWSParametrizedInstruction * i1 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNULL andParameter:nil];
+    CWSParametrizedInstruction * i2 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNULL andParameter:[NSUUID UUID]];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionZero andDirection:CWSDirectionNorth andInstructionColorTag:0];
+    
+    // Act
+    [ev pushOnStack:i1];
+    [ev pushOnStack:i2];
+    
+    // Assert
+    XCTAssertEqual(2, ev.stackSize);
+    XCTAssertFalse(ev.isStackEmpty);
+    XCTAssertEqualObjects(i2, ev.peekOnStack);
+    
+    XCTAssertEqualObjects(i2, ev.popOnStack);
+
+    XCTAssertEqual(1, ev.stackSize);
+    XCTAssertFalse(ev.isStackEmpty);
+    XCTAssertEqualObjects(i1, ev.peekOnStack);
+    
+    XCTAssertEqualObjects(i1, ev.popOnStack);
+
+    XCTAssertEqual(0, ev.stackSize);
+    XCTAssert(ev.isStackEmpty);
+    XCTAssertNil(ev.peekOnStack);
+    
+    XCTAssertNil(ev.popOnStack);
+}
+
 
 @end

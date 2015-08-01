@@ -10,6 +10,7 @@
 #import "CWSDirection.h"
 #import "CWSInstructionColorTag.h"
 #import "CWSPosition.h"
+#import "CWSParametrizedInstruction.h"
 
 @interface CWSExecutionVector : NSObject
 
@@ -22,5 +23,11 @@
 
 - (void) move;
 - (void) moveToPreviousPosition;
+
+- (void) pushOnStack:(CWSParametrizedInstruction *) aParametrizedInstruction;
+- (CWSParametrizedInstruction *) popOnStack;
+- (CWSParametrizedInstruction *) peekOnStack;
+- (NSUInteger) stackSize;
+- (BOOL) isStackEmpty;
 
 @end

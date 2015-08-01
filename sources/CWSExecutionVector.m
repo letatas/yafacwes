@@ -7,10 +7,12 @@
 //
 
 #import "CWSExecutionVector.h"
+#import "NSMutableArray+Stack.h"
 
 @interface CWSExecutionVector()
 
 @property (nonatomic, assign) CWSPosition prevPosition;
+@property (nonatomic, strong) NSMutableArray * stack;
 
 @end
 
@@ -24,6 +26,7 @@
         self.prevPosition = aPosition;
         self.direction = aDirection;
         self.colorTag = aColorTag;
+        self.stack = [NSMutableArray array];
     }
     
     return self;
@@ -79,6 +82,28 @@
 
 - (NSString *) description {
     return [NSString stringWithFormat:@"EV:%ld,%ld,%@,%ld",self.position.x,self.position.y,directionToString(self.direction),self.colorTag];
+}
+
+#pragma mark - Stack
+
+- (void) pushOnStack:(CWSParametrizedInstruction *) aParametrizedInstruction {
+    [self.stack push:aParametrizedInstruction];
+}
+
+- (CWSParametrizedInstruction *) popOnStack {
+    return self.stack.pop;
+}
+
+- (CWSParametrizedInstruction *) peekOnStack {
+    return self.stack.peek;
+}
+
+- (NSUInteger) stackSize {
+    return self.stack.count;
+}
+
+- (BOOL) isStackEmpty {
+    return self.stackSize == 0;
 }
 
 @end
