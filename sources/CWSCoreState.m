@@ -131,6 +131,15 @@
                 [result appendString:@" "];
             }
             [result appendFormat:@"%ld",[self instructionCodeAtPosition:position]];
+            id parameter = [self instructionParameterAtPosition:position];
+            if (parameter != nil) {
+                if ([parameter respondsToSelector:@selector(parameterDescription)]) {
+                    [result appendFormat:@"{%@}",[parameter parameterDescription]];
+                }
+                else {
+                    [result appendFormat:@"{%@}",[parameter description]];
+                }
+            }
         }
         [result appendString:@"\n"];
     }

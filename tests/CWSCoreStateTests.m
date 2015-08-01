@@ -264,6 +264,10 @@
     coreState.nextExecutionVectorIndex = 0;
     [coreState setInstructionCode:3 atPosition:position1];
     [coreState setInstructionColorTag:9 atPosition:CWSPositionMake(position1.x+1, position1.y+1)];
+    CWSPosition position3 = CWSPositionMake(8,4);
+    CWSPosition positionParameter = CWSPositionMake(1, -1);
+    NSValue * parameter = [NSValue valueWithPosition:positionParameter];
+    [coreState setInstructionParameter:parameter atPosition:position3];
     
     // Act
     NSString * string = coreState.description;
@@ -275,7 +279,7 @@
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
-    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0{(1,-1)} 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"

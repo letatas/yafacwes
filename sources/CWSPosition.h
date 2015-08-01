@@ -25,6 +25,8 @@ extern const CWSPosition CWSPositionZero;
 
 @property (readonly) CWSPosition positionValue;
 
+- (NSString *) parameterDescription;
+
 @end
 
 

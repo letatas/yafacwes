@@ -37,6 +37,10 @@ const CWSPosition CWSPositionZero = {.x=0, .y=0};
     return result;
 }
 
+- (NSString *) parameterDescription {
+    return NSStringFromPosition(self.positionValue);
+}
+
 @end
 
 #pragma mark - NSScanner
