@@ -29,55 +29,55 @@
 
 - (void)testMovingNorth {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionNorth andInstructionColorTag:42];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionMake(10,10) andDirection:CWSDirectionNorth andInstructionColorTag:42];
     
     // Act
     [ev move];
     
     // Assert
-    XCTAssertEqual((NSInteger)10, ev.x);
-    XCTAssertEqual((NSInteger)9, ev.y);
+    XCTAssertEqual((NSInteger)10, ev.position.x);
+    XCTAssertEqual((NSInteger)9, ev.position.y);
 }
 
 - (void)testMovingSouth {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionMake(10,10) andDirection:CWSDirectionSouth andInstructionColorTag:42];
     
     // Act
     [ev move];
     
     // Assert
-    XCTAssertEqual((NSInteger)10, ev.x);
-    XCTAssertEqual((NSInteger)11, ev.y);
+    XCTAssertEqual((NSInteger)10, ev.position.x);
+    XCTAssertEqual((NSInteger)11, ev.position.y);
 }
 
 - (void)testMovingWest {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionWest andInstructionColorTag:42];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionMake(10,10) andDirection:CWSDirectionWest andInstructionColorTag:42];
     
     // Act
     [ev move];
     
     // Assert
-    XCTAssertEqual((NSInteger)9, ev.x);
-    XCTAssertEqual((NSInteger)10, ev.y);
+    XCTAssertEqual((NSInteger)9, ev.position.x);
+    XCTAssertEqual((NSInteger)10, ev.position.y);
 }
 
 - (void)testMovingEast {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:10 andY:10 andDirection:CWSDirectionEast andInstructionColorTag:42];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionMake(10,10) andDirection:CWSDirectionEast andInstructionColorTag:42];
     
     // Act
     [ev move];
     
     // Assert
-    XCTAssertEqual((NSInteger)11, ev.x);
-    XCTAssertEqual((NSInteger)10, ev.y);
+    XCTAssertEqual((NSInteger)11, ev.position.x);
+    XCTAssertEqual((NSInteger)10, ev.position.y);
 }
 
 - (void) testToString {
     // Arrange
-    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithX:3 andY:1 andDirection:CWSDirectionNorth andInstructionColorTag:42];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionMake(3,1) andDirection:CWSDirectionNorth andInstructionColorTag:42];
     
     // Act
     NSString * string = ev.description;
@@ -99,8 +99,8 @@
     CWSExecutionVector * ev = [CWSExecutionVector executionVectorFromString:evdef];
     
     // Assert
-    XCTAssertEqual(evx, ev.x);
-    XCTAssertEqual(evy, ev.y);
+    XCTAssertEqual(evx, ev.position.x);
+    XCTAssertEqual(evy, ev.position.y);
     XCTAssertEqual(evdir, ev.direction);
     XCTAssertEqual(evcolor, ev.colorTag);
 }
@@ -122,8 +122,8 @@
     // Assert
     XCTAssert(bScan);
     XCTAssert(ev != nil);
-    XCTAssertEqual(evx, ev.x);
-    XCTAssertEqual(evy, ev.y);
+    XCTAssertEqual(evx, ev.position.x);
+    XCTAssertEqual(evy, ev.position.y);
     XCTAssertEqual(evdir, ev.direction);
     XCTAssertEqual(evcolor, ev.colorTag);
 }
@@ -151,14 +151,14 @@
     XCTAssert(array.count == 2);
     
     CWSExecutionVector * ev = [array objectAtIndex:0];
-    XCTAssertEqual(evx1, ev.x);
-    XCTAssertEqual(evy1, ev.y);
+    XCTAssertEqual(evx1, ev.position.x);
+    XCTAssertEqual(evy1, ev.position.y);
     XCTAssertEqual(evdir1, ev.direction);
     XCTAssertEqual(evcolor1, ev.colorTag);
     
     ev = [array objectAtIndex:1];
-    XCTAssertEqual(evx2, ev.x);
-    XCTAssertEqual(evy2, ev.y);
+    XCTAssertEqual(evx2, ev.position.x);
+    XCTAssertEqual(evy2, ev.position.y);
     XCTAssertEqual(evdir2, ev.direction);
     XCTAssertEqual(evcolor2, ev.colorTag);
 }

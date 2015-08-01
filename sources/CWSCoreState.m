@@ -67,13 +67,13 @@
         return nil;
     }
     
-    if (![scanner scanIntegerMatrixWithBlock:^(NSUInteger x, NSUInteger y, NSInteger value) {
-        [self setInstructionCode: value atPositionX:x andY:y];
+    if (![scanner scanIntegerMatrixWithBlock:^(CWSPosition position, NSInteger value) {
+        [self setInstructionCode: value atPosition:position];
     }]) {
         return nil;
     }
-    [scanner scanIntegerMatrixWithBlock:^(NSUInteger x, NSUInteger y, NSInteger value) {
-        [self setInstructionColorTag: value atPositionX:x andY:y];
+    [scanner scanIntegerMatrixWithBlock:^(CWSPosition position, NSInteger value) {
+        [self setInstructionColorTag: value atPosition:position];
     }];
     
     self.nextExecutionVectorIndex = nextEvIndex;
@@ -124,27 +124,28 @@
     
     [result appendFormat:@"NEXT:%ld\n-\n",self.nextExecutionVectorIndex];
     
-    for (int y = 0; y < self.height; y++) {
-        for (int x = 0; x < self.width; x++) {
-            if (x > 0) {
+    CWSPosition position = CWSPositionZero;
+    for (position.y = 0; position.y < self.height; position.y++) {
+        for (position.x = 0; position.x < self.width; position.x++) {
+            if (position.x > 0) {
                 [result appendString:@" "];
             }
-            [result appendFormat:@"%ld",[self instructionCodeAtPositionX:x andY:y]];
+            [result appendFormat:@"%ld",[self instructionCodeAtPosition:position]];
         }
         [result appendString:@"\n"];
     }
 
     [result appendString:@"-\n"];
 
-    for (int y = 0; y < self.height; y++) {
-        if (y > 0) {
+    for (position.y = 0; position.y < self.height; position.y++) {
+        if (position.y > 0) {
             [result appendString:@"\n"];
         }
-        for (int x = 0; x < self.width; x++) {
-            if (x > 0) {
+        for (position.x = 0; position.x < self.width; position.x++) {
+            if (position.x > 0) {
                 [result appendString:@" "];
             }
-            [result appendFormat:@"%ld",[self instructionColorTagAtPositionX:x andY:y]];
+            [result appendFormat:@"%ld",[self instructionColorTagAtPosition:position]];
         }
     }
     
@@ -153,36 +154,36 @@
 
 #pragma mark - Instructions Codes
 
-- (CWSInstructionCode) instructionCodeAtPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    return self.instructionCodes[aX + aY*self.width];
+- (CWSInstructionCode) instructionCodeAtPosition:(CWSPosition) aPosition {
+    return self.instructionCodes[aPosition.x + aPosition.y*self.width];
 }
 
-- (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    self.instructionCodes[aX + aY*self.width] = aInstructionCode;
+- (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPosition:(CWSPosition) aPosition {
+    self.instructionCodes[aPosition.x + aPosition.y*self.width] = aInstructionCode;
 }
 
 #pragma mark - Instruction Color Tags
 
-- (CWSInstructionColorTag) instructionColorTagAtPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    return self.instructionColorTags[aX + aY*self.width];
+- (CWSInstructionColorTag) instructionColorTagAtPosition:(CWSPosition) aPosition {
+    return self.instructionColorTags[aPosition.x + aPosition.y*self.width];
 }
 
-- (void) setInstructionColorTag:(CWSInstructionColorTag) aInstructionColorTag atPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    self.instructionColorTags[aX + aY*self.width] = aInstructionColorTag;
+- (void) setInstructionColorTag:(CWSInstructionColorTag) aInstructionColorTag atPosition:(CWSPosition) aPosition {
+    self.instructionColorTags[aPosition.x + aPosition.y*self.width] = aInstructionColorTag;
 }
 
 #pragma mark - Instruction Parameters
 
-- (NSString *) parameterKeyForPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    return [NSString stringWithFormat:@"%ld;%ld",(long)aX,(long)aY];
+- (NSString *) parameterKeyForPosition:(CWSPosition) aPosition {
+    return [NSString stringWithFormat:@"%ld;%ld",(long)aPosition.x,(long)aPosition.y];
 }
 
-- (id) instructionParameterAtPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    return self.instructionParameters[[self parameterKeyForPositionX:aX andY:aY]];
+- (id) instructionParameterAtPosition:(CWSPosition) aPosition {
+    return self.instructionParameters[[self parameterKeyForPosition:aPosition]];
 }
 
-- (void) setInstructionParameter:(id) aInstructionParameter atPositionX:(NSInteger) aX andY:(NSInteger) aY {
-    self.instructionParameters[[self parameterKeyForPositionX:aX andY:aY]] = aInstructionParameter;
+- (void) setInstructionParameter:(id) aInstructionParameter atPosition:(CWSPosition) aPosition {
+    self.instructionParameters[[self parameterKeyForPosition:aPosition]] = aInstructionParameter;
 }
 
 #pragma mark - Execution
@@ -198,15 +199,17 @@
 }
 
 - (void) normalizeExecutionVector:(CWSExecutionVector *) aExecutionVector {
-    aExecutionVector.x = [self loop:aExecutionVector.x onSize:self.width];
-    aExecutionVector.y = [self loop:aExecutionVector.y onSize:self.height];
+    CWSPosition position = aExecutionVector.position;
+    position.x = [self loop:position.x onSize:self.width];
+    position.y = [self loop:position.y onSize:self.height];
+    aExecutionVector.position = position;
 }
 
 - (void) oneStep {
     CWSExecutionVector * ev = self.nextExecutionVector;
     if (ev != nil) {
-        CWSInstructionCode code = [self instructionCodeAtPositionX:ev.x andY:ev.y];
-        [self setInstructionColorTag:ev.colorTag atPositionX:ev.x andY:ev.y];
+        CWSInstructionCode code = [self instructionCodeAtPosition:ev.position];
+        [self setInstructionColorTag:ev.colorTag atPosition:ev.position];
         CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
         BOOL success = [instruction executeForCoreState:self];
         

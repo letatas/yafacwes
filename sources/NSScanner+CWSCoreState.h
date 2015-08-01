@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CWSPosition.h"
 
 @interface NSScanner(CWSCoreState)
 
 - (BOOL) scanNextExecutionVectorIndex:(NSInteger *) index;
 - (BOOL) scanCoreStateWidth:(NSInteger *) aWidth andHeight:(NSInteger *) aHeight;
-- (BOOL) scanIntegerMatrixWithBlock:(void (^)(NSUInteger x, NSUInteger y, NSInteger value)) block;
+- (BOOL) scanIntegerMatrixWithBlock:(void (^)(CWSPosition position, NSInteger value)) block;
 
 @end

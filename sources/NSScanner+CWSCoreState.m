@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSScanner+CWSCoreState.m"
+#import "NSScanner+CWSCoreState.h"
 
 @implementation NSScanner(CWSCoreState)
 
@@ -65,14 +65,14 @@
     return NO;
 }
 
-- (BOOL) scanIntegerMatrixWithBlock:(void (^)(NSUInteger x, NSUInteger y, NSInteger value)) block {
+- (BOOL) scanIntegerMatrixWithBlock:(void (^)(CWSPosition position, NSInteger value)) block {
     if ([self isAtEnd] || !block) {
         return NO;
     }
     
     NSUInteger prevScanPos = self.scanLocation;
     if ([self scanString:@"-\n" intoString: NULL]) {
-        NSUInteger posy = 0;
+        CWSPosition pos = CWSPositionZero;
         NSString * currentLine = nil;
         NSUInteger lineStart = self.scanLocation;
         
@@ -84,19 +84,19 @@
             NSUInteger lineStop = self.scanLocation;
             self.scanLocation = lineStart;
             
-            NSUInteger posx = 0;
+            pos.x = 0;
             NSInteger curval = 0;
             self.charactersToBeSkipped = [NSCharacterSet whitespaceCharacterSet];
             while ([self scanInteger:&curval]) {
-                block(posx, posy, curval);
-                posx++;
+                block(pos, curval);
+                pos.x++;
             }
             self.charactersToBeSkipped = nil;
             
             self.scanLocation = lineStop;
             [self scanCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&currentLine];
             lineStart = self.scanLocation;
-            posy++;
+            pos.y++;
         }
         return YES;
     }

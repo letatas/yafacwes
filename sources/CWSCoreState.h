@@ -10,6 +10,7 @@
 #import "CWSExecutionVector.h"
 #import "CWSInstructionCodes.h"
 #import "CWSInstructionColorTag.h"
+#import "CWSPosition.h"
 
 enum {CWSNoExecutionVector = NSIntegerMax};
 
@@ -22,12 +23,12 @@ enum {CWSNoExecutionVector = NSIntegerMax};
 + (instancetype) coreStateWithString:(NSString *) aString;
 + (instancetype) coreStateWithContentsOfFile:(NSString *) aFileName;
 
-- (CWSInstructionCode) instructionCodeAtPositionX:(NSInteger) aX andY:(NSInteger) aY;
-- (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPositionX:(NSInteger) aX andY:(NSInteger) aY;
-- (CWSInstructionColorTag) instructionColorTagAtPositionX:(NSInteger) aX andY:(NSInteger) aY;
-- (void) setInstructionColorTag:(CWSInstructionColorTag) aInstructionColorTag atPositionX:(NSInteger) aX andY:(NSInteger) aY;
-- (id) instructionParameterAtPositionX:(NSInteger) aX andY:(NSInteger) aY;
-- (void) setInstructionParameter:(id) aInstructionParameter atPositionX:(NSInteger) aX andY:(NSInteger) aY;
+- (CWSInstructionCode) instructionCodeAtPosition:(CWSPosition) aPosition;
+- (void) setInstructionCode:(CWSInstructionCode) aInstructionCode atPosition:(CWSPosition) aPosition;
+- (CWSInstructionColorTag) instructionColorTagAtPosition:(CWSPosition) aPosition;
+- (void) setInstructionColorTag:(CWSInstructionColorTag) aInstructionColorTag atPosition:(CWSPosition) aPosition;
+- (id) instructionParameterAtPosition:(CWSPosition) aPosition;
+- (void) setInstructionParameter:(id) aInstructionParameter atPosition:(CWSPosition) aPosition;
 
 - (CWSExecutionVector *) nextExecutionVector;
 

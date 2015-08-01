@@ -27,14 +27,15 @@
         
         NSString * color = @"";
         NSString * noColor = [CWSConsolePalette consoleColorFromColorTag:kPALETTE_COLOR_TAG_NO_COLOR];
-        for (int y = 0; y < self.height; y++) {
-            for (int x = 0; x < self.width; x++) {
-                if (x > 0) {
+        CWSPosition position = CWSPositionZero;
+        for (position.y = 0; position.y < self.height; position.y++) {
+            for (position.x = 0; position.x < self.width; position.x++) {
+                if (position.x > 0) {
                     [result appendString:@" "];
                 }
-                color = [CWSConsolePalette consoleColorFromColorTag:[self instructionColorTagAtPositionX:x andY:y]];
+                color = [CWSConsolePalette consoleColorFromColorTag:[self instructionColorTagAtPosition:position]];
 
-                [result appendFormat:@"%@%ld%@",color,[self instructionCodeAtPositionX:x andY:y],noColor];
+                [result appendFormat:@"%@%ld%@",color,[self instructionCodeAtPosition:position],noColor];
             }
             [result appendString:@"\n"];
         }

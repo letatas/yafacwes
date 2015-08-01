@@ -10,21 +10,18 @@
 
 @interface CWSExecutionVector()
 
-@property (nonatomic, assign) NSInteger prevX;
-@property (nonatomic, assign) NSInteger prevY;
+@property (nonatomic, assign) CWSPosition prevPosition;
 
 @end
 
 @implementation CWSExecutionVector
 
-- (instancetype) initWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag {
+- (instancetype) initWithPosition:(CWSPosition) aPosition andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag {
     self = [super init];
     
     if (self) {
-        self.x = aX;
-        self.y = aY;
-        self.prevX = aX;
-        self.prevY = aY;
+        self.position = aPosition;
+        self.prevPosition = aPosition;
         self.direction = aDirection;
         self.colorTag = aColorTag;
     }
@@ -33,55 +30,55 @@
 
 }
 
-+ (instancetype) executionVectorWithX:(NSInteger) aX andY:(NSInteger) aY andDirection:(CWSDirection) aDirection andInstructionColorTag:(CWSInstructionColorTag) aColorTag {
-    return [[self alloc] initWithX:aX andY:aY andDirection:aDirection andInstructionColorTag:aColorTag];
++ (instancetype) executionVectorWithPosition:(CWSPosition)aPosition andDirection:(CWSDirection)aDirection andInstructionColorTag:(CWSInstructionColorTag)aColorTag {
+    return [[self alloc] initWithPosition:aPosition andDirection:aDirection andInstructionColorTag:aColorTag];
 }
 
 + (instancetype) executionVectorFromString:(NSString *) line {
     if ([line hasPrefix:@"EV:"]) {
         NSScanner * scanner = [NSScanner scannerWithString: [line substringFromIndex:3]];
         scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
-        NSInteger x = 0;
-        NSInteger y = 0;
+        CWSPosition position = CWSPositionZero;
         NSString * dir = @"";
         CWSInstructionColorTag color = 0;
-        if ([scanner scanInteger:&x]
-         && [scanner scanInteger:&y]
+        if ([scanner scanInteger:&position.x]
+         && [scanner scanInteger:&position.y]
          && [scanner scanUpToString:@"," intoString:&dir]
          && [scanner scanInteger:&color]) {
-            return [CWSExecutionVector executionVectorWithX:x andY:y andDirection:directionFromString(dir) andInstructionColorTag:color];
+            return [CWSExecutionVector executionVectorWithPosition:position andDirection:directionFromString(dir) andInstructionColorTag:color];
         }
     }
     return nil;
 }
 
 - (void) move {
-    self.prevY = self.x;
-    self.prevY = self.y;
+    self.prevPosition = self.position;
     
+    CWSPosition newPosition = self.position;
     switch (self.direction) {
         case CWSDirectionNorth:
-            self.y--;
+            newPosition.y--;
             break;
         case CWSDirectionSouth:
-            self.y++;
+            newPosition.y++;
             break;
         case CWSDirectionWest:
-            self.x--;
+            newPosition.x--;
             break;
         case CWSDirectionEast:
-            self.x++;
+            newPosition.x++;
             break;
     }
+    
+    self.position = newPosition;
 }
 
 - (void) moveToPreviousPosition {
-    self.x = self.prevX;
-    self.y = self.prevY;
+    self.position = self.prevPosition;
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EV:%ld,%ld,%@,%ld",self.x,self.y,directionToString(self.direction),self.colorTag];
+    return [NSString stringWithFormat:@"EV:%ld,%ld,%@,%ld",self.position.x,self.position.y,directionToString(self.direction),self.colorTag];
 }
 
 @end
