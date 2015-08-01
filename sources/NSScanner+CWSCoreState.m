@@ -25,6 +25,42 @@
     return NO;
 }
 
+- (BOOL) scanParameter:(id *) parameter {
+    if (self.isAtEnd) {
+        return NO;
+    }
+    
+    BOOL result = YES;
+    NSInteger location = self.scanLocation;
+    
+    if (![self scanString:@"{" intoString:NULL]) {
+        result = NO;
+    }
+    
+    id scannedParam = nil;
+    
+    // Repeat for each known param type
+    CWSPosition scannedPos = CWSPositionZero;
+    if (result && (scannedParam == nil) && [self scanPosition:&scannedPos]) {
+        scannedParam = [NSValue valueWithPosition:scannedPos];
+    }
+
+    if (result && ![self scanString:@"}" intoString:NULL]) {
+        result = NO;
+    }
+    
+    if (result) {
+        if (parameter != NULL) {
+            *parameter = scannedParam;
+        }
+    }
+    else {
+        self.scanLocation = location;
+    }
+    
+    return result;
+}
+
 - (BOOL) scanCoreStateWidth:(NSInteger *) aWidth andHeight:(NSInteger *) aHeight {
     if ([self isAtEnd] || aWidth == NULL || aHeight == NULL) {
         return NO;
@@ -40,8 +76,13 @@
         if ([self scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:NULL]) {
             NSUInteger firstLineStop = self.scanLocation;
             self.scanLocation = matrixStart;
-            while ([self scanInteger:NULL] && self.scanLocation <= firstLineStop) {
-                width++;
+            BOOL keepGoing = YES;
+            while ([self scanInteger:NULL] && keepGoing) {
+                [self scanParameter:NULL];
+                keepGoing = self.scanLocation <= firstLineStop;
+                if (keepGoing) {
+                    width++;
+                }
             }
             
             self.scanLocation = matrixStart;
@@ -65,7 +106,7 @@
     return NO;
 }
 
-- (BOOL) scanIntegerMatrixWithBlock:(void (^)(CWSPosition position, NSInteger value)) block {
+- (BOOL) scanIntegerMatrixWithBlock:(void (^)(CWSPosition position, NSInteger value, id parameter)) block {
     if ([self isAtEnd] || !block) {
         return NO;
     }
@@ -88,7 +129,9 @@
             NSInteger curval = 0;
             self.charactersToBeSkipped = [NSCharacterSet whitespaceCharacterSet];
             while ([self scanInteger:&curval]) {
-                block(pos, curval);
+                id parameter = nil;
+                [self scanParameter:&parameter];
+                block(pos, curval, parameter);
                 pos.x++;
             }
             self.charactersToBeSkipped = nil;

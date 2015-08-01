@@ -132,7 +132,7 @@
     // Arrange
     NSString * coreStateMatrix =
     @"-\n"
-    "1 2 3 4\n"
+    "1 2 3{(1,2)} 4\n"
     "5 6 7 8\n"
     "9 10 11 12\n"
     "13 14 15 16\n"
@@ -140,7 +140,7 @@
     "16 15 14 13\n"
     "12 11 10 9\n"
     "8 7 6 5\n"
-    "4 3 2 1\n";
+    "4 3 2 1{(3,4)}\n";
     NSUInteger expectedCount = 16;
     
     // Act
@@ -149,18 +149,32 @@
     // Assert
     XCTAssert(![scanner scanIntegerMatrixWithBlock: nil]);
     __block NSUInteger readCount = 0;
-    BOOL bLoad = [scanner scanIntegerMatrixWithBlock:^ (CWSPosition position, NSInteger value) {
+    BOOL bLoad = [scanner scanIntegerMatrixWithBlock:^ (CWSPosition position, NSInteger value, id parameter) {
         NSInteger expected = position.y * 4 + position.x + 1;
         XCTAssertEqual(value, expected);
+        if (expected == 3) {
+            NSValue * expectedParam = [NSValue valueWithPosition:CWSPositionMake(1, 2)];
+            XCTAssertEqualObjects(expectedParam, parameter);
+        }
+        else {
+            XCTAssertNil(parameter);
+        }
         readCount++;
     }];
     XCTAssert(bLoad);
     XCTAssertEqual(expectedCount, readCount);
     
     readCount = 0;
-    bLoad = [scanner scanIntegerMatrixWithBlock:^ (CWSPosition position, NSInteger value) {
+    bLoad = [scanner scanIntegerMatrixWithBlock:^ (CWSPosition position, NSInteger value, id parameter) {
         NSInteger expected = 16 - (position.y * 4 + position.x);
         XCTAssertEqual(value, expected);
+        if (expected == 1) {
+            NSValue * expectedParam = [NSValue valueWithPosition:CWSPositionMake(3, 4)];
+            XCTAssertEqualObjects(expectedParam, parameter);
+        }
+        else {
+            XCTAssertNil(parameter);
+        }
         readCount++;
     }];
     XCTAssert(bLoad);
@@ -174,7 +188,7 @@
     "EV:7,3,E,2\n"
     "NEXT:1\n"
     "-\n"
-    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0 0 0 0 0 0 0 0 0 0 0{(-2,-1)} 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
@@ -201,7 +215,10 @@
     NSInteger height = 10;
     CWSInstructionCode i1 = 3;
     CWSInstructionColorTag c1 = 1;
-    
+
+    CWSPosition position2 = CWSPositionMake(11,0);
+    NSValue * parameter = [NSValue valueWithPosition:CWSPositionMake(-2, -1)];
+
     // Act
     CWSCoreState * coreState = [CWSCoreState coreStateWithString: coreStateData];
     
@@ -212,6 +229,7 @@
     XCTAssertEqual(c1, [coreState instructionColorTagAtPosition:position1]);
     XCTAssertEqual(width, coreState.width);
     XCTAssertEqual(height, coreState.height);
+    XCTAssertEqualObjects(parameter, [coreState instructionParameterAtPosition:position2]);
 }
 
 - (void) testOneStep {
@@ -423,6 +441,20 @@
     
     // Assert
     XCTAssertEqualObjects(parameter, [coreState instructionParameterAtPosition:position1]);
+}
+
+- (void) testInstructionParametersSetNil {
+    // Arrange
+    NSInteger width = 17;
+    NSInteger height = 10;
+    CWSPosition position1 = CWSPositionMake(8,9);
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:width andHeight:height];
+    
+    // Act
+    [coreState setInstructionParameter:nil atPosition:position1];
+    
+    // Assert
+    XCTAssertNil([coreState instructionParameterAtPosition:position1]);
 }
 
 @end

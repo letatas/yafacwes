@@ -164,14 +164,14 @@
 				D0084C071B5455B900B8985A /* CWSCore.m */,
 				D0084C1F1B546B8800B8985A /* CWSDirection.h */,
 				D0084C201B546B8800B8985A /* CWSDirection.m */,
+				D0EABFA11B6D528200015B7A /* CWSPosition.h */,
+				D0EABFA21B6D528200015B7A /* CWSPosition.m */,
 				D0084C211B546B8800B8985A /* CWSExecutionVector.h */,
 				D0084C221B546B8800B8985A /* CWSExecutionVector.m */,
 				D0084C2D1B558A7200B8985A /* CWSCoreState.h */,
 				D0BDCC561B64D25D007BBC35 /* CWSCoreState_Private.h */,
 				D0084C2E1B558A7200B8985A /* CWSCoreState.m */,
 				D0AF3D781B56EA7C00274FE7 /* Instructions */,
-				D0EABFA11B6D528200015B7A /* CWSPosition.h */,
-				D0EABFA21B6D528200015B7A /* CWSPosition.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";

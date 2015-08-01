@@ -67,12 +67,13 @@
         return nil;
     }
     
-    if (![scanner scanIntegerMatrixWithBlock:^(CWSPosition position, NSInteger value) {
+    if (![scanner scanIntegerMatrixWithBlock:^(CWSPosition position, NSInteger value, id parameter) {
         [self setInstructionCode: value atPosition:position];
+        [self setInstructionParameter:parameter atPosition:position];
     }]) {
         return nil;
     }
-    [scanner scanIntegerMatrixWithBlock:^(CWSPosition position, NSInteger value) {
+    [scanner scanIntegerMatrixWithBlock:^(CWSPosition position, NSInteger value, id parameter) {
         [self setInstructionColorTag: value atPosition:position];
     }];
     
@@ -192,7 +193,13 @@
 }
 
 - (void) setInstructionParameter:(id) aInstructionParameter atPosition:(CWSPosition) aPosition {
-    self.instructionParameters[[self parameterKeyForPosition:aPosition]] = aInstructionParameter;
+    NSString * key = [self parameterKeyForPosition:aPosition];
+    if (aInstructionParameter == nil) {
+        [self.instructionParameters removeObjectForKey:key];
+    }
+    else {
+        self.instructionParameters[key] = aInstructionParameter;
+    }
 }
 
 #pragma mark - Execution
