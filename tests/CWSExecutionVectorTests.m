@@ -175,19 +175,19 @@
     [ev pushOnStack:i2];
     
     // Assert
-    XCTAssertEqual(2, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 2, ev.stackSize);
     XCTAssertFalse(ev.isStackEmpty);
     XCTAssertEqualObjects(i2, ev.peekOnStack);
     
     XCTAssertEqualObjects(i2, ev.popOnStack);
 
-    XCTAssertEqual(1, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 1, ev.stackSize);
     XCTAssertFalse(ev.isStackEmpty);
     XCTAssertEqualObjects(i1, ev.peekOnStack);
     
     XCTAssertEqualObjects(i1, ev.popOnStack);
 
-    XCTAssertEqual(0, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 0, ev.stackSize);
     XCTAssert(ev.isStackEmpty);
     XCTAssertNil(ev.peekOnStack);
     
