@@ -194,5 +194,29 @@
     XCTAssertNil(ev.popOnStack);
 }
 
+- (void) testFromStringWithStack {
+    // Arrange
+    NSString * evdef = @"EV:5,12,S,42|2{(-1,2}|3";
+    NSInteger evx = 5;
+    NSInteger evy = 12;
+    CWSDirection evdir = CWSDirectionSouth;
+    CWSInstructionColorTag evcolor = 42;
+    CWSParametrizedInstruction * pi1 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNOP andParameter:[NSValue valueWithPosition:CWSPositionMake(-1, 2)]];
+    CWSParametrizedInstruction * pi2 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeRIGHT andParameter:[NSValue valueWithPosition:CWSPositionMake(-1, 2)]];
+    
+    // Act
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorFromString:evdef];
+    [ev pushOnStack:pi2];
+    [ev pushOnStack:pi1];
+    
+    // Assert
+    XCTAssertEqual(evx, ev.position.x);
+    XCTAssertEqual(evy, ev.position.y);
+    XCTAssertEqual(evdir, ev.direction);
+    XCTAssertEqual(evcolor, ev.colorTag);
+    XCTAssertEqualObjects(pi1, ev.popOnStack);
+    XCTAssertEqualObjects(pi2, ev.popOnStack);
+}
+
 
 @end

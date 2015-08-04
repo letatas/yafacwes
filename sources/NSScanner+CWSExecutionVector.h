@@ -13,5 +13,7 @@
 
 - (BOOL) scanExecutionVector: (CWSExecutionVector **) executionVector;
 - (BOOL) scanExecutionVectorInArray: (NSMutableArray *) array;
+- (BOOL) scanParametrizedInstruction:(CWSParametrizedInstruction **) parametrizedInstruction;
+- (BOOL) scanStackItem:(CWSParametrizedInstruction **) parametrizedInstruction;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NSScanner+CWSCoreState.h"
+#import "NSScanner+Parameter.h"
 
 @implementation NSScanner(CWSCoreState)
 
@@ -23,42 +24,6 @@
     
     self.scanLocation = prevScanPos;
     return NO;
-}
-
-- (BOOL) scanParameter:(id *) parameter {
-    if (self.isAtEnd) {
-        return NO;
-    }
-    
-    BOOL result = YES;
-    NSInteger location = self.scanLocation;
-    
-    if (![self scanString:@"{" intoString:NULL]) {
-        result = NO;
-    }
-    
-    id scannedParam = nil;
-    
-    // Repeat for each known param type
-    CWSPosition scannedPos = CWSPositionZero;
-    if (result && (scannedParam == nil) && [self scanPosition:&scannedPos]) {
-        scannedParam = [NSValue valueWithPosition:scannedPos];
-    }
-
-    if (result && ![self scanString:@"}" intoString:NULL]) {
-        result = NO;
-    }
-    
-    if (result) {
-        if (parameter != NULL) {
-            *parameter = scannedParam;
-        }
-    }
-    else {
-        self.scanLocation = location;
-    }
-    
-    return result;
 }
 
 - (BOOL) scanCoreStateWidth:(NSInteger *) aWidth andHeight:(NSInteger *) aHeight {

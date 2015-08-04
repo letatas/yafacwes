@@ -54,6 +54,8 @@
 		D0EABFAE1B6D7D8E00015B7A /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EABFAC1B6D7D8E00015B7A /* NSMutableArray+Stack.m */; };
 		D0EABFB11B6D7E1200015B7A /* CWSParametrizedInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EABFB01B6D7E1200015B7A /* CWSParametrizedInstruction.m */; };
 		D0EABFB21B6D7E1200015B7A /* CWSParametrizedInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EABFB01B6D7E1200015B7A /* CWSParametrizedInstruction.m */; };
+		D0EABFB51B70F59F00015B7A /* NSScanner+Parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EABFB41B70F59F00015B7A /* NSScanner+Parameter.m */; };
+		D0EABFB61B70F59F00015B7A /* NSScanner+Parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EABFB41B70F59F00015B7A /* NSScanner+Parameter.m */; };
 		D0FFCE821B5E34460039C4C0 /* CWSMiscellaneousTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +128,8 @@
 		D0EABFAC1B6D7D8E00015B7A /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Stack.m"; path = "../../sources/NSMutableArray+Stack.m"; sourceTree = "<group>"; };
 		D0EABFAF1B6D7E1200015B7A /* CWSParametrizedInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSParametrizedInstruction.h; path = ../../sources/CWSParametrizedInstruction.h; sourceTree = "<group>"; };
 		D0EABFB01B6D7E1200015B7A /* CWSParametrizedInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSParametrizedInstruction.m; path = ../../sources/CWSParametrizedInstruction.m; sourceTree = "<group>"; };
+		D0EABFB31B70F59F00015B7A /* NSScanner+Parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSScanner+Parameter.h"; path = "../../sources/NSScanner+Parameter.h"; sourceTree = "<group>"; };
+		D0EABFB41B70F59F00015B7A /* NSScanner+Parameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSScanner+Parameter.m"; path = "../../sources/NSScanner+Parameter.m"; sourceTree = "<group>"; };
 		D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSMiscellaneousTests.m; path = ../../tests/CWSMiscellaneousTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +160,8 @@
 				D0BDCC6B1B690899007BBC35 /* NSScanner+CWSCoreState.m */,
 				D0BDCC6C1B690899007BBC35 /* NSScanner+CWSExecutionVector.h */,
 				D0BDCC6D1B690899007BBC35 /* NSScanner+CWSExecutionVector.m */,
+				D0EABFB31B70F59F00015B7A /* NSScanner+Parameter.h */,
+				D0EABFB41B70F59F00015B7A /* NSScanner+Parameter.m */,
 				D0084C041B544BF100B8985A /* CWSCategories.h */,
 				D0084C001B544B7B00B8985A /* NSString+StdOut.h */,
 				D0084C011B544B7B00B8985A /* NSString+StdOut.m */,
@@ -375,6 +381,7 @@
 				D0BDCC5A1B679E5A007BBC35 /* CWSInstructionWALL.m in Sources */,
 				D0084C231B546B8800B8985A /* CWSDirection.m in Sources */,
 				D0EABF9F1B6D4C8E00015B7A /* CWSInstructionSTOP.m in Sources */,
+				D0EABFB51B70F59F00015B7A /* NSScanner+Parameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +406,7 @@
 				D0084C261B546B8800B8985A /* CWSExecutionVector.m in Sources */,
 				D0AF3D961B57927A00274FE7 /* CWSInstructionNOP.m in Sources */,
 				D0084C1C1B5468AC00B8985A /* CWSDirectionTests.m in Sources */,
+				D0EABFB61B70F59F00015B7A /* NSScanner+Parameter.m in Sources */,
 				D0084C241B546B8800B8985A /* CWSDirection.m in Sources */,
 				D0EABFA41B6D528200015B7A /* CWSPosition.m in Sources */,
 				D0BDCC5B1B679FB2007BBC35 /* CWSInstructionWALL.m in Sources */,

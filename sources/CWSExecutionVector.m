@@ -8,6 +8,7 @@
 
 #import "CWSExecutionVector.h"
 #import "NSMutableArray+Stack.h"
+#import "NSScanner+CWSExecutionVector.h"
 
 @interface CWSExecutionVector()
 
@@ -48,7 +49,12 @@
          && [scanner scanInteger:&position.y]
          && [scanner scanUpToString:@"," intoString:&dir]
          && [scanner scanInteger:&color]) {
-            return [CWSExecutionVector executionVectorWithPosition:position andDirection:directionFromString(dir) andInstructionColorTag:color];
+            CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:directionFromString(dir) andInstructionColorTag:color];
+            CWSParametrizedInstruction * parametrizedInstruction = nil;
+            while ([scanner scanStackItem:&parametrizedInstruction]) {
+                [ev pushOnStack:parametrizedInstruction];
+            }
+            return ev;
         }
     }
     return nil;

@@ -7,6 +7,7 @@
 //
 
 #import "NSScanner+CWSExecutionVector.h"
+#import "NSScanner+Parameter.h"
 
 @implementation NSScanner(CWSExecutionVector)
 
@@ -36,6 +37,43 @@
         return YES;
     }
     return NO;
+}
+
+- (BOOL) scanParametrizedInstruction:(CWSParametrizedInstruction **) parametrizedInstruction {
+    *parametrizedInstruction = nil;
+    if ([self isAtEnd]) {
+        return NO;
+    }
+    
+    NSUInteger prevScanPos = self.scanLocation;
+    CWSInstructionCode code = kCWSInstructionCodeNULL;
+    id parameter = nil;
+    if ([self scanInteger:&code] &&
+        [self scanParameter:&parameter]) {
+        *parametrizedInstruction = [CWSParametrizedInstruction parametrizedInstructionWithCode:code andParameter:parameter];
+        return YES;
+    }
+    else {
+        self.scanLocation = prevScanPos;
+        return NO;
+    }
+}
+
+- (BOOL) scanStackItem:(CWSParametrizedInstruction **) parametrizedInstruction {
+    *parametrizedInstruction = nil;
+    if ([self isAtEnd]) {
+        return NO;
+    }
+
+    NSUInteger prevScanPos = self.scanLocation;
+    if ([self scanString:@"|" intoString:NULL] &&
+        [self scanParametrizedInstruction:parametrizedInstruction]) {
+        return YES;
+    }
+    else {
+        self.scanLocation = prevScanPos;
+        return NO;
+    }
 }
 
 @end
