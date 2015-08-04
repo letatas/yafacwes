@@ -16,7 +16,9 @@
 
 - (id) pop {
     id last = self.lastObject;
-    [self removeLastObject];
+    if (last != nil) {
+        [self removeLastObject];
+    }
     return last;
 }
 
