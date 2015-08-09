@@ -9,6 +9,7 @@
 #import "CWSExecutionVector.h"
 #import "NSMutableArray+Stack.h"
 #import "NSScanner+CWSExecutionVector.h"
+#import "NSArray+StackDescription.h"
 
 @interface CWSExecutionVector()
 
@@ -87,7 +88,12 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EV:%ld,%ld,%@,%ld",self.position.x,self.position.y,directionToString(self.direction),self.colorTag];
+    return [NSString stringWithFormat:@"EV:%ld,%ld,%@,%ld%@",
+            self.position.x,
+            self.position.y,
+            directionToString(self.direction),
+            self.colorTag,
+            self.stack.stackDescription];
 }
 
 #pragma mark - Stack

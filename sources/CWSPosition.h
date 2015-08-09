@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CWSDescriptableParameter.h"
 
 struct CWSPosition {
     NSInteger x;
@@ -19,13 +20,11 @@ extern CWSPosition CWSPositionMake(NSInteger x, NSInteger y);
 extern NSString * NSStringFromPosition(CWSPosition aPosition);
 extern const CWSPosition CWSPositionZero;
 
-@interface NSValue (CWSPosition)
+@interface NSValue (CWSPosition) <CWSDescriptableParameter>
 
 + (NSValue *)valueWithPosition:(CWSPosition)position;
 
 @property (readonly) CWSPosition positionValue;
-
-- (NSString *) parameterDescription;
 
 @end
 

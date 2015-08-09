@@ -12,7 +12,7 @@
 @interface CWSParametrizedInstruction : NSObject
 
 @property (nonatomic, assign) CWSInstructionCode code;
-@property (nonatomic, assign) id parameter;
+@property (nonatomic, strong) id parameter;
 
 + (instancetype) parametrizedInstructionWithCode:(CWSInstructionCode) aCode andParameter:(id) aParameter;
 

@@ -11,6 +11,7 @@
 #import "CWSInstructions.h"
 #import "NSScanner+CWSExecutionVector.h"
 #import "NSScanner+CWSCoreState.h"
+#import "CWSDescriptableParameter.h"
 
 @interface CWSCoreState ()
 
@@ -134,7 +135,7 @@
             [result appendFormat:@"%ld",[self instructionCodeAtPosition:position]];
             id parameter = [self instructionParameterAtPosition:position];
             if (parameter != nil) {
-                if ([parameter respondsToSelector:@selector(parameterDescription)]) {
+                if ([parameter conformsToProtocol:@protocol(CWSDescriptableParameter)]) {
                     [result appendFormat:@"{%@}",[parameter parameterDescription]];
                 }
                 else {
