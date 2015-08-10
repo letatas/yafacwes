@@ -21,6 +21,8 @@
 		D0084C2F1B558A7200B8985A /* CWSCoreState.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C2E1B558A7200B8985A /* CWSCoreState.m */; };
 		D0084C301B558A7200B8985A /* CWSCoreState.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C2E1B558A7200B8985A /* CWSCoreState.m */; };
 		D0084C321B55907900B8985A /* CWSCoreStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C311B55907900B8985A /* CWSCoreStateTests.m */; };
+		D05C70011B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */ = {isa = PBXBuildFile; fileRef = D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */; };
+		D05C70021B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */ = {isa = PBXBuildFile; fileRef = D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */; };
 		D08A0B811B53E9C600B746D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B801B53E9C600B746D0 /* main.m */; };
 		D0AF3D761B56E8CF00274FE7 /* CWSInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */; };
 		D0AF3D771B56E8EB00274FE7 /* CWSInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF3D751B56E8CF00274FE7 /* CWSInstruction.m */; };
@@ -90,6 +92,8 @@
 		D0084C2D1B558A7200B8985A /* CWSCoreState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSCoreState.h; path = ../../sources/CWSCoreState.h; sourceTree = "<group>"; };
 		D0084C2E1B558A7200B8985A /* CWSCoreState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSCoreState.m; path = ../../sources/CWSCoreState.m; sourceTree = "<group>"; };
 		D0084C311B55907900B8985A /* CWSCoreStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSCoreStateTests.m; path = ../../tests/CWSCoreStateTests.m; sourceTree = "<group>"; };
+		D05C6FFF1B7934D400D84EFE /* CWSInstructionPUSH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionPUSH.h; path = ../../sources/CWSInstructionPUSH.h; sourceTree = "<group>"; };
+		D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionPUSH.m; path = ../../sources/CWSInstructionPUSH.m; sourceTree = "<group>"; };
 		D08A0B7D1B53E9C600B746D0 /* yafacwesConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yafacwesConsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08A0B801B53E9C600B746D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D08A0B8B1B53EBC100B746D0 /* yafacwesConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yafacwesConsoleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,6 +280,8 @@
 				D0BDCC591B679E5A007BBC35 /* CWSInstructionWALL.m */,
 				D0EABF9D1B6D4C8E00015B7A /* CWSInstructionSTOP.h */,
 				D0EABF9E1B6D4C8E00015B7A /* CWSInstructionSTOP.m */,
+				D05C6FFF1B7934D400D84EFE /* CWSInstructionPUSH.h */,
+				D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */,
 			);
 			name = Instructions;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				D0084C231B546B8800B8985A /* CWSDirection.m in Sources */,
 				D0EABF9F1B6D4C8E00015B7A /* CWSInstructionSTOP.m in Sources */,
 				D0EABFB51B70F59F00015B7A /* NSScanner+Parameter.m in Sources */,
+				D05C70011B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +427,7 @@
 				D0EABFA41B6D528200015B7A /* CWSPosition.m in Sources */,
 				D0BDCC5B1B679FB2007BBC35 /* CWSInstructionWALL.m in Sources */,
 				D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */,
+				D05C70021B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */,
 				D0EABFBA1B70FE8100015B7A /* NSArray+StackDescription.m in Sources */,
 				D0BDCC571B64D666007BBC35 /* CWSConsolePalette.m in Sources */,
 				D0084C281B546BAA00B8985A /* CWSExecutionVectorTests.m in Sources */,

@@ -19,6 +19,7 @@
         case kCWSInstructionCodeNOP: return [CWSInstructionNOP class];
         case kCWSInstructionCodeWALL: return [CWSInstructionWALL class];
         case kCWSInstructionCodeSTOP: return [CWSInstructionSTOP class];
+        case kCWSInstructionCodePUSH: return [CWSInstructionPUSH class];
         default: return Nil;
     }
 }

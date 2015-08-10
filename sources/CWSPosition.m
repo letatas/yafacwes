@@ -23,6 +23,10 @@ inline NSString * NSStringFromPosition(CWSPosition aPosition) {
 
 const CWSPosition CWSPositionZero = {.x=0, .y=0};
 
+CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
+    return CWSPositionMake(a.x + b.x, a.y + b.y);
+}
+
 #pragma mark - NSValue
 
 @implementation NSValue (CWSPosition)

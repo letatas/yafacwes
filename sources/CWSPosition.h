@@ -19,6 +19,7 @@ typedef struct CWSPosition CWSPosition;
 extern CWSPosition CWSPositionMake(NSInteger x, NSInteger y);
 extern NSString * NSStringFromPosition(CWSPosition aPosition);
 extern const CWSPosition CWSPositionZero;
+extern CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b);
 
 @interface NSValue (CWSPosition) <CWSDescriptableParameter>
 
