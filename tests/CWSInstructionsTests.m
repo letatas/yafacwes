@@ -36,6 +36,7 @@
     XCTAssertEqualObjects([CWSInstructionWALL class], [[CWSInstruction instructionForCode:kCWSInstructionCodeWALL] class]);
     XCTAssertEqualObjects([CWSInstructionSTOP class], [[CWSInstruction instructionForCode:kCWSInstructionCodeSTOP] class]);
     XCTAssertEqualObjects([CWSInstructionPUSH class], [[CWSInstruction instructionForCode:kCWSInstructionCodePUSH] class]);
+    XCTAssertEqualObjects([CWSInstructionPOP class], [[CWSInstruction instructionForCode:kCWSInstructionCodePOP] class]);
 }
 
 - (void) testNULLInstruction {
@@ -249,6 +250,129 @@
     
     XCTAssertEqual(0, ev.stackSize);
     XCTAssertNil(stackedInstruction);
+}
+
+- (void) testPOPInstructionWithoutParam {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodePOP;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    CWSPosition position = CWSPositionMake(5,6);
+    NSValue * param = [NSValue valueWithPosition:CWSPositionMake(-2, 1)];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPosition:position];
+    [coreState setInstructionParameter:param atPosition:position];
+    
+    CWSInstructionCode destinationCode = kCWSInstructionCodeNOP;
+    CWSParametrizedInstruction * destinationInstruction = [CWSParametrizedInstruction parametrizedInstructionWithCode:destinationCode andParameter:nil];
+    [ev pushOnStack:destinationInstruction];
+    CWSPosition destinationPosition = CWSPositionMake(3, 7);
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    CWSInstructionCode poppedInstructionCode = [coreState instructionCodeAtPosition:destinationPosition];
+    id poppedParam = [coreState instructionParameterAtPosition:destinationPosition];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.position.x, position.x);
+    XCTAssertEqual(ev.position.y, position.y + 1);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
+    
+    XCTAssertEqual(0, ev.stackSize);
+    XCTAssertEqual(destinationCode, poppedInstructionCode);
+    XCTAssertNil(poppedParam);
+}
+
+- (void) testPOPInstructionWithParam {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodePOP;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    CWSPosition position = CWSPositionMake(5,6);
+    NSValue * param = [NSValue valueWithPosition:CWSPositionMake(2, -1)];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPosition:position];
+    [coreState setInstructionParameter:param atPosition:position];
+    
+    CWSInstructionCode destinationCode = kCWSInstructionCodeNOP;
+    NSValue * destinationParam = [NSValue valueWithPosition:CWSPositionMake(7, 8)];
+    CWSParametrizedInstruction * destinationInstruction = [CWSParametrizedInstruction parametrizedInstructionWithCode:destinationCode andParameter:destinationParam];
+    [ev pushOnStack:destinationInstruction];
+    CWSPosition destinationPosition = CWSPositionMake(7, 5);
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    CWSInstructionCode poppedInstructionCode = [coreState instructionCodeAtPosition:destinationPosition];
+    id poppedParam = [coreState instructionParameterAtPosition:destinationPosition];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.position.x, position.x);
+    XCTAssertEqual(ev.position.y, position.y + 1);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
+    
+    XCTAssertEqual(0, ev.stackSize);
+    XCTAssertEqual(destinationCode, poppedInstructionCode);
+    XCTAssertEqual(destinationParam, poppedParam);
+}
+
+- (void) testPOPInstructionIncomplete {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodePOP;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    CWSPosition position = CWSPositionMake(5,6);
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPosition:position];
+    
+    CWSInstructionCode destinationCode = kCWSInstructionCodeNOP;
+    NSValue * destinationParam = [NSValue valueWithPosition:CWSPositionMake(7, 8)];
+    CWSParametrizedInstruction * destinationInstruction = [CWSParametrizedInstruction parametrizedInstructionWithCode:destinationCode andParameter:destinationParam];
+    [ev pushOnStack:destinationInstruction];
+
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    CWSParametrizedInstruction * stackedInstruction = [ev peekOnStack];
+    
+    // Assert
+    XCTAssertFalse(result);
+    XCTAssertEqual(ev.position.x, position.x);
+    XCTAssertEqual(ev.position.y, position.y);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
+    
+    XCTAssertEqual(1, ev.stackSize);
+    XCTAssertEqual(stackedInstruction.code, destinationCode);
+    XCTAssertEqualObjects(stackedInstruction.parameter, destinationParam);
+}
+
+- (void) testPOPInstructionEmptyStack {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodePOP;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    CWSPosition position = CWSPositionMake(5,6);
+    NSValue * param = [NSValue valueWithPosition:CWSPositionMake(-2, 1)];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPosition:position];
+    [coreState setInstructionParameter:param atPosition:position];
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    
+    // Assert
+    XCTAssertFalse(result);
+    XCTAssertEqual(ev.position.x, position.x);
+    XCTAssertEqual(ev.position.y, position.y);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
 }
 
 @end
