@@ -188,7 +188,7 @@
     XCTAssertEqual(ev.position.y, position.y + 1);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
     
-    XCTAssertEqual(1, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 1, ev.stackSize);
     XCTAssertEqual(destinationCode, stackedInstruction.code);
     XCTAssertNil(stackedInstruction.parameter);
 }
@@ -222,7 +222,7 @@
     XCTAssertEqual(ev.position.y, position.y + 1);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
     
-    XCTAssertEqual(1, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 1, ev.stackSize);
     XCTAssertEqual(destinationCode, stackedInstruction.code);
     XCTAssertEqual(destinationParam, stackedInstruction.parameter);
 }
@@ -248,7 +248,7 @@
     XCTAssertEqual(ev.position.y, position.y);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
     
-    XCTAssertEqual(0, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 0, ev.stackSize);
     XCTAssertNil(stackedInstruction);
 }
 
@@ -281,7 +281,7 @@
     XCTAssertEqual(ev.position.y, position.y + 1);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
     
-    XCTAssertEqual(0, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 0, ev.stackSize);
     XCTAssertEqual(destinationCode, poppedInstructionCode);
     XCTAssertNil(poppedParam);
 }
@@ -316,7 +316,7 @@
     XCTAssertEqual(ev.position.y, position.y + 1);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
     
-    XCTAssertEqual(0, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 0, ev.stackSize);
     XCTAssertEqual(destinationCode, poppedInstructionCode);
     XCTAssertEqual(destinationParam, poppedParam);
 }
@@ -347,7 +347,7 @@
     XCTAssertEqual(ev.position.y, position.y);
     XCTAssertEqual(ev.direction, CWSDirectionSouth);
     
-    XCTAssertEqual(1, ev.stackSize);
+    XCTAssertEqual((NSUInteger) 1, ev.stackSize);
     XCTAssertEqual(stackedInstruction.code, destinationCode);
     XCTAssertEqualObjects(stackedInstruction.parameter, destinationParam);
 }
