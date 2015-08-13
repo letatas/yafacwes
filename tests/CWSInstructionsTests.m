@@ -373,6 +373,53 @@
     XCTAssertEqual(destinationParam, poppedParam);
 }
 
+- (void) testPOPInstructionWithArrayParam {
+    // Arrange
+    CWSInstructionCode code = kCWSInstructionCodePOP;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    CWSPosition position = CWSPositionMake(5,6);
+    NSMutableArray * param = [NSMutableArray array];
+    [param addObject:[NSValue valueWithPosition:CWSPositionMake(2, -1)]];
+    [param addObject:[NSValue valueWithPosition:CWSPositionMake(2, -2)]];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPosition:position];
+    [coreState setInstructionParameter:param atPosition:position];
+    
+    CWSInstructionCode destinationCode = kCWSInstructionCodeNOP;
+    NSValue * destinationParam = [NSValue valueWithPosition:CWSPositionMake(7, 8)];
+    CWSParametrizedInstruction * destinationInstruction = [CWSParametrizedInstruction parametrizedInstructionWithCode:destinationCode andParameter:destinationParam];
+    [ev pushOnStack:destinationInstruction];
+    CWSPosition destinationPosition = CWSPositionMake(7, 4);
+    
+    CWSInstructionCode destinationCode2 = kCWSInstructionCodeLEFT;
+    CWSParametrizedInstruction * destinationInstruction2 = [CWSParametrizedInstruction parametrizedInstructionWithCode:destinationCode2 andParameter:nil];
+    [ev pushOnStack:destinationInstruction2];
+    CWSPosition destinationPosition2 = CWSPositionMake(7, 5);
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    CWSInstructionCode poppedInstructionCode = [coreState instructionCodeAtPosition:destinationPosition];
+    id poppedParam = [coreState instructionParameterAtPosition:destinationPosition];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.position.x, position.x);
+    XCTAssertEqual(ev.position.y, position.y + 1);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);
+    
+    XCTAssertEqual((NSUInteger) 0, ev.stackSize);
+    XCTAssertEqual(destinationCode, poppedInstructionCode);
+    XCTAssertEqual(destinationParam, poppedParam);
+    
+    poppedInstructionCode = [coreState instructionCodeAtPosition:destinationPosition2];
+    poppedParam = [coreState instructionParameterAtPosition:destinationPosition2];
+    XCTAssertEqual(destinationCode2, poppedInstructionCode);
+    XCTAssertNil(poppedParam);
+}
+
 - (void) testPOPInstructionIncomplete {
     // Arrange
     CWSInstructionCode code = kCWSInstructionCodePOP;

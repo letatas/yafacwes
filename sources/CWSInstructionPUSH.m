@@ -33,9 +33,6 @@
         }
         result = YES;
     }
-    else {
-        result = NO;
-    }
     
     if (result) {
         [ev move];
