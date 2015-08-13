@@ -91,4 +91,34 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
     return result;
 }
 
+- (BOOL)scanPositions:(NSMutableArray *)positions {
+    if ([self isAtEnd]) {
+        return NO;
+    }
+    
+    NSMutableArray * tmpPositions = [NSMutableArray array];
+    BOOL result = YES;
+    NSInteger location = self.scanLocation;
+    if (![self scanString:@"[" intoString:NULL]) {
+        result = NO;
+    }
+    if (result) {
+        CWSPosition pos = CWSPositionZero;
+        while ([self scanPosition:&pos]) {
+            NSValue * posValue = [NSValue valueWithPosition:pos];
+            [tmpPositions addObject:posValue];
+        }
+    }
+    if (result && ![self scanString:@"]" intoString:NULL]) {
+        result = NO;
+    }
+    if (result) {
+        [positions setArray:tmpPositions];
+    } else {
+        self.scanLocation = location;
+    }
+    
+    return result;
+}
+
 @end

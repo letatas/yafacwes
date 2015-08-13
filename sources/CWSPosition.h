@@ -29,9 +29,9 @@ extern CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b);
 
 @end
 
-
 @interface NSScanner (CWSPosition)
 
 - (BOOL) scanPosition: (CWSPosition *) position;
+- (BOOL) scanPositions: (NSMutableArray *) positions;
 
 @end
