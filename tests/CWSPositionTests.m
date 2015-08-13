@@ -106,7 +106,7 @@
     
     // Act
     NSString * output = [arr parameterDescription];
-    XCTAssertEqual(expectedOutput, output);
+    XCTAssertEqualObjects(expectedOutput, output);
 }
 
 @end
