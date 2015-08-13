@@ -227,6 +227,58 @@
     XCTAssertEqual(destinationParam, stackedInstruction.parameter);
 }
 
+- (void) testPUSHInstructionWithArrayParam {
+   // Arrange
+    CWSInstructionCode code = kCWSInstructionCodePUSH;
+    CWSInstruction * instruction = [CWSInstruction instructionForCode:code];
+    CWSCoreState * coreState = [CWSCoreState coreStateWithWidth:17 andHeight:10];
+    CWSPosition position = CWSPositionMake(5,6);
+    NSMutableArray * param = [NSMutableArray array];
+    [param addObject:[NSValue valueWithPosition:CWSPositionMake(2, -1)]];
+    [param addObject:[NSValue valueWithPosition:CWSPositionMake(2, -2)]];
+    CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:position andDirection:CWSDirectionSouth andInstructionColorTag:42];
+    [coreState.executionVectors addObject:ev];
+    coreState.nextExecutionVectorIndex = 0;
+    [coreState setInstructionCode:code atPosition:position];
+    [coreState setInstructionParameter:param atPosition:position];
+    
+    CWSInstructionCode destinationCode1 = kCWSInstructionCodeNOP;
+    CWSPosition destinationPosition1 = CWSPositionMake(7, 5);
+    NSValue * destinationParam1 = [NSValue valueWithPosition:CWSPositionMake(7, 8)];
+    [coreState setInstructionCode:destinationCode1 atPosition:destinationPosition1];
+    [coreState setInstructionParameter:destinationParam1 atPosition:destinationPosition1];
+    
+    CWSInstructionCode destinationCode2 = kCWSInstructionCodeLEFT;
+    CWSPosition destinationPosition2 = CWSPositionMake(7, 4);
+    NSMutableArray * destinationParam2 = [NSMutableArray array];
+    NSValue * destinationParam2_1 = [NSValue valueWithPosition:CWSPositionMake(12, 12)];
+    [destinationParam2 addObject:destinationParam2_1];
+    NSValue * destinationParam2_2 = [NSValue valueWithPosition:CWSPositionMake(42, 42)];
+    [destinationParam2 addObject:destinationParam2_2];
+    [coreState setInstructionCode:destinationCode2 atPosition:destinationPosition2];
+    [coreState setInstructionParameter:destinationParam2 atPosition:destinationPosition2];
+    
+    // Act
+    BOOL result = [instruction executeForCoreState:coreState];
+    CWSParametrizedInstruction * stackedInstruction = [ev peekOnStack];
+    
+    // Assert
+    XCTAssert(result);
+    XCTAssertEqual(ev.position.x, position.x);
+    XCTAssertEqual(ev.position.y, position.y + 1);
+    XCTAssertEqual(ev.direction, CWSDirectionSouth);   
+    XCTAssertEqual((NSUInteger) 2, ev.stackSize);
+
+    XCTAssertEqual(destinationCode2, stackedInstruction.code);
+    XCTAssertEqual(destinationParam2_1, [stackedInstruction.parameter objectAtIndex:0]);
+    XCTAssertEqual(destinationParam2_2, [stackedInstruction.parameter objectAtIndex:1]);
+        
+    [ev popOnStack];
+    stackedInstruction = [ev peekOnStack];
+    XCTAssertEqual(destinationCode1, stackedInstruction.code);
+    XCTAssertEqual(destinationParam1, stackedInstruction.parameter);
+}
+
 - (void) testPUSHInstructionIncomplete {
     // Arrange
     CWSInstructionCode code = kCWSInstructionCodePUSH;
