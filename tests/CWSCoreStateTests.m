@@ -135,7 +135,7 @@
     "1 2 3{(1,2)} 4\n"
     "5 6 7 8\n"
     "9 10 11 12\n"
-    "13 14 15 16\n"
+    "13 14{[(1,2)(3,4)]} 15 16\n"
     "-\n"
     "16 15 14 13\n"
     "12 11 10 9\n"
@@ -155,6 +155,14 @@
         if (expected == 3) {
             NSValue * expectedParam = [NSValue valueWithPosition:CWSPositionMake(1, 2)];
             XCTAssertEqualObjects(expectedParam, parameter);
+        } else if (expected == 14) {
+            XCTAssertEqual((NSUInteger) 2, [parameter count]);
+            CWSPosition p1 = CWSPositionMake(1,2);
+            CWSPosition p2 = CWSPositionMake(3,4);
+            XCTAssertEqual(p1.x, [parameter positionAtIndex:0].x);
+            XCTAssertEqual(p1.y, [parameter positionAtIndex:0].y);
+            XCTAssertEqual(p2.x, [parameter positionAtIndex:1].x);
+            XCTAssertEqual(p2.y, [parameter positionAtIndex:1].y);
         }
         else {
             XCTAssertNil(parameter);
@@ -197,7 +205,7 @@
     "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
-    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0{[(3,4)(1,2)]} 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "-\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
@@ -230,6 +238,14 @@
     XCTAssertEqual(width, coreState.width);
     XCTAssertEqual(height, coreState.height);
     XCTAssertEqualObjects(parameter, [coreState instructionParameterAtPosition:position2]);
+    
+    NSArray * param = [coreState instructionParameterAtPosition:CWSPositionMake(0,9)];
+    XCTAssertNotNil(param);
+    XCTAssertEqual((NSUInteger) 2, param.count);
+    XCTAssertEqual((NSInteger) 3, [param positionAtIndex:0].x);
+    XCTAssertEqual((NSInteger) 4, [param positionAtIndex:0].y);
+    XCTAssertEqual((NSInteger) 1, [param positionAtIndex:1].x);
+    XCTAssertEqual((NSInteger) 2, [param positionAtIndex:1].y);
 }
 
 - (void) testOneStep {
@@ -286,6 +302,11 @@
     CWSPosition positionParameter = CWSPositionMake(1, -1);
     NSValue * parameter = [NSValue valueWithPosition:positionParameter];
     [coreState setInstructionParameter:parameter atPosition:position3];
+    CWSPosition position4 = CWSPositionMake(1,9);
+    NSMutableArray * param = [NSMutableArray array];
+    [param addObject:[NSValue valueWithPosition:CWSPositionMake(3,5)]];
+    [param addObject:[NSValue valueWithPosition:CWSPositionMake(-2,100)]];
+    [coreState setInstructionParameter:param atPosition:position4];
     
     // Act
     NSString * string = coreState.description;
@@ -302,7 +323,7 @@
     "0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
-    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+    "0 0{[(3,5)(-2,100)]} 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "-\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n"

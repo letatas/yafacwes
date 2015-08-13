@@ -196,13 +196,17 @@
 
 - (void) testFromStringWithStack {
     // Arrange
-    NSString * evdef = @"EV:5,12,S,42|3{(-1,2)}|2";
+    NSString * evdef = @"EV:5,12,S,42|0{[(3,12)(5,-1)]}|3{(-1,2)}|2";
     NSInteger evx = 5;
     NSInteger evy = 12;
     CWSDirection evdir = CWSDirectionSouth;
     CWSInstructionColorTag evcolor = 42;
     CWSParametrizedInstruction * pi1 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeRIGHT andParameter:nil];
     CWSParametrizedInstruction * pi2 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNOP andParameter:[NSValue valueWithPosition:CWSPositionMake(-1, 2)]];
+    NSMutableArray * posParams = [NSMutableArray array];
+    [posParams addObject:[NSValue valueWithPosition:CWSPositionMake(3, 12)]];
+    [posParams addObject:[NSValue valueWithPosition:CWSPositionMake(5, -1)]];
+    CWSParametrizedInstruction * pi3 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNULL andParameter:posParams];
     
     // Act
     CWSExecutionVector * ev = [CWSExecutionVector executionVectorFromString:evdef];
@@ -214,6 +218,7 @@
     XCTAssertEqual(evcolor, ev.colorTag);
     XCTAssertEqualObjects(pi1, ev.popOnStack);
     XCTAssertEqualObjects(pi2, ev.popOnStack);
+    XCTAssertEqualObjects(pi3, ev.popOnStack);
 }
 
 - (void) testToStringWithStack {
@@ -221,12 +226,17 @@
     CWSExecutionVector * ev = [CWSExecutionVector executionVectorWithPosition:CWSPositionMake(3,1) andDirection:CWSDirectionNorth andInstructionColorTag:42];
     CWSParametrizedInstruction * pi1 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNOP andParameter:[NSValue valueWithPosition:CWSPositionMake(-1, 2)]];
     CWSParametrizedInstruction * pi2 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeRIGHT andParameter:nil];
+    NSMutableArray * posParams = [NSMutableArray array];
+    [posParams addObject:[NSValue valueWithPosition:CWSPositionMake(3, 12)]];
+    [posParams addObject:[NSValue valueWithPosition:CWSPositionMake(5, -1)]];
+    CWSParametrizedInstruction * pi3 = [CWSParametrizedInstruction parametrizedInstructionWithCode:kCWSInstructionCodeNULL andParameter:posParams];
     [ev pushOnStack:pi2];
     [ev pushOnStack:pi1];
+    [ev pushOnStack:pi3];
     
     // Act
     NSString * string = ev.description;
-    NSString * expected = @"EV:3,1,N,42|3{(-1,2)}|2";
+    NSString * expected = @"EV:3,1,N,42|0{[(3,12)(5,-1)]}|3{(-1,2)}|2";
     
     // Assert
     XCTAssertEqualObjects(expected, string);

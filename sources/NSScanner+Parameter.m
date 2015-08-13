@@ -31,6 +31,11 @@
         scannedParam = [NSValue valueWithPosition:scannedPos];
     }
     
+    NSMutableArray * positions = [NSMutableArray array];
+    if (result && (scannedParam == nil) && [self scanPositions:positions]) {
+        scannedParam = positions;
+    }
+    
     if (result && ![self scanString:@"}" intoString:NULL]) {
         result = NO;
     }
