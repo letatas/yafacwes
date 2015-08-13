@@ -47,6 +47,35 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
 
 @end
 
+#pragma mark - NSArray
+
+@implementation NSArray (CWSPosition)
+
+- (CWSPosition) positionAtIndex:(NSUInteger) index {
+    CWSPosition result = CWSPositionZero;
+    NSValue * value = [self objectAtIndex:index];
+    if ([value respondsToSelector:@selector(positionValue)]) {
+        result = [value positionValue];
+    }
+    return result;
+}
+
+- (NSString *) parameterDescription {
+    NSMutableString * description = [NSMutableString stringWithCapacity:[self count]*7];
+    
+    [description appendString:@"["];
+    
+    for (NSUInteger i=0; i<[self count]; ++i) {
+        [description appendString:NSStringFromPosition([self positionAtIndex:i])];        
+    }
+    
+    [description appendString:@"]"];
+    
+    return description;
+}
+
+@end
+
 #pragma mark - NSScanner
 
 @implementation NSScanner (CWSPosition)
@@ -105,8 +134,7 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
     if (result) {
         CWSPosition pos = CWSPositionZero;
         while ([self scanPosition:&pos]) {
-            NSValue * posValue = [NSValue valueWithPosition:pos];
-            [tmpPositions addObject:posValue];
+            [tmpPositions addObject:[NSValue valueWithPosition:pos]];
         }
     }
     if (result && ![self scanString:@"]" intoString:NULL]) {

@@ -77,7 +77,7 @@
 - (void) testScannerArrayOfPositions {
     // Arrange
     CWSPosition pos[3] = { { 12, 5 }, { 4, 9 }, { 15, 2 } };
-    NSString * arrayParam = @"[(12,5) (4,9) (15,2)]";
+    NSString * arrayParam = @"[(12,5)(4,9)(15,2)]";
     NSScanner * scanner = [NSScanner scannerWithString:arrayParam];
     NSMutableArray * positions = [NSMutableArray array];
     
@@ -86,15 +86,27 @@
     
     // Assert
     XCTAssert(result);
-    XCTAssertEqual((NSUInteger) 3, positions.count);
+    XCTAssertEqual((NSUInteger) 3, positions.count);    
     for (int i=0; i<3; ++i) {
-        NSValue * posValue = [positions objectAtIndex:i];
-        XCTAssert(([posValue respondsToSelector:@selector(positionValue)]));
-        CWSPosition position = [posValue positionValue];
+        CWSPosition position = [positions positionAtIndex:i];
         
         XCTAssertEqual(pos[i].x, position.x);
         XCTAssertEqual(pos[i].y, position.y);
     }
+}
+
+- (void) testStringArrayOfPositions {
+    // Arrange
+    CWSPosition pos[3] = { { 12, 5 }, { 4, 9 }, { 15, 2 } };
+    NSMutableArray * arr = [NSMutableArray array];
+    for (int i=0; i<3; ++i) {
+        [arr addObject:[NSValue valueWithPosition:pos[i]]];
+    }            
+    NSString * expectedOutput = @"[(12,5)(4,9)(15,2)]";
+    
+    // Act
+    NSString * output = [arr parameterDescription];
+    XCTAssertEqual(expectedOutput, output);
 }
 
 @end
