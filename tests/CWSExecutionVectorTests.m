@@ -196,7 +196,7 @@
 
 - (void) testFromStringWithStack {
     // Arrange
-    NSString * evdef = @"EV:5,12,S,42|0{[(3,12)(5,-1)]}|3{(-1,2)}|2";
+    NSString * evdef = @"EV:5,12,S,42|0{[(3,12),(5,-1)]}|3{(-1,2)}|2";
     NSInteger evx = 5;
     NSInteger evy = 12;
     CWSDirection evdir = CWSDirectionSouth;
@@ -236,7 +236,7 @@
     
     // Act
     NSString * string = ev.description;
-    NSString * expected = @"EV:3,1,N,42|0{[(3,12)(5,-1)]}|3{(-1,2)}|2";
+    NSString * expected = @"EV:3,1,N,42|0{[(3,12),(5,-1)]}|3{(-1,2)}|2";
     
     // Assert
     XCTAssertEqualObjects(expected, string);

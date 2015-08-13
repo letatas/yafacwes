@@ -77,7 +77,7 @@
 - (void) testScannerArrayOfPositions {
     // Arrange
     CWSPosition pos[3] = { { 12, 5 }, { 4, 9 }, { 15, 2 } };
-    NSString * arrayParam = @"[(12,5)(4,9)(15,2)]";
+    NSString * arrayParam = @"[(12,5),(4,9),(15,2)]";
     NSScanner * scanner = [NSScanner scannerWithString:arrayParam];
     NSMutableArray * positions = [NSMutableArray array];
     
@@ -102,7 +102,7 @@
     for (int i=0; i<3; ++i) {
         [arr addObject:[NSValue valueWithPosition:pos[i]]];
     }            
-    NSString * expectedOutput = @"[(12,5)(4,9)(15,2)]";
+    NSString * expectedOutput = @"[(12,5),(4,9),(15,2)]";
     
     // Act
     NSString * output = [arr parameterDescription];

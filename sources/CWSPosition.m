@@ -61,11 +61,14 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
 }
 
 - (NSString *) parameterDescription {
-    NSMutableString * description = [NSMutableString stringWithCapacity:[self count]*7];
+    NSMutableString * description = [NSMutableString stringWithCapacity:[self count]*8];
     
     [description appendString:@"["];
     
     for (NSUInteger i=0; i<[self count]; ++i) {
+        if (i > 0) {
+            [description appendString:@","];
+        }
         [description appendString:NSStringFromPosition([self positionAtIndex:i])];        
     }
     
@@ -135,6 +138,7 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
         CWSPosition pos = CWSPositionZero;
         while ([self scanPosition:&pos]) {
             [tmpPositions addObject:[NSValue valueWithPosition:pos]];
+            [self scanString:@"," intoString:NULL];
         }
     }
     if (result && ![self scanString:@"]" intoString:NULL]) {
