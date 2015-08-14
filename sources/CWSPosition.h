@@ -29,7 +29,7 @@ extern CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b);
 
 @end
 
-@interface NSArray (CWSPosition) <CWSDescriptableParameter>
+@interface NSArray (CWSPosition)
 
 - (CWSPosition) positionAtIndex:(NSUInteger) index;
 
@@ -38,6 +38,5 @@ extern CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b);
 @interface NSScanner (CWSPosition)
 
 - (BOOL) scanPosition: (CWSPosition *) position;
-- (BOOL) scanPositions: (NSMutableArray *) positions;
 
 @end

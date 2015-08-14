@@ -23,6 +23,9 @@
 		D0084C321B55907900B8985A /* CWSCoreStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0084C311B55907900B8985A /* CWSCoreStateTests.m */; };
 		D0104DC21B7A80C300E23CBA /* CWSInstructionPOP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0104DC11B7A80C300E23CBA /* CWSInstructionPOP.m */; };
 		D0104DC31B7A80C300E23CBA /* CWSInstructionPOP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0104DC11B7A80C300E23CBA /* CWSInstructionPOP.m */; };
+		D0104DC51B7E4DB500E23CBA /* CWSParameterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0104DC41B7E4DB500E23CBA /* CWSParameterTests.m */; };
+		D0104DC81B7E4F2500E23CBA /* NSArray+DescriptableParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0104DC71B7E4F2500E23CBA /* NSArray+DescriptableParameter.m */; };
+		D0104DC91B7E4F2500E23CBA /* NSArray+DescriptableParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0104DC71B7E4F2500E23CBA /* NSArray+DescriptableParameter.m */; };
 		D05C70011B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */ = {isa = PBXBuildFile; fileRef = D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */; };
 		D05C70021B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */ = {isa = PBXBuildFile; fileRef = D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */; };
 		D08A0B811B53E9C600B746D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D08A0B801B53E9C600B746D0 /* main.m */; };
@@ -96,6 +99,9 @@
 		D0084C311B55907900B8985A /* CWSCoreStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSCoreStateTests.m; path = ../../tests/CWSCoreStateTests.m; sourceTree = "<group>"; };
 		D0104DC01B7A80C300E23CBA /* CWSInstructionPOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionPOP.h; path = ../../sources/CWSInstructionPOP.h; sourceTree = "<group>"; };
 		D0104DC11B7A80C300E23CBA /* CWSInstructionPOP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionPOP.m; path = ../../sources/CWSInstructionPOP.m; sourceTree = "<group>"; };
+		D0104DC41B7E4DB500E23CBA /* CWSParameterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSParameterTests.m; path = ../../tests/CWSParameterTests.m; sourceTree = "<group>"; };
+		D0104DC61B7E4F2500E23CBA /* NSArray+DescriptableParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+DescriptableParameter.h"; path = "../../sources/NSArray+DescriptableParameter.h"; sourceTree = "<group>"; };
+		D0104DC71B7E4F2500E23CBA /* NSArray+DescriptableParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+DescriptableParameter.m"; path = "../../sources/NSArray+DescriptableParameter.m"; sourceTree = "<group>"; };
 		D05C6FFF1B7934D400D84EFE /* CWSInstructionPUSH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWSInstructionPUSH.h; path = ../../sources/CWSInstructionPUSH.h; sourceTree = "<group>"; };
 		D05C70001B7934D400D84EFE /* CWSInstructionPUSH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWSInstructionPUSH.m; path = ../../sources/CWSInstructionPUSH.m; sourceTree = "<group>"; };
 		D08A0B7D1B53E9C600B746D0 /* yafacwesConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yafacwesConsole; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +190,8 @@
 				D0BDCC541B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m */,
 				D0EABFB71B70FE8100015B7A /* NSArray+StackDescription.h */,
 				D0EABFB81B70FE8100015B7A /* NSArray+StackDescription.m */,
+				D0104DC61B7E4F2500E23CBA /* NSArray+DescriptableParameter.h */,
+				D0104DC71B7E4F2500E23CBA /* NSArray+DescriptableParameter.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 				D0AF3D831B56EE7D00274FE7 /* CWSInstructionsTests.m */,
 				D0FFCE811B5E34460039C4C0 /* CWSMiscellaneousTests.m */,
 				D0EABFA51B6D569100015B7A /* CWSPositionTests.m */,
+				D0104DC41B7E4DB500E23CBA /* CWSParameterTests.m */,
 				D08A0B8D1B53EBC100B746D0 /* Supporting Files */,
 			);
 			path = yafacwesConsoleTests;
@@ -389,6 +398,7 @@
 				D0BDCC6E1B690899007BBC35 /* NSScanner+CWSCoreState.m in Sources */,
 				D0BDCC551B64CFD4007BBC35 /* CWSExecutionVector+ConsolePalette.m in Sources */,
 				D0084C2F1B558A7200B8985A /* CWSCoreState.m in Sources */,
+				D0104DC81B7E4F2500E23CBA /* NSArray+DescriptableParameter.m in Sources */,
 				D0EABFB11B6D7E1200015B7A /* CWSParametrizedInstruction.m in Sources */,
 				D0AF3D7E1B56EAE300274FE7 /* CWSInstructionNULL.m in Sources */,
 				D0BDCC521B64CFA3007BBC35 /* CWSCoreState+ConsolePalette.m in Sources */,
@@ -436,10 +446,12 @@
 				D0BDCC5B1B679FB2007BBC35 /* CWSInstructionWALL.m in Sources */,
 				D0AF3D861B56F1CC00274FE7 /* CWSInstructionLEFT.m in Sources */,
 				D05C70021B7934D400D84EFE /* CWSInstructionPUSH.m in Sources */,
+				D0104DC91B7E4F2500E23CBA /* NSArray+DescriptableParameter.m in Sources */,
 				D0EABFBA1B70FE8100015B7A /* NSArray+StackDescription.m in Sources */,
 				D0BDCC571B64D666007BBC35 /* CWSConsolePalette.m in Sources */,
 				D0084C281B546BAA00B8985A /* CWSExecutionVectorTests.m in Sources */,
 				D0BDCC711B6908A1007BBC35 /* NSScanner+CWSExecutionVector.m in Sources */,
+				D0104DC51B7E4DB500E23CBA /* CWSParameterTests.m in Sources */,
 				D0BDCC661B690442007BBC35 /* CWSCoreState+ConsolePalette.m in Sources */,
 				D0AF3D7F1B56EAE800274FE7 /* CWSInstructionNULL.m in Sources */,
 			);

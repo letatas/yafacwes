@@ -60,23 +60,6 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
     return result;
 }
 
-- (NSString *) parameterDescription {
-    NSMutableString * description = [NSMutableString stringWithCapacity:[self count]*8];
-    
-    [description appendString:@"["];
-    
-    for (NSUInteger i=0; i<[self count]; ++i) {
-        if (i > 0) {
-            [description appendString:@","];
-        }
-        [description appendString:NSStringFromPosition([self positionAtIndex:i])];        
-    }
-    
-    [description appendString:@"]"];
-    
-    return description;
-}
-
 @end
 
 #pragma mark - NSScanner
@@ -117,36 +100,6 @@ CWSPosition CWSPositionAdd(CWSPosition a, CWSPosition b) {
         *position = scannedPos;
     }
     else {
-        self.scanLocation = location;
-    }
-    
-    return result;
-}
-
-- (BOOL)scanPositions:(NSMutableArray *)positions {
-    if ([self isAtEnd]) {
-        return NO;
-    }
-    
-    NSMutableArray * tmpPositions = [NSMutableArray array];
-    BOOL result = YES;
-    NSInteger location = self.scanLocation;
-    if (![self scanString:@"[" intoString:NULL]) {
-        result = NO;
-    }
-    if (result) {
-        CWSPosition pos = CWSPositionZero;
-        while ([self scanPosition:&pos]) {
-            [tmpPositions addObject:[NSValue valueWithPosition:pos]];
-            [self scanString:@"," intoString:NULL];
-        }
-    }
-    if (result && ![self scanString:@"]" intoString:NULL]) {
-        result = NO;
-    }
-    if (result) {
-        [positions setArray:tmpPositions];
-    } else {
         self.scanLocation = location;
     }
     
