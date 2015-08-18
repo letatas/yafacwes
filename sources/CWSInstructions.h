@@ -14,3 +14,4 @@
 #import "CWSInstructionSTOP.h"
 #import "CWSInstructionPUSH.h"
 #import "CWSInstructionPOP.h"
+#import "CWSInstructionADD.h"

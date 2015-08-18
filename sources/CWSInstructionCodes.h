@@ -16,5 +16,6 @@ typedef NS_ENUM(NSInteger, CWSInstructionCode) {
     kCWSInstructionCodeWALL,
     kCWSInstructionCodeSTOP,
     kCWSInstructionCodePUSH,
-    kCWSInstructionCodePOP
+    kCWSInstructionCodePOP,
+    kCWSInstructionCodeADD
 };
