@@ -21,6 +21,7 @@
         case kCWSInstructionCodeSTOP: return [CWSInstructionSTOP class];
         case kCWSInstructionCodePUSH: return [CWSInstructionPUSH class];
         case kCWSInstructionCodePOP: return [CWSInstructionPOP class];
+        case kCWSInstructionCodeADD: return [CWSInstructionADD class];
         default: return Nil;
     }
 }
